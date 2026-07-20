@@ -24,7 +24,7 @@ const canonicalUrl = productionOrigin
   ? new URL(canonicalPath, `${productionOrigin}/`).toString()
   : undefined;
 const socialImage = productionOrigin
-  ? new URL("/og.png", `${productionOrigin}/`).toString()
+  ? new URL("/og-v2.png", `${productionOrigin}/`).toString()
   : undefined;
 const structuredData = {
   "@context": "https://schema.org",
@@ -32,7 +32,7 @@ const structuredData = {
   name: siteConfig.name,
   jobTitle: "Product Leader, Growth & AI",
   description: siteConfig.description,
-  sameAs: [siteConfig.github],
+  sameAs: [siteConfig.linkedin, siteConfig.github],
 };
 ---
 
@@ -43,8 +43,8 @@ const structuredData = {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#18372f" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#06060b" />
+    <meta name="color-scheme" content="dark" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:type" content="website" />

@@ -16,48 +16,52 @@ if (studies.length !== profile.data.featuredCaseStudies.length) {
   throw new Error(`The ${activeProfile} role profile references a missing case study.`);
 }
 
+const headlineParts = profile.data.headline.trim().split(" ");
+const headlineAccent = headlineParts.pop();
+const headlineLead = headlineParts.join(" ");
+
 const principles = [
   {
     number: "01",
-    title: "Find the constraint",
-    body: "Start with the customer behavior or system bottleneck that is actually limiting the outcome.",
+    title: "Listen for friction",
+    body: "The interesting problem is usually hiding in a customer workaround, a system failure, or a metric that does not quite make sense.",
   },
   {
     number: "02",
-    title: "Prototype the risk",
-    body: "Build the smallest honest test of the assumption before investing in the polished version.",
+    title: "Build the risky part",
+    body: "I make the smallest real version that can expose whether the hard assumption is true—sometimes before there is even an interface.",
   },
   {
     number: "03",
-    title: "Instrument the result",
-    body: "Define downstream success, capture the right events, and keep reading after the first lift.",
+    title: "Read reality",
+    body: "I instrument behavior, stay with the data past the first exciting result, and let evidence change the plan.",
   },
   {
     number: "04",
-    title: "Scale what works",
-    body: "Turn the evidence into shared direction, reliable systems, and a product the team can extend.",
+    title: "Engineer momentum",
+    body: "Once the signal is real, I turn it into clear direction, reliable systems, and a product the team can keep extending.",
   },
 ];
 
 const builds = [
   {
     title: "Resume Score",
-    type: "AI product",
+    type: "AI product · Shipped",
     body: "Led a cross-functional launch spanning machine learning, frontend, backend, and go-to-market.",
   },
   {
     title: "CoverLetterAI",
-    type: "Painted-door test",
+    type: "Growth experiment · Validated",
     body: "Validated demand with a tracked product affordance before committing the team to development.",
   },
   {
     title: "Referral loop",
-    type: "Growth system",
+    type: "Growth system · Built",
     body: "Built the product and backend logic for incentive-driven acquisition with minimal ongoing cost.",
   },
   {
     title: "Browser extension",
-    type: "Workflow expansion",
+    type: "Workflow expansion · Prototyped",
     body: "Brought the product into the job-search workflow to remove context switching and manual input.",
   },
 ];
@@ -92,33 +96,39 @@ const career = [
 
 <BaseLayout title={siteConfig.name} description={siteConfig.description}>
   <section class="hero">
+    <div class="hero-atmosphere" aria-hidden="true">
+      <span class="aurora aurora-one"></span>
+      <span class="aurora aurora-two"></span>
+      <span class="aurora aurora-three"></span>
+    </div>
     <div class="shell hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow hero-eyebrow"><span></span>{profile.data.eyebrow}</p>
-        <h1>{profile.data.headline}</h1>
+        <p class="eyebrow hero-eyebrow"><span class="live-dot"></span>{profile.data.eyebrow}</p>
+        <h1>{headlineLead} <span class="gradient-text">{headlineAccent}</span></h1>
         <p class="hero-summary">{profile.data.summary}</p>
         <div class="hero-actions">
-          <a class="button button-accent" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
-          <a class="text-link light-link" href={siteConfig.github} target="_blank" rel="noreferrer">
-            GitHub profile <span aria-hidden="true">↗</span>
+          <a class="button button-accent" href="#work">See how I build <span aria-hidden="true">↓</span></a>
+          <a class="text-link light-link" href={siteConfig.linkedin} target="_blank" rel="noreferrer">
+            Connect on LinkedIn <span aria-hidden="true">↗</span>
           </a>
         </div>
       </div>
 
       <aside class="hero-portrait" aria-label="About Mason Campbell">
-        <div class="portrait-frame">
-          <img
-            src="/mason-campbell.jpg"
-            alt="Mason Campbell"
-            width="400"
-            height="400"
-            loading="eager"
-            fetchpriority="high"
-          />
+        <div class="signal-field" aria-hidden="true">
+          <div class="fractal-ring ring-one"></div>
+          <div class="fractal-ring ring-two"></div>
+          <div class="fractal-ring ring-three"></div>
+          <div class="fractal-ring ring-four"></div>
+          <div class="prism-core"></div>
         </div>
-        <div class="portrait-note">
-          <span class="status-dot" aria-hidden="true"></span>
-          <p><strong>Currently</strong><br />Building industrial products at the edge of hardware, cloud, and customer operations.</p>
+        <div class="portrait-note glass-surface">
+          <p class="signal-label">Current signal</p>
+          <p>Building industrial products where hardware, cloud, and customer operations meet.</p>
+          <div class="signal-meta">
+            <span>Detroit, MI</span>
+            <span>2026</span>
+          </div>
         </div>
       </aside>
     </div>
@@ -140,10 +150,10 @@ const career = [
     <div class="shell">
       <header class="section-header split-header">
         <div>
-          <p class="eyebrow">Selected work · Evidence over theater</p>
-          <h2>Three decisions that changed the product.</h2>
+          <p class="eyebrow">Selected work · Build / Grow / Scale</p>
+          <h2>Products are decisions made visible.</h2>
         </div>
-        <p>Each story follows the same standard: name the constraint, show the decision, and connect the outcome to observable evidence.</p>
+        <p>Three stories about finding the real constraint, getting close to the machinery, and moving from intuition to evidence.</p>
       </header>
 
       <div class="case-grid">
@@ -155,8 +165,8 @@ const career = [
   <section class="section approach-section" id="approach">
     <div class="shell">
       <header class="section-header">
-        <p class="eyebrow">How I operate</p>
-        <h2>Scrappy is a method,<br />not a personality trait.</h2>
+        <p class="eyebrow">My operating system</p>
+        <h2>Curious enough to wander.<br />Disciplined enough to measure.</h2>
       </header>
 
       <ol class="principle-grid">
@@ -170,9 +180,9 @@ const career = [
       </ol>
 
       <div class="operator-note">
-        <p class="eyebrow">The throughline</p>
+        <p class="eyebrow">Where I do my best work</p>
         <blockquote>
-          I am most useful when the problem is messy, the evidence is incomplete, and the team needs someone who can move from a customer conversation to a working prototype - then make the business case for what comes next.
+          Give me the messy problem: incomplete evidence, technical constraints, and a customer need that matters. I will find a way to make it tangible—then make the case for what comes next.
         </blockquote>
       </div>
     </div>
@@ -182,10 +192,10 @@ const career = [
     <div class="shell">
       <header class="section-header split-header">
         <div>
-          <p class="eyebrow">Experiments and builds</p>
-          <h2 id="builds-title">Small bets. Real learning.</h2>
+          <p class="eyebrow">Built between the lines</p>
+          <h2 id="builds-title">Momentum compounds.</h2>
         </div>
-        <p>Not every useful product decision needs a quarter-long roadmap. These shipped artifacts created faster feedback loops.</p>
+        <p>The small things are often the fastest route to truth. These launches and experiments created the next useful signal.</p>
       </header>
 
       <div class="build-grid">
@@ -206,9 +216,9 @@ const career = [
   <section class="section background-section" id="background">
     <div class="shell background-grid">
       <header class="section-header">
-        <p class="eyebrow">Career arc</p>
-        <h2>From physical systems to AI products.</h2>
-        <p class="background-intro">The medium changed. The work stayed consistent: understand the system, find the failure mode, and turn technical possibility into customer value.</p>
+        <p class="eyebrow">The trajectory</p>
+        <h2>Four chapters.<br />One instinct.</h2>
+        <p class="background-intro">Cars, spatial computing, applied AI, industrial systems—the medium changed. The instinct stayed the same: understand how it works, then make it work better for people.</p>
       </header>
 
       <ol class="timeline">
@@ -229,8 +239,8 @@ const career = [
   <section class="section focus-section">
     <div class="shell focus-grid">
       <div>
-        <p class="eyebrow">Current focus</p>
-        <h2>{profile.data.label}</h2>
+        <p class="eyebrow">What I am reaching for next</p>
+        <h2>Growth and AI products with real-world gravity.</h2>
       </div>
       <ul aria-label="Areas of focus">
         {profile.data.focusAreas.map((area) => <li>{area}</li>)}
