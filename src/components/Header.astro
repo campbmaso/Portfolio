@@ -3,28 +3,28 @@ import { siteConfig } from "../site-config";
 ---
 
 <header class="site-header">
-  <div class="shell nav-shell">
+  <div class="shell nav-shell glass-surface">
     <a class="brand" href="/" aria-label={`${siteConfig.name}, home`}>
-      <span class="brand-mark" aria-hidden="true">MC</span>
+      <span class="brand-mark" aria-hidden="true"><span>MC</span></span>
       <span class="brand-name">{siteConfig.name}</span>
     </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
-      <a href="/#work">Selected work</a>
-      <a href="/#approach">Approach</a>
-      <a href="/#background">Background</a>
-      <a class="nav-cta" href={siteConfig.github} target="_blank" rel="noreferrer">
-        GitHub <span aria-hidden="true">↗</span>
+      <a href="/#work">Work</a>
+      <a href="/#approach">Operating system</a>
+      <a href="/#background">Story</a>
+      <a class="nav-cta" href={siteConfig.linkedin} target="_blank" rel="noreferrer">
+        Connect <span aria-hidden="true">↗</span>
       </a>
     </nav>
 
     <details class="mobile-nav">
       <summary aria-label="Open navigation">Menu</summary>
       <nav aria-label="Mobile navigation">
-        <a href="/#work">Selected work</a>
-        <a href="/#approach">Approach</a>
-        <a href="/#background">Background</a>
-        <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href="/#work">Work</a>
+        <a href="/#approach">Operating system</a>
+        <a href="/#background">Story</a>
+        <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">Connect ↗</a>
       </nav>
     </details>
   </div>
