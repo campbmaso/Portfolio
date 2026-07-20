@@ -1,0 +1,22 @@
+# dependencies and builds
+node_modules/
+.pnpm-store/
+dist/
+.astro/
+.wrangler/
+
+# local settings
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# private authoring sources - never publish these
+Career Story Bank*.docx
+Professional Headshot.jpeg
+
+# local QA artifacts
+.qa/
+playwright-report/
+test-results/

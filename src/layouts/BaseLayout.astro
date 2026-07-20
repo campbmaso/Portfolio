@@ -1,0 +1,70 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../site-config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  pageClass?: string;
+}
+
+const {
+  title = siteConfig.name,
+  description = siteConfig.description,
+  canonicalPath = Astro.url.pathname,
+  pageClass = "",
+} = Astro.props;
+
+const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+const productionOrigin = import.meta.env.PUBLIC_SITE_URL?.replace(/\/$/, "");
+const canonicalUrl = productionOrigin
+  ? new URL(canonicalPath, `${productionOrigin}/`).toString()
+  : undefined;
+const socialImage = productionOrigin
+  ? new URL("/og.png", `${productionOrigin}/`).toString()
+  : undefined;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: siteConfig.name,
+  jobTitle: "Product Leader, Growth & AI",
+  description: siteConfig.description,
+  sameAs: [siteConfig.github],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#18372f" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content={socialImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <title>{pageTitle}</title>
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

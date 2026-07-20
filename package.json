@@ -1,0 +1,24 @@
+{
+  "name": "mason-campbell-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:links": "node scripts/check-links.mjs",
+    "validate": "pnpm run check && pnpm run build && pnpm run check:links",
+    "deploy": "pnpm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "astro": "^7.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "typescript": "~6.0.3",
+    "wrangler": "^4.112.0"
+  }
+}

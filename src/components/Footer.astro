@@ -1,0 +1,25 @@
+---
+import { siteConfig } from "../site-config";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" id="contact">
+  <div class="shell footer-grid">
+    <div>
+      <p class="footer-kicker">Have a hard product problem?</p>
+      <h2>Let's make the next decision obvious.</h2>
+    </div>
+    <div class="footer-actions">
+      <a class="button button-light" href={siteConfig.github} target="_blank" rel="noreferrer">
+        Start a conversation on GitHub <span aria-hidden="true">↗</span>
+      </a>
+      <a class="text-link light-link" href={siteConfig.repository} target="_blank" rel="noreferrer">
+        View this site's source <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="shell footer-meta">
+    <p>© {year} {siteConfig.name}</p>
+    <p>Astro · Cloudflare Workers · Evidence first</p>
+  </div>
+</footer>

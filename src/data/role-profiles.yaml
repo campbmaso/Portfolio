@@ -1,0 +1,74 @@
+- id: growth-ai
+  label: Senior Product Manager, Growth & AI
+  eyebrow: Product leader · Growth, AI, zero-to-one
+  headline: I turn ambiguous customer problems into shipped AI products and measurable growth.
+  summary: I build the first version when speed matters, instrument what happens next, and align teams around the evidence needed to scale.
+  featuredCaseStudies:
+    - resume-ai
+    - growth-economics
+    - scaling-under-constraints
+  proofPoints:
+    - value: ~17 sec
+      label: Core AI processing
+      note: Reached through parallel processing and request optimization
+    - value: 0 → 1
+      label: Applied-AI product
+      note: From manual customer-call prototype to paid workflow
+    - value: 3 months
+      label: Experiment horizon
+      note: Followed downstream value beyond the initial conversion lift
+  focusAreas:
+    - Applied AI products
+    - Product-led growth
+    - Monetization
+    - Experimentation
+
+- id: technical-product
+  label: Senior Technical Product Manager, AI Applications
+  eyebrow: Technical product leader · Applied AI, platforms, scale
+  headline: I translate hard technical constraints into products customers can actually use.
+  summary: I move comfortably from customer discovery to system behavior, using prototypes and instrumentation to help teams reduce risk and ship with confidence.
+  featuredCaseStudies:
+    - resume-ai
+    - scaling-under-constraints
+    - growth-economics
+  proofPoints:
+    - value: ~17 sec
+      label: Core AI processing
+      note: Reached through parallel processing and request optimization
+    - value: 40%
+      label: PDF-user failure rate isolated
+      note: Root cause found through transaction analysis
+    - value: "2"
+      label: Delivery environments
+      note: Separated staging and production before accelerating releases
+  focusAreas:
+    - AI application architecture
+    - Reliability and observability
+    - Technical discovery
+    - Cross-functional delivery
+
+- id: industrial-ai
+  label: Senior Product Manager, Industrial AI
+  eyebrow: Product leader · Industrial systems, edge, AI
+  headline: I connect complex technology to the operating reality of customers.
+  summary: My path runs from vehicle systems and augmented-reality workflows to edge-to-cloud products and applied AI, with customer evidence guiding the product at every step.
+  featuredCaseStudies:
+    - scaling-under-constraints
+    - resume-ai
+    - growth-economics
+  proofPoints:
+    - value: 20+
+      label: Industrial workflows
+      note: Designed across aerospace, defense, medical, and automotive settings
+    - value: 10% → 87%
+      label: Requirements coverage
+      note: Improved a vehicle-system decision document
+    - value: Edge → cloud
+      label: Product architecture
+      note: Bridged local instrumentation data into a connected product ecosystem
+  focusAreas:
+    - Industrial software
+    - Edge-to-cloud systems
+    - Product commercialization
+    - Customer-led development

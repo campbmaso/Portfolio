@@ -1,0 +1,240 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CaseStudyCard from "../components/CaseStudyCard.astro";
+import { activeProfile, siteConfig } from "../site-config";
+
+const profile = await getEntry("roleProfiles", activeProfile);
+if (!profile) throw new Error(`Missing active role profile: ${activeProfile}`);
+
+const allStudies = await getCollection("caseStudies", ({ data }) => data.featured);
+const studies = profile.data.featuredCaseStudies
+  .map((id) => allStudies.find((study) => study.id === id))
+  .filter((study): study is (typeof allStudies)[number] => Boolean(study));
+
+if (studies.length !== profile.data.featuredCaseStudies.length) {
+  throw new Error(`The ${activeProfile} role profile references a missing case study.`);
+}
+
+const principles = [
+  {
+    number: "01",
+    title: "Find the constraint",
+    body: "Start with the customer behavior or system bottleneck that is actually limiting the outcome.",
+  },
+  {
+    number: "02",
+    title: "Prototype the risk",
+    body: "Build the smallest honest test of the assumption before investing in the polished version.",
+  },
+  {
+    number: "03",
+    title: "Instrument the result",
+    body: "Define downstream success, capture the right events, and keep reading after the first lift.",
+  },
+  {
+    number: "04",
+    title: "Scale what works",
+    body: "Turn the evidence into shared direction, reliable systems, and a product the team can extend.",
+  },
+];
+
+const builds = [
+  {
+    title: "Resume Score",
+    type: "AI product",
+    body: "Led a cross-functional launch spanning machine learning, frontend, backend, and go-to-market.",
+  },
+  {
+    title: "CoverLetterAI",
+    type: "Painted-door test",
+    body: "Validated demand with a tracked product affordance before committing the team to development.",
+  },
+  {
+    title: "Referral loop",
+    type: "Growth system",
+    body: "Built the product and backend logic for incentive-driven acquisition with minimal ongoing cost.",
+  },
+  {
+    title: "Browser extension",
+    type: "Workflow expansion",
+    body: "Brought the product into the job-search workflow to remove context switching and manual input.",
+  },
+];
+
+const career = [
+  {
+    years: "2017-2021",
+    company: "Stellantis",
+    role: "Engineering Co-op",
+    description: "Used statistical analysis and systems modeling to challenge assumptions in vehicle development.",
+  },
+  {
+    years: "2022-2023",
+    company: "LightGuide",
+    role: "Integration Engineer",
+    description: "Connected augmented-reality software to real manufacturing workflows, people, and industrial systems.",
+  },
+  {
+    years: "2023-2025",
+    company: "JoyJobs.ai",
+    role: "Technical Co-Founder & Head of Product",
+    description: "Built, launched, monetized, and scaled applied-AI products from customer calls to production systems.",
+  },
+  {
+    years: "2025-now",
+    company: "Sensors, Inc.",
+    role: "Product Growth Lead",
+    description: "Bringing industrial instrumentation and edge-to-cloud products to market with customers and channel partners.",
+  },
+];
+---
+
+<BaseLayout title={siteConfig.name} description={siteConfig.description}>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow hero-eyebrow"><span></span>{profile.data.eyebrow}</p>
+        <h1>{profile.data.headline}</h1>
+        <p class="hero-summary">{profile.data.summary}</p>
+        <div class="hero-actions">
+          <a class="button button-accent" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
+          <a class="text-link light-link" href={siteConfig.github} target="_blank" rel="noreferrer">
+            GitHub profile <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-portrait" aria-label="About Mason Campbell">
+        <div class="portrait-frame">
+          <img
+            src="/mason-campbell.jpg"
+            alt="Mason Campbell"
+            width="400"
+            height="400"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="portrait-note">
+          <span class="status-dot" aria-hidden="true"></span>
+          <p><strong>Currently</strong><br />Building industrial products at the edge of hardware, cloud, and customer operations.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="shell proof-grid" aria-label="Selected outcomes">
+      {profile.data.proofPoints.map((point) => (
+        <div class="proof-item">
+          <strong>{point.value}</strong>
+          <div>
+            <span>{point.label}</span>
+            {point.note && <small>{point.note}</small>}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section work-section" id="work">
+    <div class="shell">
+      <header class="section-header split-header">
+        <div>
+          <p class="eyebrow">Selected work · Evidence over theater</p>
+          <h2>Three decisions that changed the product.</h2>
+        </div>
+        <p>Each story follows the same standard: name the constraint, show the decision, and connect the outcome to observable evidence.</p>
+      </header>
+
+      <div class="case-grid">
+        {studies.map((study, index) => <CaseStudyCard study={study} index={index} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section approach-section" id="approach">
+    <div class="shell">
+      <header class="section-header">
+        <p class="eyebrow">How I operate</p>
+        <h2>Scrappy is a method,<br />not a personality trait.</h2>
+      </header>
+
+      <ol class="principle-grid">
+        {principles.map((principle) => (
+          <li>
+            <span>{principle.number}</span>
+            <h3>{principle.title}</h3>
+            <p>{principle.body}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="operator-note">
+        <p class="eyebrow">The throughline</p>
+        <blockquote>
+          I am most useful when the problem is messy, the evidence is incomplete, and the team needs someone who can move from a customer conversation to a working prototype - then make the business case for what comes next.
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section builds-section" aria-labelledby="builds-title">
+    <div class="shell">
+      <header class="section-header split-header">
+        <div>
+          <p class="eyebrow">Experiments and builds</p>
+          <h2 id="builds-title">Small bets. Real learning.</h2>
+        </div>
+        <p>Not every useful product decision needs a quarter-long roadmap. These shipped artifacts created faster feedback loops.</p>
+      </header>
+
+      <div class="build-grid">
+        {builds.map((build, index) => (
+          <article>
+            <div class="build-card-meta">
+              <span>0{index + 1}</span>
+              <span>{build.type}</span>
+            </div>
+            <h3>{build.title}</h3>
+            <p>{build.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section background-section" id="background">
+    <div class="shell background-grid">
+      <header class="section-header">
+        <p class="eyebrow">Career arc</p>
+        <h2>From physical systems to AI products.</h2>
+        <p class="background-intro">The medium changed. The work stayed consistent: understand the system, find the failure mode, and turn technical possibility into customer value.</p>
+      </header>
+
+      <ol class="timeline">
+        {career.map((item) => (
+          <li>
+            <p class="timeline-years">{item.years}</p>
+            <div>
+              <p class="timeline-role">{item.role}</p>
+              <h3>{item.company}</h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section focus-section">
+    <div class="shell focus-grid">
+      <div>
+        <p class="eyebrow">Current focus</p>
+        <h2>{profile.data.label}</h2>
+      </div>
+      <ul aria-label="Areas of focus">
+        {profile.data.focusAreas.map((area) => <li>{area}</li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
