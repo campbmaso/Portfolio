@@ -1,51 +1,48 @@
 ---
-title: Finding the constraint before scaling the system
-eyebrow: Reliability · Product systems
-summary: I used production evidence to isolate hidden failure modes, then built the operating systems needed to ship faster without gambling with customer trust.
+title: Finding the failures hidden by aggregate data
+eyebrow: Product reliability
+summary: I investigated customer reports and usage patterns to prioritize reliability fixes and protect the product as usage grew.
 order: 3
 featured: true
-timeframe: 2023-2025
+timeframe: 2023–2025
 context: JoyJobs.ai
 role: Technical Co-Founder & Head of Product
-challenge: Growth exposed document failures, deployment risk, and abusive usage that were invisible in top-line signup data.
-outcome: We fixed a high-impact PDF failure, introduced staging and automated delivery, improved observability, and added abuse controls tied to real usage patterns.
+challenge: Users reported processing failures, but the team needed to understand who was affected and where to invest limited development time.
+outcome: We fixed a PDF processing bug, established separate staging and production environments, and introduced controls after unusual usage surfaced in retention analysis.
 metrics:
   - value: 40%
     label: PDF users affected
-    note: Isolated through processing-status analysis
+    note: Identified in processing-status analysis
   - value: 10%
     label: All users affected
-    note: The aggregate rate had hidden a format-specific problem
+    note: The overall rate obscured the format-specific issue
   - value: 2 environments
     label: Staging and production
-    note: Separated before the team accelerated releases
+    note: Separated to support safer updates
 capabilities:
   - Product analytics
-  - Reliability
   - Root-cause analysis
-  - CI/CD
-  - Abuse prevention
+  - Reliability
+  - Prioritization
   - Operational scaling
 evidence:
-  - Processing-status and failure analysis
-  - CloudWatch alarms and error queries
-  - Retention and usage-distribution notebooks
+  - Customer bug reports
+  - Processing-status analysis
+  - Retention and usage-distribution reports
 ---
 
-## Segment before choosing the fix
+## Find out who is affected
 
-Users reported stalled processing, but the overall error rate did not explain the urgency. I queried transaction records and isolated jobs that remained in a processing state beyond the expected window.
+Customers reported that some resumes were stuck processing. I queried transaction records and examined jobs still processing beyond the expected window. The issue appeared to affect approximately 10% of all users, but about 40% of PDF users in the analysis.
 
-The issue affected about 10% of all users and roughly 40% of PDF users. That segmentation turned a vague reliability complaint into a clear product priority and traced the failure to the third-party conversion step.
+That distinction made the problem easier to prioritize. The investigation pointed to the third-party PDF conversion step. We launched an internal parsing project and fixed the bug, addressing a failure that the aggregate rate alone did not fully convey.
 
-We replaced the weak link with an internal parsing approach and fixed the experience for the affected cohort.
+## Make frequent changes safer
 
-## Build a safer path to production
+As releases became more frequent, we needed a way to test changes before they reached customers. I built separate staging and production environments and automated deployment to staging, with a deliberate promotion step into production. This gave the team a clearer path for checking changes before release.
 
-As usage and release frequency grew, manual updates became a source of risk. I separated staging and production across the serverless stack, including isolated data and storage, and introduced automated delivery through GitHub Actions with a deliberate promotion step.
+## Look at usage as well as retention
 
-CloudWatch alarms and targeted queries shortened the time between a failure and the team's awareness of it.
+I built a report from joined product and user data to understand seven- and thirty-day retention and engagement. In a weekly team review, an unusual usage pattern led to further investigation. We disabled concurrent logins and added automated detection for suspicious activity, reducing processing-cost leakage.
 
-## Let economics reveal abuse
-
-Retention analysis also surfaced an account with anomalous usage. I joined submission and user data, visualized seven- and thirty-day behavior, and brought the pattern into weekly reviews. The investigation led to concurrent-login controls and automated flags for suspicious activity, protecting processing costs without adding friction for normal users.
+Each decision started with a different signal: a customer report, a release risk, or an unexpected pattern in usage. Together, they helped us choose work that made the product more reliable as it grew.

@@ -2,7 +2,7 @@
 
 **Link:** https://portfolio.campbmaso.workers.dev/
 
-An evidence-first portfolio for Senior Product Manager roles in Growth and AI. The site is built with Astro, validated content collections, and static HTML for deployment on Cloudflare Workers Static Assets.
+An evidence-first product portfolio. The site is built with Astro, validated content collections, and static HTML for deployment on Cloudflare Workers Static Assets.
 
 ## Local development
 
@@ -22,8 +22,13 @@ pnpm validate
 - `src/content/case-studies/` contains canonical, evidence-backed work stories.
 - `src/data/role-profiles.yaml` controls the headline, emphasis, proof points, and case-study order for each target role.
 - `src/site-config.ts` selects the active profile and stores public links.
+- `src/pages/stories/` contains the story collection and detail pages. Existing `/work/` links redirect to their corresponding story pages.
 
 To reposition the portfolio, change `activeProfile` in `src/site-config.ts`, then revise or add the matching role profile. Do not duplicate case studies just to change emphasis.
+
+## Color palette
+
+All theme colors live together in `src/styles/tokens.css`. To try a different palette, update `--accent`, `--accent-hover`, `--accent-soft`, `--accent-mid`, `--accent-ink`, and `--focus`. The background, text, border, and surface colors can be changed in the same file. Keep `--on-accent` readable against the chosen accent, and `--accent-ink` readable on the light backgrounds.
 
 ## Cloudflare Workers deployment
 

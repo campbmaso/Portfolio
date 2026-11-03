@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image, getImage } from "astro:assets";
+import colorfulPortrait from "../assets/artworks/painting-colorful-portrait.jpg";
+import butterfly from "../assets/artworks/painting-butterfly.jpg";
+import dogPortrait from "../assets/artworks/painting-dog-portrait.jpg";
+import dogOnEasel from "../assets/artworks/painting-dog-on-easel.jpg";
+
+const originals = [
+  { src: colorfulPortrait, alt: "A portrait painted in many small, colorful brushstrokes", label: "Portrait in color" },
+  { src: butterfly, alt: "A blue butterfly among orange flowers and a bright yellow and green background", label: "Butterfly and flowers" },
+  { src: dogPortrait, alt: "A warm-toned painting of a dog against a dark blue background", label: "Dog portrait" },
+  { src: dogOnEasel, alt: "A painting on an easel showing a white dog against a green background", label: "Dog portrait on an easel" },
+];
+const paintings = await Promise.all(originals.map(async (painting) => ({
+  ...painting,
+  large: (await getImage({ src: painting.src, width: 1200, format: "webp", quality: 82 })).src,
+})));
+---
+
+<BaseLayout title="About" description="Meet Mason Campbell, a product builder in Southeast Michigan exploring people, AI research, and painting.">
+  <section class="about-hero">
+    <div class="shell about-shell">
+      <div class="intro-label"><span class="dot" aria-hidden="true"></span> ABOUT · THE PERSON</div>
+      <div class="intro-grid">
+        <div>
+          <h1>Curious by nature.<br />A builder by practice.</h1>
+          <p class="intro-lead">Hi, I’m Mason. I’m a product builder who likes getting close to the problem—and the people behind it.</p>
+        </div>
+        <div class="portrait-wrap">
+          <img src="/mason-campbell.jpg" alt="Mason Campbell" width="400" height="400" />
+          <div class="portrait-caption"><span>BASED IN</span><strong>Southeast Michigan</strong></div>
+        </div>
+      </div>
+      <div class="background-grid">
+        <p class="section-index">01 · BACKGROUND</p>
+        <div class="background-copy">
+          <h2>A path shaped by curiosity.</h2>
+          <p>My path has taken me from engineering and statistics to designing augmented reality workflows, co-founding an AI software company, and shaping industrial products. Along the way, I’ve learned to connect what people need with what technology can make possible.</p>
+          <p>I’m based in Southeast Michigan and open to relocation.</p>
+          <a class="about-link" href="/stories/">Explore my work</a>
+        </div>
+      </div>
+      <div class="background-grid" aria-labelledby="research-title">
+        <p class="section-index">02 · RESEARCH</p>
+        <div class="background-copy">
+          <h2 id="research-title">How do models represent what they know?</h2>
+          <p>I’m exploring how learned representations encode concepts, support reasoning, and shape behavior. I’m especially curious about how information changes as models reason and how training changes what they represent and do.</p>
+          <p>One of my current explorations asks what career information is preserved or lost when a longer work history is compressed into a résumé. It brings together my interest in information theory, language models, and the practical decisions people make with AI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="creative-section" aria-labelledby="creative-title">
+    <div class="shell about-shell">
+      <div class="creative-heading">
+        <p class="section-index">03 · OUTSIDE OF WORK</p>
+        <div>
+          <h2 id="creative-title">A different kind of making.</h2>
+          <p>I paint in oils in my free time, exploring color theory and composition through practice. Open any painting for a closer look.</p>
+        </div>
+      </div>
+      <div class="art-grid">
+        {paintings.map((painting, index) => (
+          <figure>
+            <a class="art-image" href={painting.large} target="_blank" rel="noreferrer" aria-label={"View larger: " + painting.alt + " (opens in a new tab)"}><Image src={painting.src} alt={painting.alt} width={640} widths={[320, 480, 640]} sizes="(max-width: 720px) 50vw, 25vw" format="webp" quality={78} loading="lazy" decoding="async" /></a>
+            <figcaption><span>{painting.label}<small>Oil painting</small></span><span>0{index + 1} of 04</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero { overflow: hidden; }
+  .about-shell { border-inline: 1px solid var(--line); }
+  .intro-label, .section-index { margin: 0; color: var(--accent-ink); font-size: .7rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
+  .intro-label { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-32) clamp(var(--space-16), 3vw, var(--space-48)); border-bottom: 1px solid var(--line); }
+  .dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent); }
+  .intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .38fr); gap: clamp(var(--space-32), 6vw, var(--space-96)); align-items: end; padding: clamp(var(--space-56), 7vw, var(--space-104)) clamp(var(--space-16), 3vw, var(--space-48)); }
+  h1, h2 { margin: 0; color: var(--ink); font-weight: 650; letter-spacing: -.065em; line-height: 1.03; }
+  h1 { max-width: 14ch; font-size: clamp(3.2rem, 6vw, 5.6rem); }
+  .intro-lead { max-width: 34rem; margin: var(--space-24) 0 0; color: var(--muted); font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.7; }
+  .portrait-wrap { max-width: 285px; justify-self: end; width: 100%; }
+  .portrait-wrap img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+  .portrait-caption { display: flex; justify-content: space-between; gap: var(--space-16); padding-top: var(--space-12); font-size: .7rem; }
+  .portrait-caption span { color: var(--muted); font-weight: 700; letter-spacing: .06em; }
+  .portrait-caption strong { font-weight: 700; }
+  .background-grid, .creative-heading { display: grid; grid-template-columns: minmax(150px, .38fr) minmax(0, 1fr); gap: var(--space-32); padding: clamp(var(--space-32), 4vw, var(--space-56)) clamp(var(--space-16), 3vw, var(--space-48)); border-top: 1px solid var(--line); }
+  .background-copy { max-width: 43rem; }
+  h2 { font-size: clamp(2.2rem, 4vw, 3.5rem); }
+  .background-copy p, .creative-heading div > p { max-width: 38rem; margin: var(--space-16) 0 0; color: var(--muted); font-size: 1rem; line-height: 1.8; }
+  .about-link { display: inline-flex; gap: var(--space-12); margin-top: var(--space-24); color: var(--accent); font-size: .9rem; font-weight: 700; text-decoration: none; }
+  .about-link span { color: inherit; }
+  .about-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+  .creative-section { padding-bottom: clamp(var(--space-64), 7vw, var(--space-112)); background: var(--surface); }
+  .creative-heading { border-bottom: 1px solid var(--line); }
+  .art-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  figure { min-width: 0; margin: 0; padding: clamp(var(--space-12), 1.4vw, var(--space-16)); border-right: 1px solid var(--line); }
+  figure:last-child { border-right: 0; }
+  .art-image { display: block; aspect-ratio: 3 / 4; background: var(--bg); }
+  .art-image img { width: 100%; height: 100%; object-fit: contain; }
+  figcaption { display: flex; justify-content: space-between; gap: var(--space-8); padding-top: var(--space-12); color: var(--ink); font-size: .72rem; font-weight: 650; }
+  figcaption small { display: block; margin-top: var(--space-4); color: var(--muted); font-size: .68rem; font-weight: 500; }
+  figcaption span:last-child { flex-shrink: 0; color: var(--muted); font-size: .65rem; }
+  @media (max-width: 720px) {
+    .intro-grid { grid-template-columns: 1fr; }
+    .portrait-wrap { justify-self: start; max-width: 230px; }
+    .background-grid, .creative-heading { grid-template-columns: 1fr; gap: var(--space-16); }
+    .art-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    figure:nth-child(2) { border-right: 0; }
+    figure:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 390px) { figcaption { flex-direction: column; } }
+</style>

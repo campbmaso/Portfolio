@@ -28,8 +28,8 @@ This repository is the public-safe presentation layer for Mason Campbell's portf
 
 ## Design rules
 
-- Preserve the dark, high-contrast technology palette: graphite, electric violet, cobalt, and spectral cyan.
+- Use the light, neutral palette with a configurable green accent; keep palette values centralized in `src/styles/tokens.css`.
 - Use an entirely sans-serif type system with sharp hierarchy and generous spacing.
-- Treat liquid-glass surfaces and fractal/psychedelic references as controlled depth, refraction, and recursive geometry rather than novelty decoration.
+- Keep the visual language clear, restrained, and easy to navigate.
 - Keep the site fast and progressively enhanced. Avoid client-side frameworks unless a real interaction requires one.
 - Meet keyboard, contrast, semantic HTML, reduced-motion, and responsive-layout expectations.

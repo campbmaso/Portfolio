@@ -1,0 +1,42 @@
+/*
+ * COLOR PALETTE
+ * Change these values to explore a new theme. Components and story pages use
+ * these shared tokens; no layout changes are needed to swap the palette.
+ */
+:root {
+  --bg: #ffffff;
+  --surface: #f7f7f7;
+  --surface-strong: #eeeeee;
+  --ink: #171717;
+  --muted: #5e5e5e;
+  --line: #e5e5e5;
+  --grid: #ededed;
+  --accent: #12c464;
+  --accent-hover: var(--accent);
+  --accent-soft: var(--surface);
+  --accent-mid: var(--line);
+  --accent-ink: var(--ink);
+  --on-accent: var(--ink);
+  --focus: var(--ink);
+  --shadow: rgba(0, 0, 0, 0.08);
+  /* Spacing scale: 8px steps, with 4px steps for fine details. */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-56: 3.5rem;
+  --space-64: 4rem;
+  --space-72: 4.5rem;
+  --space-80: 5rem;
+  --space-96: 6rem;
+  --space-104: 6.5rem;
+  --space-112: 7rem;
+  --space-128: 8rem;
+  --space-144: 9rem;
+  --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --container: 1180px;
+}

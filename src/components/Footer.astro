@@ -4,22 +4,16 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer" id="contact">
-  <div class="shell footer-grid">
+  <div class="shell footer-top">
     <div>
-      <p class="footer-kicker">Open to the right next problem</p>
-      <h2>Let's build what should exist next.</h2>
+      <p class="eyebrow">A little more conversation</p>
+      <h2>Have a problem worth solving?</h2>
+      <p>I’d love to hear about it.</p>
     </div>
-    <div class="footer-actions">
-      <a class="button button-light" href={siteConfig.linkedin} target="_blank" rel="noreferrer">
-        Connect on LinkedIn <span aria-hidden="true">↗</span>
-      </a>
-      <a class="text-link light-link" href={siteConfig.github} target="_blank" rel="noreferrer">
-        Explore my GitHub <span aria-hidden="true">↗</span>
-      </a>
-    </div>
+    <a class="button button-primary" href={siteConfig.linkedin} target="_blank" rel="noreferrer">Connect on LinkedIn <svg class="cta-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg></a>
   </div>
-  <div class="shell footer-meta">
-    <p>© {year} {siteConfig.name}</p>
-    <p>Designed with curiosity · Built on Astro + Cloudflare</p>
+  <div class="shell footer-bottom">
+    <p>© {year} Mason Campbell</p>
+    <div><a href="/stories/">Stories</a><a href="/about/">About</a><a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub</a></div>
   </div>
 </footer>

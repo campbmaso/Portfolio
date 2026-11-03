@@ -1,0 +1,117 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const studies = await getCollection("caseStudies");
+  return studies.map((study) => ({ params: { id: study.id }, props: { study } }));
+}
+
+const { study } = Astro.props;
+const { Content } = await render(study);
+---
+
+<BaseLayout
+  title={study.data.title}
+  description={study.data.summary}
+  canonicalPath={`/stories/${study.id}/`}
+>
+  <article class="story-detail">
+    <header class="story-header story-shell">
+      <a class="back" href="/stories/"> All stories</a>
+      <p class="story-label">{study.data.context} <span aria-hidden="true">·</span> {study.data.eyebrow}</p>
+      <h1>{study.data.title}</h1>
+      <p class="story-deck">{study.data.summary}</p>
+      <dl class="story-meta">
+        <div><dt>Role</dt><dd>{study.data.role}</dd></div>
+        <div><dt>Timeframe</dt><dd>{study.data.timeframe}</dd></div>
+        <div><dt>Context</dt><dd>{study.data.context}</dd></div>
+      </dl>
+    </header>
+
+    <section class="overview-band" aria-label="Story overview">
+      <div class="story-shell overview-grid">
+        <div><h2>The challenge</h2><p>{study.data.challenge}</p></div>
+        <div><h2>The outcome</h2><p>{study.data.outcome}</p></div>
+      </div>
+    </section>
+
+    <section class="story-shell story-facts" aria-label="Story at a glance">
+      {study.data.metrics.map((metric) => (
+        <div>
+          <strong>{metric.value}</strong>
+          <span>{metric.label}</span>
+          {metric.note && <small>{metric.note}</small>}
+        </div>
+      ))}
+    </section>
+
+    <div class="story-shell article-grid">
+      <aside class="article-aside" aria-label="Story details">
+        <div>
+          <h2>Areas of work</h2>
+          <ul>{study.data.capabilities.map((capability) => <li>{capability}</li>)}</ul>
+        </div>
+        <div>
+          <h2>Evidence used</h2>
+          <ul>{study.data.evidence.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      </aside>
+      <div class="article-content">
+        <Content />
+      </div>
+    </div>
+
+    <nav class="story-shell story-end" aria-label="More product stories">
+      <div><p>Keep exploring</p><h2>More stories from the work.</h2></div>
+      <a href="/stories/">All product stories</a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .story-shell { width: min(calc(100% - 3rem), var(--container)); margin-inline: auto; }
+  .story-header { padding-block: clamp(var(--space-48), 5vw, var(--space-72)) var(--space-48); }
+  .back { display: inline-flex; gap: var(--space-8); align-items: center; margin-bottom: clamp(var(--space-40), 4vw, var(--space-56)); color: var(--accent); font-size: .85rem; font-weight: 700; text-decoration: none; }
+  .back:hover { text-decoration: underline; text-underline-offset: .25em; }
+  .story-label { margin: 0 0 var(--space-24); color: var(--accent-ink); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .story-label span { padding-inline: var(--space-4); color: var(--muted); }
+  h1 { max-width: 19ch; margin: 0; color: var(--ink); font-size: clamp(2.8rem, 4.8vw, 4.7rem); font-weight: 650; letter-spacing: -.06em; line-height: 1.04; }
+  .story-deck { max-width: 44rem; margin: var(--space-24) 0 0; color: var(--muted); font-size: clamp(1.08rem, 1.8vw, 1.3rem); line-height: 1.6; }
+  .story-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-32); margin: clamp(var(--space-48), 6vw, var(--space-80)) 0 0; padding-top: var(--space-24); border-top: 1px solid var(--line); }
+  .story-meta dt, .article-aside h2 { margin: 0 0 var(--space-8); color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .story-meta dd { margin: 0; color: var(--ink); font-size: .92rem; font-weight: 650; }
+  .overview-band { padding-block: clamp(var(--space-48), 5vw, var(--space-72)); background: var(--surface); }
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(var(--space-48), 8vw, var(--space-128)); }
+  .overview-grid h2 { margin: 0 0 var(--space-12); color: var(--accent-ink); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .overview-grid p { max-width: 35rem; margin: 0; color: var(--ink); font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.65; }
+  .story-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-32); padding-block: var(--space-40); border-bottom: 1px solid var(--line); }
+  .story-facts > div { display: flex; flex-direction: column; align-items: start; gap: var(--space-4); }
+  .story-facts strong { color: var(--accent-ink); font-size: clamp(1.5rem, 2.6vw, 2.2rem); font-weight: 700; letter-spacing: -.04em; line-height: 1.1; }
+  .story-facts span { color: var(--ink); font-size: .84rem; font-weight: 700; }
+  .story-facts small { max-width: 15rem; color: var(--muted); font-size: .77rem; line-height: 1.5; }
+  .article-grid { display: grid; grid-template-columns: minmax(12rem, .65fr) minmax(0, 1.6fr); gap: clamp(var(--space-48), 9vw, var(--space-144)); padding-block: clamp(var(--space-72), 8vw, var(--space-112)); }
+  .article-aside { display: grid; gap: var(--space-40); align-content: start; }
+  .article-aside > div { padding-top: var(--space-16); border-top: 1px solid var(--line); }
+  .article-aside ul { margin: var(--space-12) 0 0; padding: 0; list-style: none; }
+  .article-aside li { margin-top: var(--space-8); color: var(--muted); font-size: .85rem; line-height: 1.5; }
+  .article-content { max-width: 45rem; }
+  .article-content :global(h2) { margin: var(--space-56) 0 var(--space-16); color: var(--ink); font-size: clamp(1.7rem, 2.8vw, 2.4rem); font-weight: 650; letter-spacing: -.04em; line-height: 1.15; }
+  .article-content :global(h2:first-child) { margin-top: 0; }
+  .article-content :global(p), .article-content :global(li) { color: var(--muted); font-size: 1.04rem; line-height: 1.85; }
+  .article-content :global(p) { margin: 0 0 var(--space-16); }
+  .article-content :global(a) { color: var(--accent); }
+  .story-end { display: flex; gap: var(--space-32); align-items: end; justify-content: space-between; margin-bottom: clamp(var(--space-80), 8vw, var(--space-112)); padding-top: var(--space-32); border-top: 1px solid var(--line); }
+  .story-end p { margin: 0 0 var(--space-8); color: var(--accent-ink); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .story-end h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 650; letter-spacing: -.04em; }
+  .story-end a { display: inline-flex; gap: var(--space-8); flex-shrink: 0; align-items: center; color: var(--accent); font-size: .9rem; font-weight: 700; text-decoration: none; }
+  .story-end a:hover { text-decoration: underline; text-underline-offset: .25em; }
+  @media (max-width: 720px) {
+    .story-shell { width: min(calc(100% - 2rem), var(--container)); }
+    .story-meta { grid-template-columns: 1fr; gap: var(--space-16); }
+    .story-facts { grid-template-columns: 1fr; gap: var(--space-24); }
+    .overview-grid, .article-grid { grid-template-columns: 1fr; gap: var(--space-40); }
+    .article-aside { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-24); }
+    .story-end { align-items: start; flex-direction: column; }
+  }
+</style>

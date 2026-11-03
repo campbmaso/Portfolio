@@ -3,29 +3,33 @@ import { siteConfig } from "../site-config";
 ---
 
 <header class="site-header">
-  <div class="shell nav-shell glass-surface">
+  <div class="shell nav-shell">
     <a class="brand" href="/" aria-label={`${siteConfig.name}, home`}>
-      <span class="brand-mark" aria-hidden="true"><span>MC</span></span>
-      <span class="brand-name">{siteConfig.name}</span>
+      <span class="brand-mark" aria-hidden="true"><span>m.</span></span>
+      <span class="brand-name">Mason Campbell</span>
     </a>
-
-    <nav class="desktop-nav" aria-label="Primary navigation">
+    <nav class="desktop-nav" aria-label="Main navigation">
       <a href="/#work">Work</a>
-      <a href="/#approach">Operating system</a>
-      <a href="/#background">Story</a>
-      <a class="nav-cta" href={siteConfig.linkedin} target="_blank" rel="noreferrer">
-        Connect <span aria-hidden="true">↗</span>
-      </a>
+      <a href="/stories/">Stories</a>
+      <a href="/about/">About</a>
+      <a class="nav-contact" href={siteConfig.linkedin} target="_blank" rel="noreferrer">Let’s connect</a>
     </nav>
-
     <details class="mobile-nav">
-      <summary aria-label="Open navigation">Menu</summary>
+      <summary>Menu</summary>
       <nav aria-label="Mobile navigation">
         <a href="/#work">Work</a>
-        <a href="/#approach">Operating system</a>
-        <a href="/#background">Story</a>
-        <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">Connect ↗</a>
+        <a href="/stories/">Stories</a>
+        <a href="/about/">About</a>
+        <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">Let’s connect</a>
       </nav>
     </details>
   </div>
 </header>
+
+<script>
+  document.querySelectorAll<HTMLDetailsElement>(".mobile-nav").forEach((menu) => {
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) menu.open = false;
+    });
+  });
+</script>

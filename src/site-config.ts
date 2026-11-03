@@ -7,5 +7,5 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/mason-campbell-kettering/",
   repository: "https://github.com/campbmaso/Portfolio",
   description:
-    "Mason Campbell is a product leader, founder, and hands-on builder turning possibility into products, growth, and systems that move.",
+    "Mason Campbell is a product manager and technical co-founder who brings customer research, interaction design, and technology together to make useful software.",
 } as const;

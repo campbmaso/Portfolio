@@ -1,49 +1,44 @@
 ---
-title: Choosing durable economics over a prettier funnel
+title: Making growth decisions beyond the first conversion
 eyebrow: Growth · Monetization
-summary: I combined customer research, pricing changes, and long-horizon experiment analysis to improve conversion without mistaking short-term movement for real value.
+summary: I used customer interviews and downstream cohort analysis to make pricing and funnel decisions around lasting value.
 order: 2
 featured: true
-timeframe: 2023-2025
+timeframe: 2023–2025
 context: JoyJobs.ai
 role: Technical Co-Founder & Head of Product
-challenge: A package-based model created purchasing friction, while individual funnel experiments could improve signups without improving the underlying business.
-outcome: We moved to subscriptions, improved free-trial conversion through iterative product changes, and reversed an apparently successful upsell experiment when later lifetime-value data showed weaker economics.
+challenge: Fixed-usage packages created purchasing friction, and a lift in trial signups alone could not tell us whether a funnel change improved the business.
+outcome: We moved to subscriptions and later reversed a trial upsell experiment when downstream customer lifetime value did not justify the signup lift.
 metrics:
   - value: Subscription
     label: Pricing model
-    note: Reframed the offer around ongoing customer value
+    note: Introduced after customer research and competitive analysis
+  - value: Improved
+    label: Free-trial-to-paid conversion
+    note: Improved through interviews and iterative product changes
   - value: 3 months
-    label: Experiment horizon
-    note: Followed downstream value after the initial signup lift
-  - value: Reverted
-    label: Misleading local win
-    note: Chose long-term economics over vanity conversion
+    label: Upsell follow-up
+    note: Downstream value changed the initial assessment
 capabilities:
   - Monetization
   - Experiment design
   - Customer research
-  - Lifecycle analytics
-  - Product-led growth
-  - Decision-making
+  - Funnel analysis
+  - Product judgment
 evidence:
+  - Customer interviews and competitive analysis
   - Tagged funnel events
-  - Conversion and retention cohorts
-  - Customer interviews on pricing friction
+  - Conversion and retention analysis
 ---
 
-## Reframe the pricing problem
+## Reconsider how customers buy
 
-Strong free usage was not translating into enough paid behavior. Interviews and competitive analysis pointed to a mismatch between the way customers expected to use the product and the friction of buying fixed packages.
+We launched with packages that gave customers a fixed amount of usage. Free usage was strong, but conversion to paid was weaker than we wanted. I used customer interviews and competitive analysis to understand the friction, and we changed the offer to a subscription with unlimited access.
 
-We changed the model to a subscription with clearer ongoing value. In parallel, I used interviews and iterative product changes to improve the free-trial journey without publishing a result before its denominator and measurement window were fully reconciled.
+Separately, user interviews and iterative improvements to the trial journey helped increase free-trial-to-paid conversion.
 
-## Instrument the decision, not just the button
+## Follow an experiment beyond signup
 
-One experiment added an upsell step directly after signup. It worked by the obvious measure: free-trial starts increased. We tagged the key choices on the page and kept following the cohort after the initial readout.
+To test whether more people would start a trial, I implemented a page between signup and product use that presented a trial offer. We tagged the available actions and tracked signups. Trial starts increased in the initial two-week observation period, making the change look promising.
 
-Three months later, the customer lifetime value did not justify the signup lift. We reverted the flow.
-
-## Why the reversal mattered
-
-The senior decision was not launching the experiment. It was refusing to treat a local maximum as a business win. The work established a clearer standard for growth decisions: define the downstream behavior first, instrument it, and keep the experiment open long enough to see the economic effect.
+We kept following the cohort. Three months later, customer lifetime value was lower than the increase in trials warranted, so we reverted to the original flow. The decision showed why an early funnel win needs to be weighed against what happens later in the customer relationship.

@@ -24,13 +24,13 @@ const canonicalUrl = productionOrigin
   ? new URL(canonicalPath, `${productionOrigin}/`).toString()
   : undefined;
 const socialImage = productionOrigin
-  ? new URL("/og-v2.png", `${productionOrigin}/`).toString()
+  ? new URL("/mason-campbell.jpg", `${productionOrigin}/`).toString()
   : undefined;
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: siteConfig.name,
-  jobTitle: "Product Leader, Growth & AI",
+  jobTitle: "Product Manager",
   description: siteConfig.description,
   sameAs: [siteConfig.linkedin, siteConfig.github],
 };
@@ -43,8 +43,7 @@ const structuredData = {
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#06060b" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:type" content="website" />
@@ -52,7 +51,7 @@ const structuredData = {
     <meta property="og:description" content={description} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {socialImage && <meta property="og:image" content={socialImage} />}
-    <meta name="twitter:card" content={socialImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     {socialImage && <meta name="twitter:image" content={socialImage} />}

@@ -1,0 +1,132 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const studies = (await getCollection("caseStudies")).sort((a, b) => a.data.order - b.data.order);
+const [featured, ...moreStudies] = studies;
+---
+
+<BaseLayout
+  title="Product stories"
+  description="A closer look at the people, decisions, and outcomes behind Mason Campbell's product work."
+  canonicalPath="/stories/"
+>
+  <div class="stories-page">
+    <header class="stories-intro stories-shell">
+      <p class="section-label">Selected work · Product stories</p>
+      <h1>The decisions behind the work.</h1>
+      <p class="intro-copy">A closer look at how I understand customer problems, shape products, and learn from what happens next.</p>
+      <a class="intro-link" href="#all-stories">Explore the stories</a>
+    </header>
+
+    {featured && (
+      <section class="feature-section stories-shell" aria-label="Featured story">
+        <a class="feature-card" href={`/stories/${featured.id}/`}>
+          <div class="feature-copy">
+            <p class="card-kicker">Featured story <span aria-hidden="true">·</span> {featured.data.context}</p>
+            <h2>{featured.data.title}</h2>
+            <p>{featured.data.summary}</p>
+            <span class="card-link">Read the story</span>
+          </div>
+          <div class="feature-art" aria-hidden="true">
+            <div class="art-window">
+              <div class="art-top"><span></span><span></span><span></span></div>
+              <div class="art-content">
+                <div class="art-label">From problem to product</div>
+                <div class="art-line art-line-long"></div>
+                <div class="art-line"></div>
+                <div class="art-block"><span>01</span><i></i><i></i></div>
+                <div class="art-block art-block-accent"><span>02</span><i></i><i></i></div>
+                <div class="art-block"><span>03</span><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </section>
+    )}
+
+    <section class="browse-section stories-shell" id="all-stories" aria-labelledby="browse-title">
+      <div class="browse-heading">
+        <div>
+          <p class="section-label">Explore the work</p>
+          <h2 id="browse-title">More stories</h2>
+        </div>
+        <p>Different contexts, shared curiosity about what people need and how products can help.</p>
+      </div>
+      <div class="story-grid">
+        {moreStudies.map((study, index) => (
+          <article class="story-card">
+            <a href={`/stories/${study.id}/`}>
+              <div class="story-card-top">
+                <span>{study.data.context}</span>
+                <span class="story-number">{String(index + 2).padStart(2, "0")}</span>
+              </div>
+              <div class="story-card-main">
+                <p class="story-type">{study.data.eyebrow}</p>
+                <h3>{study.data.title}</h3>
+                <p class="story-summary">{study.data.summary}</p>
+              </div>
+              <div class="story-card-bottom"><span>Read the story</span></div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .stories-page { padding-bottom: clamp(var(--space-80), 9vw, var(--space-128)); background: var(--surface); }
+  .stories-shell { width: min(calc(100% - 3rem), var(--container)); margin-inline: auto; }
+  .stories-intro { padding-block: clamp(var(--space-56), 6vw, var(--space-80)) clamp(var(--space-40), 4vw, var(--space-56)); }
+  .section-label, .card-kicker, .story-type { margin: 0; color: var(--accent-ink); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .stories-intro h1 { max-width: 18ch; margin: var(--space-24) 0 var(--space-24); color: var(--ink); font-size: clamp(3rem, 5.4vw, 5rem); font-weight: 650; letter-spacing: -.065em; line-height: 1; }
+  .intro-copy { max-width: 37rem; color: var(--muted); font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.6; }
+  .intro-link, .card-link { display: inline-flex; gap: var(--space-8); align-items: center; color: var(--accent); font-size: .9rem; font-weight: 700; text-decoration: none; }
+  .intro-link:hover, .feature-card:hover .card-link, .story-card a:hover .story-card-bottom span { text-decoration: underline; text-underline-offset: .25em; }
+  .intro-link { margin-top: var(--space-16); }
+  .feature-card { display: grid; min-height: 28rem; grid-template-columns: 1fr 1fr; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: var(--bg); color: var(--ink); text-decoration: none; }
+  .feature-copy { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(var(--space-32), 5vw, var(--space-64)); }
+  .card-kicker span { padding-inline: var(--space-4); color: var(--muted); }
+  .feature-copy h2 { max-width: 17ch; margin: auto 0 var(--space-16); padding-top: var(--space-48); font-size: clamp(2.1rem, 3.5vw, 3.25rem); font-weight: 650; letter-spacing: -.05em; line-height: 1.05; }
+  .feature-copy > p:not(.card-kicker) { max-width: 32rem; margin: 0 0 var(--space-32); color: var(--muted); line-height: 1.6; }
+  .feature-art { display: grid; min-height: 22rem; padding: var(--space-48); overflow: hidden; place-items: center; background-color: var(--surface); background-image: radial-gradient(circle, var(--line) 1px, transparent 1.2px); background-size: 12px 12px; }
+  .art-window { width: min(100%, 24rem); overflow: hidden; border: 1px solid var(--line); border-radius: .7rem; background: var(--bg); box-shadow: 0 1.5rem 4rem var(--shadow); transform: rotate(-3deg); }
+  .art-top { display: flex; gap: var(--space-4); padding: var(--space-12); border-bottom: 1px solid var(--line); }
+  .art-top span { width: .35rem; height: .35rem; border-radius: 50%; background: var(--line); }
+  .art-content { padding: var(--space-24); }
+  .art-label { margin-bottom: var(--space-16); color: var(--accent-ink); font-size: .65rem; font-weight: 700; }
+  .art-line, .art-block i { height: .4rem; border-radius: 1rem; background: var(--line); }
+  .art-line { width: 38%; margin-top: var(--space-8); }
+  .art-line-long { width: 70%; }
+  .art-block { display: grid; grid-template-columns: 1.5rem 1fr .4fr; gap: var(--space-12); align-items: center; margin-top: var(--space-12); padding: var(--space-12); border: 1px solid var(--line); border-radius: .45rem; }
+  .art-block:first-of-type { margin-top: var(--space-24); }
+  .art-block span { color: var(--muted); font-size: .65rem; }
+  .art-block-accent { border-color: var(--accent); background: var(--accent-soft); }
+  .browse-section { padding-top: clamp(var(--space-80), 9vw, var(--space-128)); }
+  .browse-heading { display: flex; gap: var(--space-32); align-items: end; justify-content: space-between; margin-bottom: var(--space-32); }
+  .browse-heading h2 { margin: var(--space-12) 0 0; font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 650; letter-spacing: -.05em; line-height: 1.05; }
+  .browse-heading > p { max-width: 24rem; margin: 0; color: var(--muted); }
+  .story-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16); }
+  .story-card { min-width: 0; }
+  .story-card a { display: flex; min-height: 22rem; height: 100%; flex-direction: column; padding: clamp(var(--space-24), 3vw, var(--space-32)); border: 1px solid var(--line); border-radius: .8rem; background: var(--bg); color: var(--ink); text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
+  .story-card a:hover, .feature-card:hover { border-color: var(--accent); }
+  .story-card a:hover { transform: translateY(-3px); }
+  .story-card-top, .story-card-bottom { display: flex; justify-content: space-between; font-size: .8rem; font-weight: 700; }
+  .story-card-top { color: var(--muted); }
+  .story-number { color: var(--accent-ink); }
+  .story-card-main { margin: auto 0; padding-block: var(--space-48); }
+  .story-type { font-size: .68rem; }
+  .story-card h3 { max-width: 22ch; margin: var(--space-12) 0; font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.15; }
+  .story-summary { max-width: 38rem; margin: 0; color: var(--muted); line-height: 1.6; }
+  .story-card-bottom { padding-top: var(--space-16); border-top: 1px solid var(--line); color: var(--accent); }
+  @media (max-width: 720px) {
+    .stories-shell { width: min(calc(100% - 2rem), var(--container)); }
+    .feature-card, .story-grid { grid-template-columns: 1fr; }
+    .feature-art { min-height: 18rem; padding: var(--space-32); }
+    .feature-copy h2 { padding-top: var(--space-40); }
+    .browse-heading { align-items: start; flex-direction: column; gap: var(--space-16); }
+    .story-card a { min-height: 19rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .story-card a { transition: none; } }
+</style>
