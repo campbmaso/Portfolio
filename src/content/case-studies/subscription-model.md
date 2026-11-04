@@ -1,7 +1,7 @@
 ---
-title: Moving from usage packages to unlimited subscriptions
+title: How we grew LTV 6× with unlimited subscriptions
 eyebrow: Monetization · Customer understanding
-summary: Customer interviews and competitive analysis helped me identify pricing friction and lead the shift from fixed-usage packages to unlimited subscription access.
+summary: Customer interviews and competitive analysis led us from usage packages to unlimited subscriptions. Customer lifetime value grew from about $17 to over $100.
 order: 4
 featured: false
 timeframe: 2023–2025

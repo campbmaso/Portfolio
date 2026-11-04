@@ -1,5 +1,5 @@
 ---
-title: Taking Resume Score from an ML model to a product launch
+title: Making ResumeAI’s value visible with ML scoring
 eyebrow: Applied ML · Cross-functional leadership
 summary: I partnered with a data scientist on skill classification, connected the model to a broader resume score, and led the interface and launch across engineering and marketing.
 order: 5

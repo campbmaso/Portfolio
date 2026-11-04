@@ -1,5 +1,5 @@
 ---
-title: Pivoting from CareerAI to ResumeAI
+title: Revenue from day one
 eyebrow: Discovery · Product building
 summary: Low repeat use led us from career exploration to resume tailoring. I built and tested a workflow that returned a tailored document while preserving the user's formatting.
 order: 1
