@@ -1,0 +1,227 @@
+---
+import { Image, getImage } from "astro:assets";
+import { artworks } from "../data/artworks";
+const paintings = await Promise.all(artworks.map(async painting => ({
+  ...painting,
+  large: (await getImage({ src: painting.src, width: 2200, format: "webp", quality: 88 })).src,
+})));
+---
+<div class="artwork-gallery">
+  <div class="art-grid">
+    {paintings.map((painting, index) => <figure class="artwork">
+      <a class="gallery-trigger" href={painting.large} data-title={painting.title} data-year={painting.year} data-medium={painting.medium} data-dimensions={painting.dimensions} data-description={painting.description} data-alt={painting.alt} data-index={index} aria-label={`View ${painting.title}, ${painting.year}, in the gallery viewer`}>
+        <div class="art-mat"><Image src={painting.src} alt={painting.alt} width={720} widths={[360, 540, 720]} sizes="(max-width: 720px) calc(100vw - 5rem), 40vw" format="webp" quality={82} loading="lazy" decoding="async" /><span class="view-art" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H3v6M15 3h6v6M21 15v6h-6M3 15v6h6" /></svg>View artwork</span></div>
+      </a>
+      <figcaption class="art-label"><div class="art-label-title"><h3>{painting.title}</h3><span>{painting.year}</span></div><p>{painting.medium} · {painting.dimensions}</p></figcaption>
+    </figure>)}
+  </div>
+  <dialog class="art-dialog" aria-labelledby="art-dialog-title" aria-describedby="art-dialog-description">
+    <div class="viewer-header"><p class="viewer-index">Selected paintings <span data-art-count></span></p><button type="button" class="art-close icon-button" aria-label="Close artwork viewer" autofocus><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18" /></svg></button></div>
+    <div class="viewer-layout">
+      <div class="viewer-art">
+        <div class="zoom-canvas" role="region" aria-label="Zoomable painting. Use plus and minus to zoom, arrow keys to move when enlarged, or drag and pinch." tabindex="0" aria-busy="true">
+          <span class="art-loading">Loading artwork…</span><img class="zoom-image" alt="" draggable="false" />
+        </div>
+        <div class="zoom-toolbar" aria-label="Artwork zoom controls"><div class="zoom-buttons"><button type="button" class="icon-button zoom-out" aria-label="Zoom out"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14" /></svg></button><output class="zoom-level" aria-live="polite" aria-label="Zoom level">100%</output><button type="button" class="icon-button zoom-in" aria-label="Zoom in"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M12 5v14" /></svg></button><button type="button" class="zoom-fit">Fit</button></div><span class="zoom-hint">Scroll or pinch to zoom · Drag to explore</span></div>
+      </div>
+      <div class="viewer-info">
+        <div><p class="viewer-artist">Mason Campbell</p><h2 id="art-dialog-title"></h2><p class="viewer-year" data-art-year></p></div>
+        <dl class="art-facts"><div><dt>Medium</dt><dd data-art-medium></dd></div><div><dt>Dimensions</dt><dd data-art-dimensions></dd></div></dl>
+        <p id="art-dialog-description"></p>
+        <nav class="art-navigation" aria-label="Browse paintings"><button type="button" class="art-previous"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 12H5m6-6-6 6 6 6"/></svg>Previous</button><button type="button" class="art-next">Next<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></nav>
+      </div>
+    </div>
+  </dialog>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>(".artwork-gallery").forEach(gallery => {
+    const links = Array.from(gallery.querySelectorAll<HTMLAnchorElement>(".gallery-trigger"));
+    const dialog = gallery.querySelector<HTMLDialogElement>(".art-dialog")!;
+    const canvas = gallery.querySelector<HTMLElement>(".zoom-canvas")!;
+    const image = gallery.querySelector<HTMLImageElement>(".zoom-image")!;
+    const zoomIn = gallery.querySelector<HTMLButtonElement>(".zoom-in")!;
+    const zoomOut = gallery.querySelector<HTMLButtonElement>(".zoom-out")!;
+    const fit = gallery.querySelector<HTMLButtonElement>(".zoom-fit")!;
+    const level = gallery.querySelector<HTMLOutputElement>(".zoom-level")!;
+    let current = 0, zoom = 1, panX = 0, panY = 0, baseWidth = 0, baseHeight = 0;
+    let opener: HTMLElement | null = null;
+    let previousOverflow = "";
+    let pinch: { distance: number; x: number; y: number } | null = null;
+    const pointers = new Map<number, { x: number; y: number }>();
+    const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+    function render() {
+      const limitX = Math.max(0, (baseWidth * zoom - canvas.clientWidth) / 2);
+      const limitY = Math.max(0, (baseHeight * zoom - canvas.clientHeight) / 2);
+      panX = clamp(panX, -limitX, limitX); panY = clamp(panY, -limitY, limitY);
+      image.style.transform = `translate(-50%, -50%) translate(${panX}px, ${panY}px) scale(${zoom})`;
+      const text = `${Math.round(zoom * 100)}%`;
+      if (level.value !== text) level.value = text;
+      zoomOut.disabled = zoom <= 1.001;
+      zoomIn.disabled = zoom >= 3.999;
+      fit.disabled = zoom <= 1.001;
+      canvas.classList.toggle("is-zoomed", zoom > 1.001);
+    }
+    function sizeImage() {
+      if (!image.naturalWidth || !canvas.clientWidth) return;
+      const ratio = Math.min((canvas.clientWidth - 32) / image.naturalWidth, (canvas.clientHeight - 32) / image.naturalHeight);
+      baseWidth = image.naturalWidth * ratio; baseHeight = image.naturalHeight * ratio;
+      image.style.width = `${baseWidth}px`; image.style.height = `${baseHeight}px`;
+      render();
+    }
+    function changeZoom(next: number, clientX?: number, clientY?: number) {
+      const target = clamp(next, 1, 4);
+      const rect = canvas.getBoundingClientRect();
+      const x = clientX === undefined ? 0 : clientX - rect.left - rect.width / 2;
+      const y = clientY === undefined ? 0 : clientY - rect.top - rect.height / 2;
+      const ratio = target / zoom;
+      panX = x - (x - panX) * ratio; panY = y - (y - panY) * ratio;
+      zoom = target;
+      if (zoom === 1) panX = panY = 0;
+      render();
+    }
+    function show(index: number) {
+      current = (index + links.length) % links.length;
+      const link = links[current];
+      const data = link.dataset;
+      zoom = 1; panX = panY = 0; pointers.clear(); pinch = null;
+      canvas.classList.remove("is-dragging");
+      canvas.setAttribute("aria-busy", "true"); image.style.opacity = "0";
+      gallery.querySelector(".art-loading")!.textContent = "Loading artwork…";
+      gallery.querySelector("#art-dialog-title")!.textContent = data.title || "Oil painting";
+      gallery.querySelector("[data-art-year]")!.textContent = data.year || "";
+      gallery.querySelector("[data-art-medium]")!.textContent = data.medium || "Oil";
+      gallery.querySelector("[data-art-dimensions]")!.textContent = data.dimensions || "Not listed";
+      gallery.querySelector("#art-dialog-description")!.textContent = data.description || "";
+      gallery.querySelector("[data-art-count]")!.textContent = `${String(current + 1).padStart(2, "0")} of ${String(links.length).padStart(2, "0")}`;
+      image.alt = data.alt || data.title || "Oil painting";
+      image.src = link.href;
+      render();
+      if (image.complete && image.naturalWidth) ready();
+    }
+    function ready() { sizeImage(); canvas.setAttribute("aria-busy", "false"); image.style.opacity = "1"; }
+    image.addEventListener("load", ready);
+    image.addEventListener("error", () => { gallery.querySelector(".art-loading")!.textContent = "This artwork could not load. Please close the viewer and try again."; });
+    links.forEach((link, index) => link.addEventListener("click", event => {
+      if (!dialog.showModal || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault(); opener = link;
+      previousOverflow = document.documentElement.style.overflow;
+      document.documentElement.style.overflow = "hidden";
+      show(index); dialog.showModal(); requestAnimationFrame(sizeImage);
+    }));
+    gallery.querySelector(".art-close")!.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("close", () => {
+      document.documentElement.style.overflow = previousOverflow;
+      pointers.clear(); pinch = null; opener?.focus({ preventScroll: true });
+    });
+    dialog.addEventListener("click", event => {
+      if (event.target !== dialog) return;
+      const box = dialog.getBoundingClientRect();
+      if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+    });
+    zoomIn.addEventListener("click", () => changeZoom(zoom + .5));
+    zoomOut.addEventListener("click", () => changeZoom(zoom - .5));
+    fit.addEventListener("click", () => changeZoom(1));
+    gallery.querySelector(".art-previous")!.addEventListener("click", () => show(current - 1));
+    gallery.querySelector(".art-next")!.addEventListener("click", () => show(current + 1));
+    canvas.addEventListener("wheel", event => { event.preventDefault(); changeZoom(zoom * Math.exp(-event.deltaY * .002), event.clientX, event.clientY); }, { passive: false });
+    canvas.addEventListener("dblclick", event => { changeZoom(zoom > 1 ? 1 : 2, event.clientX, event.clientY); });
+    function pinchState() {
+      const [a,b] = [...pointers.values()];
+      return { distance: Math.hypot(b.x-a.x,b.y-a.y), x: (a.x+b.x)/2, y: (a.y+b.y)/2 };
+    }
+    canvas.addEventListener("pointerdown", event => {
+      if (event.button !== 0) return;
+      canvas.setPointerCapture(event.pointerId); pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (pointers.size === 2) pinch = pinchState();
+      canvas.classList.add("is-dragging");
+    });
+    canvas.addEventListener("pointermove", event => {
+      const previous = pointers.get(event.pointerId); if (!previous) return;
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+      if (pointers.size >= 2) {
+        const next = pinchState();
+        if (pinch && pinch.distance > 0) { changeZoom(zoom * next.distance / pinch.distance, next.x, next.y); panX += next.x-pinch.x; panY += next.y-pinch.y; render(); }
+        pinch = next;
+      } else if (zoom > 1) { panX += event.clientX-previous.x; panY += event.clientY-previous.y; render(); }
+    });
+    function endPointer(event: PointerEvent) { pointers.delete(event.pointerId); pinch = null; if (!pointers.size) canvas.classList.remove("is-dragging"); }
+    canvas.addEventListener("pointerup", endPointer);
+    canvas.addEventListener("pointercancel", endPointer);
+    canvas.addEventListener("lostpointercapture", endPointer);
+    dialog.addEventListener("keydown", event => {
+      if (event.key === "+" || event.key === "=") { event.preventDefault(); changeZoom(zoom + .5); }
+      else if (event.key === "-") { event.preventDefault(); changeZoom(zoom - .5); }
+      else if (event.key === "0") { event.preventDefault(); changeZoom(1); }
+      else if (event.key.startsWith("Arrow")) {
+        event.preventDefault();
+        if (zoom > 1) { panX += event.key === "ArrowLeft" ? 48 : event.key === "ArrowRight" ? -48 : 0; panY += event.key === "ArrowUp" ? 48 : event.key === "ArrowDown" ? -48 : 0; render(); }
+        else if (event.key === "ArrowLeft" || event.key === "ArrowRight") show(current + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    });
+    new ResizeObserver(() => { if (dialog.open) sizeImage(); }).observe(canvas);
+  });
+</script>
+<style>
+  .art-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-48) var(--space-32); padding: clamp(var(--space-24), 4vw, var(--space-48)); }
+  .artwork { min-width: 0; margin: 0; }
+  .gallery-trigger { display: block; text-decoration: none; }
+  .art-mat { position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1; padding: clamp(var(--space-24), 3vw, var(--space-40)); background: var(--bg); border: 1px solid var(--line); }
+  .art-mat img { width: 100%; height: 100%; object-fit: contain; min-height: 0; }
+  .view-art { position: absolute; right: var(--space-12); bottom: var(--space-12); display: inline-flex; gap: var(--space-8); align-items: center; padding: var(--space-8) var(--space-12); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; font-size: .75rem; color: var(--ink); opacity: 0; transform: translateY(4px); transition: opacity .18s ease, transform .18s ease; }
+  .gallery-trigger:hover .view-art, .gallery-trigger:focus-visible .view-art { opacity: 1; transform: none; }
+  .art-label { padding-top: var(--space-16); }
+  .art-label-title { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-16); }
+  .art-label h3 { margin: 0; font-size: 1.1rem; font-weight: 650; letter-spacing: -.02em; }
+  .art-label-title > span { color: var(--muted); font-size: .9rem; }
+  .art-label > p { margin: var(--space-4) 0 0; color: var(--muted); font-size: .85rem; }
+  .art-dialog { width: min(calc(100% - 3rem), 80rem); max-width: none; max-height: calc(100dvh - 3rem); margin: auto; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); overflow: auto; box-shadow: 0 24px 80px rgba(0,0,0,.18); }
+  .art-dialog::backdrop { background: rgba(20,20,20,.38); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .viewer-header { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; gap: var(--space-24); align-items: center; padding: var(--space-12) var(--space-16) var(--space-12) var(--space-24); border-bottom: 1px solid var(--line); background: var(--bg); }
+  .viewer-index { margin: 0; color: var(--muted); font-size: .8rem; }
+  .viewer-index span { margin-left: var(--space-16); color: var(--ink); }
+  .icon-button { display: inline-grid; width: 44px; height: 44px; flex: none; place-items: center; padding: 0; border: 1px solid transparent; border-radius: 4px; background: transparent; color: var(--ink); }
+  .icon-button:hover, .zoom-fit:hover { background: var(--surface-strong); }
+  .icon-button:disabled, .zoom-fit:disabled { opacity: .35; cursor: default; }
+  .viewer-layout { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; }
+  .viewer-art { min-width: 0; background: var(--surface); }
+  .zoom-canvas { position: relative; height: min(68dvh, 44rem); min-height: 20rem; overflow: hidden; touch-action: none; user-select: none; }
+  .zoom-canvas.is-zoomed { cursor: grab; }
+  .zoom-canvas.is-zoomed.is-dragging { cursor: grabbing; }
+  .zoom-image { position: absolute; top: 50%; left: 50%; max-width: none; object-fit: contain; transform-origin: center; pointer-events: none; }
+  .art-loading { position: absolute; inset: 0; display: grid; place-items: center; padding: var(--space-32); color: var(--muted); font-size: .9rem; }
+  .zoom-canvas[aria-busy="false"] .art-loading { display: none; }
+  .zoom-toolbar { display: flex; justify-content: space-between; align-items: center; gap: var(--space-16); padding: var(--space-8) var(--space-16); border-top: 1px solid var(--line); background: var(--bg); }
+  .zoom-buttons { display: flex; gap: var(--space-4); align-items: center; }
+  .zoom-level { min-width: 3.25rem; text-align: center; font-size: .85rem; font-variant-numeric: tabular-nums; }
+  .zoom-fit { min-height: 44px; margin-left: var(--space-8); padding: var(--space-8) var(--space-16); border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); font-size: .8rem; }
+  .zoom-hint { color: var(--muted); font-size: .75rem; }
+  .viewer-info { display: flex; flex-direction: column; padding: var(--space-32); border-left: 1px solid var(--line); }
+  .viewer-artist { margin: 0 0 var(--space-16); color: var(--muted); font-size: .85rem; }
+  .viewer-info h2 { margin: 0; font-size: 1.8rem; font-weight: 650; line-height: 1.2; letter-spacing: -.025em; }
+  .viewer-year { margin: var(--space-12) 0 0; color: var(--muted); font-size: 1rem; }
+  .art-facts { display: grid; gap: var(--space-16); margin: var(--space-32) 0 var(--space-24); padding-top: var(--space-24); border-top: 1px solid var(--line); }
+  .art-facts dt { margin-bottom: var(--space-4); color: var(--muted); font-size: .75rem; }
+  .art-facts dd { margin: 0; font-size: .9rem; }
+  #art-dialog-description { margin: 0 0 var(--space-32); color: var(--muted); font-size: .9rem; line-height: 1.8; }
+  .art-navigation { display: flex; justify-content: space-between; gap: var(--space-16); padding-top: var(--space-24); margin-top: auto; border-top: 1px solid var(--line); }
+  .art-navigation button { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font-size: .8rem; }
+  .art-navigation button:hover { text-decoration: underline; text-underline-offset: .25em; }
+  @media (max-width: 960px) { .viewer-layout { grid-template-columns: minmax(0, 1fr) 17rem; } .viewer-info { padding: var(--space-24); } .zoom-hint { display: none; } }
+  @media (max-width: 720px) {
+    .art-grid { grid-template-columns: 1fr; gap: var(--space-40); padding: var(--space-24); }
+    .art-mat { padding: var(--space-24); }
+    .view-art { opacity: 1; transform: none; }
+    .art-dialog { width: calc(100% - 1rem); max-height: calc(100dvh - 1rem); }
+    .viewer-header { padding: var(--space-8) var(--space-8) var(--space-8) var(--space-16); }
+    .viewer-index span { margin-left: var(--space-8); }
+    .viewer-layout { grid-template-columns: 1fr; }
+    .zoom-canvas { height: 48dvh; min-height: 16rem; }
+    .zoom-toolbar { padding-inline: var(--space-8); }
+    .zoom-hint { display: inline; font-size: .65rem; max-width: 7rem; text-align: right; }
+    .viewer-info { padding: var(--space-24); border-left: 0; border-top: 1px solid var(--line); }
+    .viewer-info h2 { font-size: 1.5rem; }
+    .viewer-artist { margin-bottom: var(--space-8); }
+    .art-facts { grid-template-columns: 1fr 1fr; margin-top: var(--space-24); }
+  }
+  @media (max-width: 380px) { .zoom-hint { display: none; } }
+</style>
