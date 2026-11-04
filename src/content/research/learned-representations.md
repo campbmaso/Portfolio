@@ -1,30 +1,23 @@
 ---
-title: Learned representations
-summary: Exploring how models represent concepts, and how those representations relate to reasoning and behavior.
+title: "Semantic representations of experience"
+summary: "How does the way we represent experience change what we can compare, retrieve, and explain?"
 order: 1
-question: How do learned representations encode concepts, support reasoning, and shape behavior?
-status: Draft brief · Exploration in progress
+question: "How does the way we represent experience change what we can compare, retrieve, and explain?"
+status: "Independent research · In progress"
 ---
 
-## Scope
+## The question
 
-I’m interested in the relationship between what a model represents internally and what it does when asked to solve a problem. This exploration starts with a broad question: what would count as evidence that a model represents a concept, rather than simply producing a convincing description of it?
+A single embedding is a compact representation of a career document, but it can obscure relationships between skills, actions, and the contexts in which they occurred. I’m investigating how different representations preserve that structure.
 
-The aim is to make that question more concrete. A useful starting point would be a small set of related concepts and tasks, with clear expectations about which distinctions matter. That could help separate an interesting pattern from evidence that is relevant to a particular behavior.
+## The approach
 
-## Questions I want to investigate
+I compare whole-document points and token-derived linear subspaces in a shared learned embedding space. A related experiment projects documents onto named, job-specific semantic directions to make the comparison easier to inspect. A separate structural pilot tests which combinations of experience attributes survive flattening and low-rank compression.
 
-- Which aspects of a concept appear stable when the wording or context changes?
-- How might similar concepts be distinguished within a learned representation?
-- What observations would connect a representation to the model’s behavior on a task?
-- Where would an interpretation go beyond what the evidence supports?
+## What I’m examining
 
-## Possible approach
+The experiments track how geometric and scoring choices affect rankings, what information their readouts expose, and which relationships are lost. Semantic alignment is the measurement under study; it is not a calibrated measure of proficiency or hiring suitability.
 
-A proposed first step is to review relevant ways of studying representations, then define a small, repeatable comparison. The comparison could vary one feature of an input while keeping the surrounding task consistent. Any observations would need to be checked against alternative explanations and the limits of the chosen method.
+## Methods
 
-This is a plan for exploration, not a report of an experiment already performed. The model, tasks, and analysis methods remain to be selected.
-
-## What I hope to learn
-
-I want a clearer way to reason about the connection between internal representations and useful behavior. The intended output is a focused account of the question, the evidence gathered, and what that evidence can and cannot establish. There are no findings to report in this draft.
+Embeddings · Linear subspaces · Semantic projections · Structural recovery

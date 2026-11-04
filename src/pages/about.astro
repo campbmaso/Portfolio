@@ -33,11 +33,11 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
         <div class="research-heading">
           <div>
             <p class="section-index">02 · RESEARCH</p>
-            <h2 id="research-title">How do models represent what they know?</h2>
+            <h2 id="research-title">Representations, information, and the models we build.</h2>
           </div>
           <div class="research-intro">
-            <p class="research-status">Independent exploration · In progress</p>
-            <p>I’m exploring the connections between information theory, language models, and the practical decisions people make with AI. These are the questions guiding that work.</p>
+            <p class="research-status">Independent research &amp; undergraduate thesis</p>
+            <p>I study how representations organize information, what survives compression, and how models connect evidence to decisions. Select a project to read its full brief.</p>
           </div>
         </div>
         <div class="research-grid">
@@ -61,33 +61,14 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
               </svg>
             </div>
             <h3>{research["learned-representations"].title}</h3>
-            <p>How do learned representations encode concepts, support reasoning, and shape behavior?</p>
-              <span class="research-read">Read the brief <Arrow /></span>
-            </a>
-          </article>
-          <article class="research-card">
-            <a class="research-card-link" href="/research/reasoning-and-training/">
-            <div class="research-visual reasoning-visual" aria-hidden="true">
-              <span class="visual-index">02 / REASONING</span>
-              <svg viewBox="0 0 320 300" fill="none" focusable="false">
-                <g class="diagram-lines">
-                  <path d="M47 220C80 220 70 82 112 82S127 210 165 210 195 90 228 90 251 144 275 144" />
-                  <path d="M47 220C85 220 87 165 112 165S140 185 165 185 203 125 228 125 251 144 275 144" />
-                  <path d="M47 220C104 220 114 144 165 144H275" />
-                  <path class="diagram-guide" d="M47 55V245M112 55V245M165 55V245M228 55V245M275 55V245" />
-                </g>
-                <g class="diagram-nodes"><circle cx="47" cy="220" r="9" /><circle cx="112" cy="82" r="7" /><circle cx="165" cy="210" r="7" /><circle cx="228" cy="90" r="7" /><circle cx="275" cy="144" r="12" /></g>
-              </svg>
-            </div>
-            <h3>{research["reasoning-and-training"].title}</h3>
-            <p>How does information change as models reason, and how does training change what they represent and do?</p>
+            <p>{research["learned-representations"].summary}</p>
               <span class="research-read">Read the brief <Arrow /></span>
             </a>
           </article>
           <article class="research-card">
             <a class="research-card-link" href="/research/career-information-compression/">
             <div class="research-visual compression-visual" aria-hidden="true">
-              <span class="visual-index">03 / COMPRESSION</span>
+              <span class="visual-index">02 / COMPRESSION</span>
               <svg viewBox="0 0 320 300" fill="none" focusable="false">
                 <g class="diagram-lines">
                   <rect x="36" y="70" width="90" height="160" rx="4" />
@@ -99,7 +80,21 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
               </svg>
             </div>
             <h3>{research["career-information-compression"].title}</h3>
-            <p>What is preserved or lost when a longer work history is compressed into a résumé?</p>
+            <p>{research["career-information-compression"].summary}</p>
+              <span class="research-read">Read the brief <Arrow /></span>
+            </a>
+          </article>
+          <article class="research-card">
+            <a class="research-card-link" href="/research/modeling-battery-degradation/">
+            <div class="research-visual reasoning-visual" aria-hidden="true">
+              <span class="visual-index">03 / MODELING</span>
+              <svg viewBox="0 0 320 300" fill="none" focusable="false">
+                <g class="diagram-lines"><path d="M42 52V246H287" /><path class="diagram-guide" d="M42 96H287M42 146H287M42 196H287" /><path d="M50 72C100 76 146 155 195 184S255 213 282 216" /><path d="M50 72C111 76 164 115 206 148S261 182 282 190" stroke-dasharray="5 6" /></g>
+                <g class="diagram-nodes"><circle cx="70" cy="78" r="5" /><circle cx="110" cy="106" r="5" /><circle cx="153" cy="149" r="5" /><circle cx="195" cy="184" r="5" /><circle cx="238" cy="207" r="5" /><circle cx="277" cy="216" r="5" /></g>
+              </svg>
+            </div>
+            <h3>{research["modeling-battery-degradation"].title}</h3>
+            <p>{research["modeling-battery-degradation"].summary}</p>
               <span class="research-read">Read the brief <Arrow /></span>
             </a>
           </article>

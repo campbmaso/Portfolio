@@ -20,6 +20,7 @@ pnpm validate
 ## Content model
 
 - `src/content/case-studies/` contains canonical, evidence-backed work stories.
+- `src/content/research/` contains editable research briefs shown on `/about/` and `/research/<id>/`.
 - `src/data/role-profiles.yaml` controls the headline, emphasis, proof points, and case-study order for each target role.
 - `src/site-config.ts` selects the active profile and stores public links.
 - `/work/` is the project collection. `/stories/` redirects there; existing project URLs under `/stories/<id>/` and legacy `/work/<id>/` links remain usable.
@@ -45,6 +46,13 @@ The production build is written to `dist/`, and `wrangler.jsonc` serves that dir
 5. Set `PUBLIC_SITE_URL` to the final custom-domain origin so canonical and social URLs are absolute.
 
 Cloudflare will create preview versions for non-production branches when Workers Builds is connected to GitHub.
+
+## Staging and production
+
+- `main` deploys the public production site at https://portfolio.campbmaso.workers.dev/.
+- `staging` builds a Cloudflare preview. Use the stable branch alias shown in its successful Workers Builds check to review the latest staging version.
+- Both branches run the Site quality validation workflow. Develop and review changes on `staging`, then promote the reviewed commit to `main` to release it.
+- A version URL points to one specific uploaded version. A branch preview alias follows subsequent successful builds from that branch. The wildcard `*-portfolio.campbmaso.workers.dev` describes these URLs; it is not itself a staging website.
 
 ## Privacy
 
