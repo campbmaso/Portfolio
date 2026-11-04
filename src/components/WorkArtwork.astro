@@ -1,0 +1,67 @@
+---
+import { companyLogos, companyNames, companyHomepages } from '../data/projects';
+interface Props { id: string; featured?: boolean }
+const { id, featured = false } = Astro.props;
+const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || id === 'instruction-modality-study' ? 'lightguide' : id.includes('stellantis') ? 'stellantis' : 'joyjobs';
+---
+<div class:list={['work-artwork', `art-${brand}`, { 'art-featured': featured }]}>
+  <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a>
+  {featured ? <div class="day-one" aria-hidden="true"><span>Day</span><strong>01</strong><span>From idea to product.</span></div> :
+    <svg viewBox="0 0 600 340" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2">
+      {id === 'sensors-platform-strategy' && <>
+        {[130, 190, 250].map(y => <path class="faint" d={`M60 ${y}H540`} />)}
+        <path d="M60 235H120L145 205 175 220 215 140 250 195 290 170 320 220 360 120 400 180 440 150 480 175H540" />
+        {[145, 215, 290, 360, 440].map((x, i) => <circle cx={x} cy={[205,140,170,120,150][i]} r="5" fill="currentColor" stroke="none" />)}
+      </>}
+      {id === 'lightguide-ar-workflows' && <>
+        <path class="faint" d="m70 230 230-130 230 130-230 130Z M185 165l230 130M415 165 185 295M128 198l230 130M472 198 242 328" />
+        <path d="m222 192 78-44 78 44-78 44Zm0 0v74l78 44 78-44v-74M300 236v74" />
+        <path stroke-width="4" d="M195 185v-28h28M377 157h28v28M405 277v28h-28M223 305h-28v-28" />
+      </>}
+      {id === 'growth-economics' && <>
+        <path class="faint" d="M80 220H520" />
+        <path d="M80 220h100c80 0 70-100 150-100h190M180 220c80 0 70 60 150 60h190" />
+        <circle cx="180" cy="220" r="8" fill="currentColor" />
+        <circle cx="440" cy="120" r="18" /><path d="m432 120 6 6 11-13" />
+        <circle cx="440" cy="280" r="18" /><path d="M432 280h16" />
+      </>}
+      {id === 'scaling-under-constraints' && <>
+        <rect class="faint" x="120" y="115" width="128" height="170" rx="8" />
+        <rect x="352" y="115" width="128" height="170" rx="8" />
+        {[150,177,204,231].map(y => <><path class="faint" d={`M145 ${y}h78`} /><path d={`M377 ${y}h78`} /></>)}
+        <path d="M270 200h60m-12-12 12 12-12 12" />
+      </>}
+      {id === 'stellantis-analytical-foundation' && <>
+        <circle class="faint" cx="300" cy="205" r="110" /><circle cx="300" cy="205" r="76" />
+        {[0,60,120,180,240,300].map(angle => <path transform={`rotate(${angle} 300 205)`} d="M300 188c-40-30-27-67 0-50 24 15 30 35 11 55" />)}
+        <circle cx="300" cy="205" r="18" />
+      </>}
+      {id === 'instruction-modality-study' && <>
+        {[115,265,415].map(x => <><rect x={x} y="125" width="85" height="145" rx="5" class="faint" />
+          <path d={`M${x+20} 155h45m-45 25h30m-30 25h45`} /><circle cx={x+42.5} cy="240" r="9" /></>)}
+        <path d="M212 200h40m100 0h40" />
+      </>}
+    </svg>}
+</div>
+<style>
+  .work-artwork { --art: var(--joyjobs-brand); --art-deep: var(--joyjobs-deep); position: relative; overflow: hidden; border-radius: 5px; aspect-ratio: 16 / 9; color: var(--brand-on-color); background: linear-gradient(135deg, var(--art), var(--art-deep)); }
+  .art-sensors { --art: var(--sensors-brand); --art-deep: var(--sensors-deep); }
+  .art-lightguide { --art: var(--lightguide-brand); --art-deep: var(--lightguide-deep); }
+  .art-stellantis { --art: var(--muted); --art-deep: var(--ink); }
+  .art-logo { position: absolute; z-index: 2; top: var(--space-24); left: var(--space-24); display: block; width: fit-content; }
+  .art-logo img { width: 140px; height: 34px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
+  .art-sensors .art-logo img { width: 58px; height: 46px; }
+  .art-logo:focus-visible { outline-color: var(--brand-on-color); }
+  svg { width: 100%; height: 100%; display: block; opacity: .75; }
+  .faint { opacity: .28; }
+  .art-featured { aspect-ratio: auto; min-height: 490px; display: flex; align-items: end; padding: var(--space-40); }
+  .art-featured::before, .art-featured::after { content: ''; position: absolute; width: 100%; aspect-ratio: 1; border: 1px solid currentColor; opacity: .15; transform: rotate(-25deg); top: -30%; left: 40%; }
+  .art-featured::after { top: -10%; left: 60%; }
+  .art-featured .art-logo { top: var(--space-40); left: var(--space-40); }
+  .art-featured .art-logo img { width: 190px; height: 48px; }
+  .day-one { position: relative; display: grid; line-height: 1; }
+  .day-one > span:first-child { font-size: 2rem; letter-spacing: -.04em; }
+  .day-one strong { font-size: clamp(8rem, 15vw, 14rem); font-weight: 500; letter-spacing: -.08em; margin: var(--space-8) 0 var(--space-32); }
+  .day-one > span:last-child { font-size: 1.1rem; letter-spacing: -.02em; }
+  @media (max-width: 720px) { .art-featured { min-height: 330px; padding: var(--space-32); } .day-one strong { font-size: 8rem; } .art-featured .art-logo { top: var(--space-24); left: var(--space-32); } }
+</style>
