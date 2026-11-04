@@ -10,13 +10,13 @@ type Artwork = { src: ImageMetadata; title: string; year: string; medium: string
 export const artworks: Artwork[] = [
   {
     src: sunset,
-    title: "Sunset study",
+    title: "Between Earth and Sky",
     year: "2026",
-    medium: "Oil",
+    medium: "Oil on canvas",
     dimensions: "20 × 16 in.",
     featured: true,
     alt: "An oil painting of a vivid red and orange sunset beneath violet and grey clouds, above a dark treeline",
-    description: "Bands of coral, orange, and gold settle behind a dark treeline, beneath a sweeping sky of violet and grey. Subtle pareidolia is hidden throughout the painting: familiar forms emerge within the shifting shapes and textures as you look more closely.",
+    description: "A fiery sunset unfolds beneath a sweeping expanse of violet and slate-gray clouds, casting the landscape into deep silhouette. Rich crimson and amber hues contrast with the cool, muted sky, creating a dramatic interplay of light, color, and atmosphere.\n\nWoven throughout the composition, subtle figures, geometric patterns, and cryptic symbols emerge from the seemingly organic forms of clouds and foliage. Through pareidolia, the painting explores the delicate boundary between observation and imagination, inviting viewers to question where nature ends and perception begins.",
   },
   {
     src: colorfulPortrait,
