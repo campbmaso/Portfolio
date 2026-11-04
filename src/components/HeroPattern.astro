@@ -109,7 +109,7 @@ for (let row = -1; row < Math.ceil(640 / stepY) + 1; row++) {
 </script>
 
 <style>
-  .hero-pattern { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--accent); mask-image: linear-gradient(90deg, transparent 15%, #000 90%); }
+  .hero-pattern { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--accent); opacity: .5; mask-image: linear-gradient(90deg, transparent 15%, #000 90%); }
   svg { display: block; width: 100%; height: 100%; }
   .snowflake { fill: var(--accent-tint); fill-opacity: .3; stroke: currentColor; stroke-opacity: .16; stroke-width: .65; transform-box: fill-box; transform-origin: center; transform: translateY(0) scale(.97); transition: transform .8s cubic-bezier(.2,.7,.2,1) .275s, stroke-opacity .8s ease .275s, filter .8s ease .275s; }
   .snowflake.is-lifted { transform: translateY(var(--lift)) scale(var(--grow)); stroke-opacity: .65; filter: drop-shadow(0 7px 4px var(--shadow)); transition-duration: .18s; transition-delay: 0s; }
@@ -117,5 +117,5 @@ for (let row = -1; row < Math.ceil(640 / stepY) + 1; row++) {
   .motion-toggle { position: absolute; z-index: 2; right: var(--space-24); bottom: var(--space-16); padding: var(--space-8) var(--space-12); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--bg); font-size: .7rem; }
   .motion-toggle[hidden] { display: none; }
   @media (prefers-reduced-motion: reduce) { .snowflake, .snowflake.is-lifted { transition: none; transform: none; filter: none; } }
-  @media (max-width: 720px) { .hero-pattern { opacity: .4; mask-image: linear-gradient(90deg, transparent, #000); } }
+  @media (max-width: 720px) { .hero-pattern { opacity: .2; mask-image: linear-gradient(90deg, transparent, #000); } }
 </style>
