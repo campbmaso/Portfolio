@@ -37,15 +37,19 @@ const filters = ["All", "Product", "Research"];
       </div>
       <div class="journal-grid">
         {stories.map(study => <article class="journal-entry" data-category="Product">
-          <div class="entry-meta"><p class="story-category">Product</p><span>{study.data.timeframe}</span></div>
-          <h2><a href={`/stories/${study.id}/`}>{study.data.title}</a></h2>
+          <header class="entry-heading">
+            <h2><a href={`/stories/${study.id}/`}>{study.data.title}</a></h2>
+            <div class="entry-meta"><p class="story-category">Product</p><span>{study.data.timeframe}</span></div>
+          </header>
           <WorkArtwork id={study.id} />
           <p class="entry-summary">{study.data.summary}</p>
           <span class="text-link story-read">Read the story <Arrow /></span>
         </article>)}
         {research.map(brief => <article class="journal-entry" data-category="Research">
-          <div class="entry-meta"><p class="story-category">Research</p><span>{brief.data.status.split(' · ')[0]}</span></div>
-          <h2><a href={`/research/${brief.id}/`}>{brief.data.title}</a></h2>
+          <header class="entry-heading">
+            <h2><a href={`/research/${brief.id}/`}>{brief.data.title}</a></h2>
+            <div class="entry-meta"><p class="story-category">Research</p><span>{brief.data.status.split(' · ')[0]}</span></div>
+          </header>
           <ResearchArtwork id={brief.id} landscape />
           <p class="entry-summary">{brief.data.summary}</p>
           <span class="text-link story-read">Read the brief <Arrow /></span>
@@ -104,9 +108,10 @@ const filters = ["All", "Product", "Research"];
   .story-count { flex-shrink: 0; color: var(--muted); font-size: .8rem; margin: 0; }
   .journal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-64) var(--space-48); }
   .journal-entry { position: relative; display: flex; flex-direction: column; align-items: stretch; border-top: 1px solid var(--line); padding-top: var(--space-24); }
-  .entry-meta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-16); }
+  .entry-heading { min-height: 11rem; padding-bottom: var(--space-24); }
+  .entry-meta { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-16); }
   .entry-meta > span { color: var(--muted); font-size: .8rem; }
-  h2 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 550; letter-spacing: -.025em; line-height: 1.25; margin: var(--space-16) 0 var(--space-24); min-height: 3.75em; }
+  h2 { font-size: clamp(1.4rem, 2vw, 1.75rem); font-weight: 550; letter-spacing: -.025em; line-height: 1.25; margin: 0 0 var(--space-16); }
   .entry-summary { color: var(--muted); font-size: .95rem; line-height: 1.75; margin: var(--space-24) 0; }
   @media (max-width: 900px) { .featured-copy { padding: var(--space-16); } .story-toolbar { align-items: start; flex-direction: column; gap: var(--space-16); } .journal-grid { column-gap: var(--space-32); } }
   @media (max-width: 720px) {
@@ -117,7 +122,8 @@ const filters = ["All", "Product", "Research"];
     .journal-stories { padding-inline: 0; }
     .story-toolbar { margin-bottom: var(--space-32); }
     .journal-grid { grid-template-columns: 1fr; gap: var(--space-48); }
-    h2 { min-height: 0; font-size: 1.6rem; }
+    .entry-heading { min-height: 0; }
+    h2 { font-size: 1.6rem; }
     .story-filters { gap: var(--space-4); }
     .story-filters button { padding-inline: var(--space-12); }
   }
