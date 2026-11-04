@@ -1,44 +1,120 @@
+---
+type Point = { x: number; y: number };
+
+// Three outward Koch refinements keep the fractal crisp without a large SVG.
+function snowflake(radius: number, rotation: number) {
+  let points: Point[] = Array.from({ length: 3 }, (_, i) => {
+    const angle = rotation + i * Math.PI * 2 / 3;
+    return { x: radius * Math.cos(angle), y: radius * Math.sin(angle) };
+  });
+  for (let iteration = 0; iteration < 3; iteration++) {
+    points = points.flatMap((a, i) => {
+      const b = points[(i + 1) % points.length];
+      const dx = (b.x - a.x) / 3;
+      const dy = (b.y - a.y) / 3;
+      return [a, { x: a.x + dx, y: a.y + dy },
+        { x: a.x + 1.5 * dx + Math.sqrt(3) * dy / 2, y: a.y + 1.5 * dy - Math.sqrt(3) * dx / 2 },
+        { x: a.x + 2 * dx, y: a.y + 2 * dy }];
+    });
+  }
+  return points.map((p, i) => `${i ? 'L' : 'M'}${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' ') + 'Z';
+}
+
+// Two sizes, rotated 30 degrees apart, on a triangular lattice.
+const radius = 34;
+const stepX = 2 * Math.sqrt(3) * radius;
+const stepY = 3 * radius;
+const tiles: { x: number; y: number; size: string }[] = [];
+for (let row = -1; row < 8; row++) {
+  for (let column = -1; column < 12; column++) {
+    const x = column * stepX + (row % 2) * stepX / 2;
+    const y = row * stepY;
+    tiles.push({ x, y, size: 'large' },
+      { x: x + stepX / 2, y: y + radius, size: 'small' },
+      { x, y: y + 2 * radius, size: 'small' });
+  }
+}
+---
 <div class="hero-pattern" aria-hidden="true">
   <svg viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" focusable="false">
     <defs>
-      <pattern id="hero-tiles" width="160" height="138.56" patternUnits="userSpaceOnUse">
-        <path d="M0 0H160L80 138.56ZM0 0V138.56H160V0M0 0L160 138.56M160 0L0 138.56" fill="none" stroke="currentColor" stroke-width=".6" />
-        <path class="tile-fill" d="M80 0L160 138.56H0Z" />
-      </pattern>
+      <path id="koch-large" d={snowflake(radius * Math.sqrt(3), 0)} />
+      <path id="koch-small" d={snowflake(radius, Math.PI / 6)} />
     </defs>
-    <g class="tile-drift"><rect x="-160" y="-140" width="1520" height="920" fill="url(#hero-tiles)" /></g>
+    {tiles.map(tile => <g transform={`translate(${tile.x} ${tile.y})`}>
+      <g class="snowflake" data-x={tile.x} data-y={tile.y}>
+        <use href={`#koch-${tile.size}`} />
+      </g>
+    </g>)}
   </svg>
 </div>
 <button class="motion-toggle" type="button" aria-pressed="false" hidden>Pause background</button>
 
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>('.motion-toggle');
-  const pattern = document.querySelector<HTMLElement>('.hero-pattern');
-  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (toggle && pattern) {
-    let paused = preference.matches;
+  document.querySelectorAll<HTMLElement>('.hero-pattern').forEach(pattern => {
+    const hero = pattern.parentElement!;
+    const svg = pattern.querySelector('svg')!;
+    const toggle = hero.querySelector<HTMLButtonElement>('.motion-toggle')!;
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const pointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const tiles = Array.from(pattern.querySelectorAll<SVGGElement>('.snowflake')).map(element => ({
+      element, x: Number(element.dataset.x), y: Number(element.dataset.y),
+    }));
+    let paused = false;
+    let frame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+    const enabled = () => !paused && !preference.matches && pointer.matches;
+    const reset = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      tiles.forEach(({ element }) => element.classList.remove('is-lifted'));
+    };
     const update = () => {
-      pattern.classList.add('is-animated');
-      pattern.classList.toggle('is-paused', paused);
+      reset();
+      pattern.classList.toggle('is-paused', !enabled());
       toggle.setAttribute('aria-pressed', String(paused));
       toggle.textContent = paused ? 'Play background' : 'Pause background';
-      toggle.hidden = preference.matches;
+      toggle.hidden = preference.matches || !pointer.matches;
     };
+    const lift = () => {
+      frame = 0;
+      const matrix = svg.getScreenCTM();
+      if (!matrix || !enabled()) return;
+      const point = new DOMPoint(pointerX, pointerY).matrixTransform(matrix.inverse());
+      for (const tile of tiles) {
+        const proximity = Math.max(0, 1 - Math.hypot(point.x - tile.x, point.y - tile.y) / 115);
+        tile.element.classList.toggle('is-lifted', proximity > 0);
+        if (proximity > 0) {
+          tile.element.style.setProperty('--lift', `${-3 - proximity * 9}px`);
+          tile.element.style.setProperty('--grow', String(1 + proximity * .035));
+        }
+      }
+    };
+    hero.addEventListener('pointermove', event => {
+      if (!enabled() || event.pointerType === 'touch') return;
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      if (!frame) frame = requestAnimationFrame(lift);
+    }, { passive: true });
+    hero.addEventListener('pointerleave', reset);
+    window.addEventListener('blur', reset);
+    window.addEventListener('scroll', reset, { passive: true });
     toggle.addEventListener('click', () => { paused = !paused; update(); });
-    preference.addEventListener('change', () => { paused = preference.matches; update(); });
+    preference.addEventListener('change', update);
+    pointer.addEventListener('change', update);
     update();
-  }
+  });
 </script>
 
 <style>
-  .hero-pattern { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--accent); mask-image: linear-gradient(90deg, transparent 25%, #000 100%); opacity: .55; }
-  svg { width: 100%; height: 100%; }
-  .tile-fill { fill: var(--accent); opacity: .06; }
-  .is-animated .tile-drift { animation: tessellate 32s linear infinite; }
-  .is-paused .tile-drift { animation-play-state: paused; }
+  .hero-pattern { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--accent); mask-image: linear-gradient(90deg, transparent 15%, #000 90%); }
+  svg { display: block; width: 100%; height: 100%; }
+  .snowflake { fill: var(--accent-tint); fill-opacity: .3; stroke: currentColor; stroke-opacity: .16; stroke-width: .65; transform-box: fill-box; transform-origin: center; transform: translateY(0) scale(.97); transition: transform .8s cubic-bezier(.2,.7,.2,1) .22s, fill-opacity .8s ease .22s, stroke-opacity .8s ease .22s, filter .8s ease .22s; }
+  .snowflake.is-lifted { transform: translateY(var(--lift)) scale(var(--grow)); fill-opacity: .95; stroke-opacity: .65; filter: drop-shadow(0 7px 4px var(--shadow)); transition-duration: .18s; transition-delay: 0s; }
+  .is-paused .snowflake { transition: none; }
   .motion-toggle { position: absolute; z-index: 2; right: var(--space-24); bottom: var(--space-16); padding: var(--space-8) var(--space-12); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--bg); font-size: .7rem; }
   .motion-toggle[hidden] { display: none; }
-  @keyframes tessellate { to { transform: translate(160px, 138.56px); } }
-  @media (prefers-reduced-motion: reduce) { .is-animated .tile-drift { animation: none; } }
-  @media (max-width: 720px) { .hero-pattern { opacity: .25; mask-image: linear-gradient(90deg, transparent, #000); } }
+  @media (prefers-reduced-motion: reduce) { .snowflake, .snowflake.is-lifted { transition: none; transform: none; filter: none; } }
+  @media (max-width: 720px) { .hero-pattern { opacity: .4; mask-image: linear-gradient(90deg, transparent, #000); } }
 </style>
