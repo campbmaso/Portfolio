@@ -9,7 +9,7 @@ const studies = (await getCollection("caseStudies")).sort((a,b) => a.data.order-
 const featured = studies.find(study => study.id === "resume-ai")!;
 const stories = studies.filter(study => study.id !== featured.id);
 const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
-const filters = ["Product", "Research"];
+const filters = ["All", "Product", "Research"];
 ---
 <BaseLayout title="Work" description="Product stories from Mason Campbell: building JoyJobs, designing field software, and connecting research to product decisions." canonicalPath="/work/">
   <div class="work-journal">
@@ -64,7 +64,7 @@ const filters = ["Product", "Research"];
     const selectCategory = (button: HTMLButtonElement) => {
       const category = button.dataset.filter;
       buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      stories.forEach(story => { story.hidden = story.dataset.category !== category; });
+      stories.forEach(story => { story.hidden = category !== 'All' && story.dataset.category !== category; });
       const visible = stories.filter(story => !story.hidden).length;
       count.textContent = `${visible} ${visible === 1 ? 'story' : 'stories'}`;
     };
