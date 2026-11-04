@@ -59,7 +59,6 @@ const brands: Record<string, string> = { 'resume-ai': 'joyjobs', 'sensors-platfo
       panels[index].setAttribute('aria-labelledby', tab.id);
       panels[index].tabIndex = 0;
       tab.addEventListener('click', () => activate(index));
-      tab.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') activate(index); });
       tab.addEventListener('keydown', event => {
         const next = event.key === 'ArrowRight' ? (index + 1) % tabs.length : event.key === 'ArrowLeft' ? (index - 1 + tabs.length) % tabs.length : event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : null;
         if (next !== null) { event.preventDefault(); activate(next, true); }
