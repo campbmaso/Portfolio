@@ -52,6 +52,6 @@ export const artworks: Artwork[] = [
     medium: "Oil on canvas",
     dimensions: "Approx. 8 × 10 in.",
     alt: "An oil portrait of Hallie, a Jack Russell Terrier with a tilted head, against a green background, resting on an easel",
-    description: "A spirited portrait of Hallie, a Jack Russell Terrier whose boundless energy and playful curiosity define her character. Set against a lively green backdrop, loose, expressive brushstrokes and vibrant touches of color capture her restless personality. Her tilted head and alert expression offer a fleeting moment of stillness in an otherwise wonderfully chaotic spirit.",
+    description: "A spirited portrait of Hallie, a Jack Russell Terrier whose boundless energy and playful curiosity define her character. Set against a lush green backdrop, loose, expressive brushstrokes and subtle accents of blush rose and pale celadon animate her otherwise white coat, lending unexpected color and vitality to the composition. Her tilted head and alert expression capture a fleeting moment of stillness within an otherwise wonderfully chaotic spirit.",
   },
 ];
