@@ -32,7 +32,7 @@ export const artworks: Artwork[] = [
     title: "Butterfly and flowers",
     year: "2025",
     medium: "Oil",
-    dimensions: "Approx. 8 × 10 in.",
+    dimensions: "10 × 8 in.",
     alt: "A blue butterfly among orange flowers against a yellow and green background",
     description: "A blue butterfly sits among orange flowers and a field of yellow and green. The cooler blue wings create a focal point within the warm colors, with visible brushstrokes adding texture across the surface.",
   },
