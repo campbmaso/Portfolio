@@ -2,9 +2,22 @@ import colorfulPortrait from "../assets/artworks/painting-colorful-portrait.jpg"
 import butterfly from "../assets/artworks/painting-butterfly.jpg";
 import dogPortrait from "../assets/artworks/painting-dog-portrait.jpg";
 import dogOnEasel from "../assets/artworks/painting-dog-on-easel.jpg";
+import sunset from "../assets/artworks/painting-sunset-pareidolia.jpg";
+import type { ImageMetadata } from "astro";
 
-// Descriptive titles and descriptions can be refined here. Dimensions are approximate.
-export const artworks = [
+type Artwork = { src: ImageMetadata; title: string; year: string; medium: string; dimensions: string; alt: string; description: string; featured?: boolean };
+// Descriptive titles and descriptions can be refined here.
+export const artworks: Artwork[] = [
+  {
+    src: sunset,
+    title: "Sunset study",
+    year: "2026",
+    medium: "Oil",
+    dimensions: "20 × 16 in.",
+    featured: true,
+    alt: "An oil painting of a vivid red and orange sunset beneath violet and grey clouds, above a dark treeline",
+    description: "Bands of coral, orange, and gold settle behind a dark treeline, beneath a sweeping sky of violet and grey. Subtle pareidolia is hidden throughout the painting: familiar forms emerge within the shifting shapes and textures as you look more closely.",
+  },
   {
     src: colorfulPortrait,
     title: "Portrait in color",
