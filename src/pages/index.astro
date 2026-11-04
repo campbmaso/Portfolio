@@ -13,8 +13,9 @@ const selected = selectedProjectIds.map(id => allStudies.find(study => study.id 
 const chapters = profile.data.featuredCaseStudies.map(id => ({ study: allStudies.find(item => item.id === id)!, framing: profile.data.chapters?.find(item => item.id === id) }));
 ---
 <BaseLayout title={siteConfig.name} description={siteConfig.description}>
-  <section class="hero shell home-frame">
+  <section class="hero">
     <HeroPattern />
+    <div class="shell">
       <div class="hero-copy">
         <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>{profile.data.eyebrow}</p>
         <h1>{profile.data.headline}</h1>
@@ -22,6 +23,7 @@ const chapters = profile.data.featuredCaseStudies.map(id => ({ study: allStudies
         <p class="hero-location">Based in Southeast Michigan · Open to relocation</p>
         <div class="hero-actions"><a class="button button-primary" href="#selected-work">View selected work <Arrow /></a><a class="text-link" href="/about/">More about me <Arrow /></a></div>
       </div>
+    </div>
   </section>
   <section class="selected-section" id="selected-work">
     <div class="shell home-frame section-pad">

@@ -21,12 +21,12 @@ function snowflake(radius: number, rotation: number) {
 }
 
 // Two sizes, rotated 30 degrees apart, on a triangular lattice.
-const radius = 34;
+const radius = 17;
 const stepX = 2 * Math.sqrt(3) * radius;
 const stepY = 3 * radius;
 const tiles: { x: number; y: number; size: string }[] = [];
-for (let row = -1; row < 8; row++) {
-  for (let column = -1; column < 12; column++) {
+for (let row = -1; row < Math.ceil(640 / stepY) + 1; row++) {
+  for (let column = -1; column < Math.ceil(1200 / stepX) + 1; column++) {
     const x = column * stepX + (row % 2) * stepX / 2;
     const y = row * stepY;
     tiles.push({ x, y, size: 'large' },
@@ -83,7 +83,8 @@ for (let row = -1; row < 8; row++) {
       if (!matrix || !enabled()) return;
       const point = new DOMPoint(pointerX, pointerY).matrixTransform(matrix.inverse());
       for (const tile of tiles) {
-        const proximity = Math.max(0, 1 - Math.hypot(point.x - tile.x, point.y - tile.y) / 115);
+        // Scale the hover neighborhood with the smaller tiles.
+        const proximity = Math.max(0, 1 - Math.hypot(point.x - tile.x, point.y - tile.y) / 57.5);
         tile.element.classList.toggle('is-lifted', proximity > 0);
         if (proximity > 0) {
           tile.element.style.setProperty('--lift', `${-3 - proximity * 9}px`);
@@ -110,7 +111,7 @@ for (let row = -1; row < 8; row++) {
 <style>
   .hero-pattern { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--accent); mask-image: linear-gradient(90deg, transparent 15%, #000 90%); }
   svg { display: block; width: 100%; height: 100%; }
-  .snowflake { fill: var(--accent-tint); fill-opacity: .3; stroke: currentColor; stroke-opacity: .16; stroke-width: .65; transform-box: fill-box; transform-origin: center; transform: translateY(0) scale(.97); transition: transform .8s cubic-bezier(.2,.7,.2,1) .22s, fill-opacity .8s ease .22s, stroke-opacity .8s ease .22s, filter .8s ease .22s; }
+  .snowflake { fill: var(--accent-tint); fill-opacity: .3; stroke: currentColor; stroke-opacity: .16; stroke-width: .65; transform-box: fill-box; transform-origin: center; transform: translateY(0) scale(.97); transition: transform .8s cubic-bezier(.2,.7,.2,1) .275s, fill-opacity .8s ease .275s, stroke-opacity .8s ease .275s, filter .8s ease .275s; }
   .snowflake.is-lifted { transform: translateY(var(--lift)) scale(var(--grow)); fill-opacity: .95; stroke-opacity: .65; filter: drop-shadow(0 7px 4px var(--shadow)); transition-duration: .18s; transition-delay: 0s; }
   .is-paused .snowflake { transition: none; }
   .motion-toggle { position: absolute; z-index: 2; right: var(--space-24); bottom: var(--space-16); padding: var(--space-8) var(--space-12); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--bg); font-size: .7rem; }
