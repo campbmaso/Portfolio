@@ -49,22 +49,22 @@
   summary: I move comfortably from customer discovery to system behavior, using prototypes and instrumentation to help teams reduce risk and ship with confidence.
   featuredCaseStudies:
     - resume-ai
-    - scaling-under-constraints
-    - growth-economics
+    - subscription-model
+    - resume-score
   proofPoints:
-    - value: ~17 sec
-      label: Core AI processing
-      note: Reached through parallel processing and request optimization
-    - value: 40%
-      label: PDF-user failure rate isolated
-      note: Root cause found through transaction analysis
-    - value: "2"
-      label: Delivery environments
-      note: Separated staging and production before accelerating releases
+    - value: Discovery
+      label: Follow the more urgent user need
+      note: Pivoted from career exploration to resume tailoring
+    - value: Workflow
+      label: Preserve the original document
+      note: Connected AI-generated content to a usable resume
+    - value: Applied ML
+      label: Make model output understandable
+      note: Led a cross-functional resume scoring feature
   focusAreas:
-    - AI application architecture
-    - Reliability and observability
-    - Technical discovery
+    - Customer discovery
+    - Applied machine learning
+    - Product monetization
     - Cross-functional delivery
 
 - id: industrial-ai
@@ -73,9 +73,9 @@
   headline: I connect complex technology to the operating reality of customers.
   summary: My path runs from vehicle systems and augmented-reality workflows to edge-to-cloud products and applied AI, with customer evidence guiding the product at every step.
   featuredCaseStudies:
-    - scaling-under-constraints
     - resume-ai
-    - growth-economics
+    - subscription-model
+    - resume-score
   proofPoints:
     - value: AR
       label: Industrial workflows

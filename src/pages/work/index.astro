@@ -19,7 +19,7 @@ const filters = ["All", "Product", "Research"];
         <article class="featured-story">
           <div class="featured-copy">
             <p class="story-category">Featured story · Product</p>
-            <h1 id="featured-title"><a href={`/stories/${featured.id}/`}>Revenue from day one.</a></h1>
+            <h1 id="featured-title"><a href={`/stories/${featured.id}/`}>{featured.data.title}</a></h1>
             <div class="story-author"><img src="/mason-campbell.jpg" alt="" width="48" height="48" /><div><strong>Mason Campbell</strong><span>{featured.data.role}</span></div></div>
             <p class="featured-summary">{featured.data.summary}</p>
             <span class="text-link story-read">Read the story <Arrow /></span>

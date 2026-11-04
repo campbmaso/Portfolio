@@ -14,6 +14,7 @@ Thumbs.db
 
 # private authoring sources - never publish these
 Career Story Bank*.docx
+Career Story Bank*.md
 Professional Headshot.jpeg
 
 # local QA artifacts

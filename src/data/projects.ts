@@ -4,8 +4,8 @@ export const companyLogos: Record<string, string> = {
   "lightguide-ar-workflows": "/company-logos/lightguide.png",
   "resume-ai": "/company-logos/joyjobs.png",
   "sensors-platform-strategy": "/company-logos/sensors.png",
-  "growth-economics": "/company-logos/joyjobs.png",
-  "scaling-under-constraints": "/company-logos/joyjobs.png",
+  "subscription-model": "/company-logos/joyjobs.png",
+  "resume-score": "/company-logos/joyjobs.png",
   "instruction-modality-study": "/company-logos/lightguide.png",
 };
 export const companyNames: Record<string, string> = {
@@ -13,8 +13,8 @@ export const companyNames: Record<string, string> = {
   "lightguide-ar-workflows": "LightGuide",
   "resume-ai": "JoyJobs.ai",
   "sensors-platform-strategy": "Sensors, Inc.",
-  "growth-economics": "JoyJobs.ai",
-  "scaling-under-constraints": "JoyJobs.ai",
+  "subscription-model": "JoyJobs.ai",
+  "resume-score": "JoyJobs.ai",
   "instruction-modality-study": "LightGuide",
 };
 export const companyHomepages: Record<string, string> = {
@@ -22,14 +22,14 @@ export const companyHomepages: Record<string, string> = {
   "lightguide-ar-workflows": "https://www.lightguidesys.com/",
   "resume-ai": "https://joyjobs.ai/",
   "sensors-platform-strategy": "https://sensors-inc.com/",
-  "growth-economics": "https://joyjobs.ai/",
-  "scaling-under-constraints": "https://joyjobs.ai/",
+  "subscription-model": "https://joyjobs.ai/",
+  "resume-score": "https://joyjobs.ai/",
   "instruction-modality-study": "https://www.lightguidesys.com/",
 };
 export const nextProjects: Record<string, string> = {
-  "resume-ai": "growth-economics",
-  "growth-economics": "scaling-under-constraints",
-  "scaling-under-constraints": "resume-ai",
+  "resume-ai": "subscription-model",
+  "subscription-model": "resume-score",
+  "resume-score": "resume-ai",
   "sensors-platform-strategy": "lightguide-ar-workflows",
   "lightguide-ar-workflows": "instruction-modality-study",
   "instruction-modality-study": "stellantis-analytical-foundation",

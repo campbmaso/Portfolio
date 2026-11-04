@@ -1,0 +1,9 @@
+# Keep published JoyJobs URLs useful after consolidating the stories.
+/stories/growth-economics /stories/subscription-model/ 301
+/stories/growth-economics/ /stories/subscription-model/ 301
+/work/growth-economics /stories/subscription-model/ 301
+/work/growth-economics/ /stories/subscription-model/ 301
+/stories/scaling-under-constraints /stories/resume-ai/ 301
+/stories/scaling-under-constraints/ /stories/resume-ai/ 301
+/work/scaling-under-constraints /stories/resume-ai/ 301
+/work/scaling-under-constraints/ /stories/resume-ai/ 301

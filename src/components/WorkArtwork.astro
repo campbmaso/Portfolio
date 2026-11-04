@@ -6,7 +6,21 @@ const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || 
 ---
 <div class:list={['work-artwork', `art-${brand}`, { 'art-featured': featured }]}>
   <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a>
-  {featured ? <div class="day-one" aria-hidden="true"><span>Day</span><strong>01</strong><span>From idea to product.</span></div> :
+  {featured ? <div class="featured-workflow" aria-hidden="true">
+      <span class="featured-transition">CareerAI <span>→</span> ResumeAI</span>
+      <svg viewBox="0 0 460 200" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
+        <rect x="20" y="12" width="136" height="176" rx="6" class="faint" />
+        <rect x="304" y="12" width="136" height="176" rx="6" />
+        {[20, 304].map(x => <>
+          <path d={`M${x+20} 40h68m-68 12h45`} />
+          <path class="faint" d={`M${x+20} 78h96m-96 44h96`} />
+          {[91, 103, 135, 147, 159].map(y => <path d={`M${x+20} ${y}h${y === 103 || y === 159 ? 70 : 96}`} />)}
+        </>)}
+        <path d="M188 100h84m-12-12 12 12-12 12" />
+        <path class="faint" d="M174 40h112M174 160h112" stroke-dasharray="3 6" />
+      </svg>
+      <strong>Tailored content.<br />Original formatting.</strong>
+    </div> :
     <svg viewBox="0 0 600 340" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2">
       {id === 'sensors-platform-strategy' && <>
         {[130, 190, 250].map(y => <path class="faint" d={`M60 ${y}H540`} />)}
@@ -18,18 +32,25 @@ const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || 
         <path d="m222 192 78-44 78 44-78 44Zm0 0v74l78 44 78-44v-74M300 236v74" />
         <path stroke-width="4" d="M195 185v-28h28M377 157h28v28M405 277v28h-28M223 305h-28v-28" />
       </>}
-      {id === 'growth-economics' && <>
-        <path class="faint" d="M80 220H520" />
-        <path d="M80 220h100c80 0 70-100 150-100h190M180 220c80 0 70 60 150 60h190" />
-        <circle cx="180" cy="220" r="8" fill="currentColor" />
-        <circle cx="440" cy="120" r="18" /><path d="m432 120 6 6 11-13" />
-        <circle cx="440" cy="280" r="18" /><path d="M432 280h16" />
+      {id === 'subscription-model' && <>
+        {[110, 142, 174].map((x, index) => <rect x={x} y={135 + index*24} width="112" height="74" rx="6" class={index < 2 ? 'faint' : undefined} />)}
+        <path d="M310 207h58m-12-12 12 12-12 12" />
+        <rect x="405" y="130" width="120" height="152" rx="8" />
+        <path d="M437 197a28 28 0 0 1 48-18l8 8m0-18v18h-18M493 217a28 28 0 0 1-48 18l-8-8m0 18v-18h18" />
+        <text x="194" y="304" text-anchor="middle" stroke="none" fill="currentColor" font-size="16">Usage packages</text>
+        <text x="465" y="304" text-anchor="middle" stroke="none" fill="currentColor" font-size="16">Subscription</text>
       </>}
-      {id === 'scaling-under-constraints' && <>
-        <rect class="faint" x="120" y="115" width="128" height="170" rx="8" />
-        <rect x="352" y="115" width="128" height="170" rx="8" />
-        {[150,177,204,231].map(y => <><path class="faint" d={`M145 ${y}h78`} /><path d={`M377 ${y}h78`} /></>)}
-        <path d="M270 200h60m-12-12 12 12-12 12" />
+      {id === 'resume-score' && <>
+        <rect x="78" y="120" width="120" height="166" rx="6" class="faint" />
+        {[147, 170, 193, 216, 239, 262].map(y => <path d={`M98 ${y}h${y === 170 || y === 239 ? 57 : 80}`} />)}
+        <path d="M220 202h56m-12-12 12 12-12 12" />
+        <rect x="300" y="120" width="222" height="166" rx="8" />
+        <text x="320" y="151" stroke="none" fill="currentColor" font-size="18">Score breakdown</text>
+        <path class="faint" d="M320 165h182M320 217h182" />
+        <circle cx="333" cy="191" r="9" /><path d="m329 191 3 3 6-7" />
+        <circle cx="333" cy="243" r="9" /><path d="M333 238v10m-5-5h10" />
+        <text x="355" y="197" stroke="none" fill="currentColor" font-size="16">Technical skills</text>
+        <text x="355" y="249" stroke="none" fill="currentColor" font-size="16">Soft skills</text>
       </>}
       {id === 'stellantis-analytical-foundation' && <>
         <circle class="faint" cx="300" cy="205" r="110" /><circle cx="300" cy="205" r="76" />
@@ -59,9 +80,10 @@ const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || 
   .art-featured::after { top: -10%; left: 60%; }
   .art-featured .art-logo { top: var(--space-40); left: var(--space-40); }
   .art-featured .art-logo img { width: 190px; height: 48px; }
-  .day-one { position: relative; display: grid; line-height: 1; }
-  .day-one > span:first-child { font-size: 2rem; letter-spacing: -.04em; }
-  .day-one strong { font-size: clamp(8rem, 15vw, 14rem); font-weight: 500; letter-spacing: -.08em; margin: var(--space-8) 0 var(--space-32); }
-  .day-one > span:last-child { font-size: 1.1rem; letter-spacing: -.02em; }
-  @media (max-width: 720px) { .art-featured { min-height: 330px; padding: var(--space-32); } .day-one strong { font-size: 8rem; } .art-featured .art-logo { top: var(--space-24); left: var(--space-32); } }
+  .featured-workflow { position: relative; width: 100%; margin-top: var(--space-80); }
+  .featured-transition { display: flex; gap: var(--space-16); align-items: center; font-size: 1rem; font-weight: 500; }
+  .featured-transition > span { opacity: .6; }
+  .featured-workflow svg { height: auto; margin: var(--space-24) 0; }
+  .featured-workflow strong { display: block; font-size: clamp(1.7rem, 2.6vw, 2.25rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.2; }
+  @media (max-width: 720px) { .art-featured { min-height: 330px; padding: var(--space-32); } .art-featured .art-logo { top: var(--space-24); left: var(--space-32); } }
 </style>

@@ -1,20 +1,26 @@
 ---
-title: Pivoting to resume tailoring that preserves the document
+title: Pivoting from CareerAI to ResumeAI
 eyebrow: Discovery · Product building
-summary: Customer interviews shifted our focus from long-term career fulfillment to a more immediate need—tailoring resumes for job applications.
+summary: Low repeat use led us from career exploration to resume tailoring. I built and tested a workflow that returned a tailored document while preserving the user's formatting.
 order: 1
 featured: true
 status: Resume workflow launched October 2023
-scope: Customer discovery, prototypes, document workflow, and technical execution with my cofounder
+scope: Customer discovery with my cofounder, AI and document prototypes, interaction design, usability testing, and technical delivery
 timeframe: 2023–2025
 context: JoyJobs.ai
 role: Technical Co-Founder & Head of Product
-challenge: Job seekers valued career exploration, but told us they needed more immediate help landing interviews and managing a time-consuming application process.
-outcome: My cofounder and I shifted our focus to resume tailoring, tested the concept with users, and launched a workflow that rewrote content while preserving document formatting.
+challenge: People liked our career-exploration product but rarely returned. Interviews revealed a more urgent need, and our first resume prototype still left users copying text and repairing their documents.
+outcome: We pivoted to ResumeAI, tested the complete tailoring workflow with users, and launched in October 2023. The product generated revenue from its first day.
 metrics:
-  - value: ~17 sec
-    label: Core processing path
-    note: Approximate core processing path; not total time for every document
+  - value: Oct 2023
+    label: ResumeAI launch
+    note: Following prototypes, interviews, and moderated and unmoderated usability tests
+  - value: Day one
+    label: First product revenue
+    note: Revenue began on launch day, before paid marketing
+  - value: ~45 → ~17 sec
+    label: Complete resume processing
+    note: Post-launch improvement for paying customers; approximate timings for the full processing flow
 capabilities:
   - Customer discovery
   - Product strategy
@@ -23,38 +29,52 @@ capabilities:
   - Workflow design
   - Usability testing
 evidence:
-  - Customer interviews and usability sessions
-  - Product prototypes and customer feedback
-  - Production error logs and document analysis
+  - Customer interviews following low repeat use of CareerAI
+  - Text-only and direct-document prototypes
+  - Moderated and unmoderated usability testing
+  - October 2023 launch and first-day product revenue
+  - Post-launch timing of the complete processing flow for paying customers
 ---
 
-## Follow the more urgent problem
+## Positive feedback was not repeat use
 
-Our first product helped people explore more fulfilling careers. I built the initial prototype and entered information by hand during calls with early testers before building an interface. People signed up after launch, but few returned.
+Our first product, CareerAI, helped people explore more fulfilling careers. I built the initial prototype and entered information by hand during calls with early testers. Positive feedback gave us a reason to build an interface, test it further, and launch in April 2023.
 
-My cofounder and I interviewed job seekers to understand why. They saw value in longer-term career exploration, but their immediate concern was landing interviews. Tailoring applications was repetitive and time-consuming, so we chose to focus on that part of the job search.
+People signed up, but few returned. My cofounder and I interviewed job seekers to understand the gap between their feedback and their behavior. They saw value in longer-term career exploration, but landing interviews was the problem they needed to solve now. Tailoring applications was repetitive and time-consuming.
 
-## Test the value, then improve the workflow
+That research changed our priority. We decided to build around the application process, using what we had learned from CareerAI to find a more immediate job for the product.
 
-I built a basic prototype in a few days that used an AI model to rewrite copied resume text. Testers responded positively, but they still had to move the text back into their documents. We chose to pursue direct document modification so users could keep their original layout.
+## Validate the rewrite, then finish the task
 
-I built the document workflow, including handling the underlying document structure to preserve formatting. We tested the experience with both returning and new users and iterated on the interface before launching in October 2023. I also used parallel processing and other optimizations to bring the core processing path to approximately 17 seconds.
+I coded a basic ResumeAI prototype in a few days. It used an AI model to modify copied resume text, which let us test the idea with people we had interviewed without first building a complete interface.
 
-## Choose broader access over polishing one format
+The response to the rewritten content was encouraging, but the workflow left substantial work to the user. They still had to copy the output into their resume, put each change in the right place, and repair the layout. Generating useful text solved only part of the task.
 
-After launch, customers requested PDF support and reported errors in resumes containing tables. The team had a choice: continue improving the text changes for existing DOCX users, or expand support to files that were currently failing or excluded. We prioritized PDF and table support, using customer reports and document investigation to guide the work.
+We made direct document modification the next priority. The product needed to return a usable resume in the user's existing format.
 
-The result was a broader workflow grounded in the files people actually brought to the product. The experience taught me to treat the entire task—from the user's starting document to the finished resume—as the product.
+## Design around the original document
 
+I first proved that I could change text inside the document, then connected that workflow to AI-generated revisions. Preserving the original formatting required further work on the document's underlying structure and repeated iteration with user-submitted files.
+We tested the evolving experience with both returning and new users. Requests to join the waitlist gave us another signal to continue, while usability sessions helped us refine the submission flow and interface.
 
-## Reduce effort around the core task
+I iterated through moderated and unmoderated tests before launch. The sequence mattered: first establish that the tailored content was useful, then make the document usable, then test the complete experience people would actually encounter.
 
-After the core workflow, I led development of a published browser extension that brought job-posting information into the application flow. It addressed the effort of switching between a job posting and the resume tool. Saved-resume reuse was another later addition to the workflow.
+## Launch, then follow the files people bring
 
-These changes addressed repeated user effort around the generation step. They were separate iterations, not features all present in the first launch.
+ResumeAI launched in October 2023 with usage packages and generated revenue on the first day, before we spent on paid marketing.
 
-## Outcome and limits
+Early customers asked for PDF support and reported problems with resumes containing tables. We chose to broaden document support before further polishing the text changes for files that already worked. Those were post-launch iterations, guided by the documents and feedback users brought us.
 
-We launched the document workflow in October 2023 and expanded it based on customer reports and usability feedback. The approximately 17-second figure describes the optimized core processing path. It is not a claim about every document or the complete task from upload to download.
+## Reduce the wait for a finished resume
 
-The processing figure describes system speed. It does not establish an improvement in interview outcomes. The later monetization work is covered in a separate project.
+Processing speed also mattered to the complete experience. After launch, I reduced resume processing from approximately 45 seconds to approximately 17 seconds for paying customers. Those timings covered the full processing flow.
+
+This work addressed another part of the user's effort: the wait between submitting a resume and receiving the tailored document. It followed the initial launch, alongside the continuing work on document support and usability.
+
+## What changed
+
+We moved from a career-exploration product with weak repeat use to a launched resume-tailoring workflow. My contribution connected discovery, prototypes, document handling, interface design, and usability testing; the pivot itself was a decision my cofounder and I made together.
+
+The most consequential design choice was treating the finished resume as the product. Preserving its formatting removed the copy-and-repair work our first prototype had left behind. Launching it and earning revenue gave us evidence that people would pay for that complete workflow.
+
+The next commercial decision was [moving from usage packages to subscriptions](/stories/subscription-model/).
