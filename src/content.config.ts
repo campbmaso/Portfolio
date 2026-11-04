@@ -51,4 +51,15 @@ const roleProfiles = defineCollection({
   }),
 });
 
-export const collections = { caseStudies, roleProfiles };
+const research = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/research" }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    order: z.number().int().positive(),
+    question: z.string(),
+    status: z.string(),
+  }),
+});
+
+export const collections = { caseStudies, roleProfiles, research };

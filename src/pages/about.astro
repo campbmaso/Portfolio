@@ -1,20 +1,22 @@
 ---
+import { getCollection } from "astro:content";
+import Arrow from "../components/Arrow.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ArtworkGallery from "../components/ArtworkGallery.astro";
+const research = Object.fromEntries((await getCollection("research")).map(brief => [brief.id, brief.data]));
 ---
 
 <BaseLayout title="About" description="Meet Mason Campbell, a product manager and technical co-founder based in Southeast Michigan and open to relocation.">
   <section class="about-hero">
     <div class="shell about-shell">
-      <div class="intro-label"><span class="dot" aria-hidden="true"></span> ABOUT · THE PERSON</div>
       <div class="intro-grid">
         <div>
           <h1>Engineering roots.<br />Product ownership.</h1>
-          <p class="intro-lead">I’m Mason, a product manager and technical co-founder based in Southeast Michigan. My work spans AI software, augmented reality guidance, and measurement tools.</p>
+          <p class="intro-lead">I’m Mason, a product manager and technical co-founder based in Southeast Michigan and open to relocation. My work spans AI software, augmented reality guidance, and measurement tools.</p>
         </div>
         <div class="portrait-wrap">
           <img src="/mason-campbell.jpg" alt="Mason Campbell" width="400" height="400" />
-          <div class="portrait-caption"><span>BASED IN</span><strong>Southeast Michigan</strong></div>
+          <div class="portrait-caption"><strong>Southeast Michigan</strong><span>· Open to relocation</span></div>
         </div>
       </div>
       <div class="background-grid">
@@ -27,7 +29,7 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
           <a class="about-link" href="/work/">Explore my work</a>
         </div>
       </div>
-      <section class="research-section" aria-labelledby="research-title">
+      <section class="research-section" id="research" aria-labelledby="research-title">
         <div class="research-heading">
           <div>
             <p class="section-index">02 · RESEARCH</p>
@@ -40,6 +42,7 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
         </div>
         <div class="research-grid">
           <article class="research-card">
+            <a class="research-card-link" href="/research/learned-representations/">
             <div class="research-visual representation-visual" aria-hidden="true">
               <span class="visual-index">01 / REPRESENTATION</span>
               <svg viewBox="0 0 320 300" fill="none" focusable="false">
@@ -57,10 +60,13 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
                 </g>
               </svg>
             </div>
-            <h3>Learned representations</h3>
+            <h3>{research["learned-representations"].title}</h3>
             <p>How do learned representations encode concepts, support reasoning, and shape behavior?</p>
+              <span class="research-read">Read the brief <Arrow /></span>
+            </a>
           </article>
           <article class="research-card">
+            <a class="research-card-link" href="/research/reasoning-and-training/">
             <div class="research-visual reasoning-visual" aria-hidden="true">
               <span class="visual-index">02 / REASONING</span>
               <svg viewBox="0 0 320 300" fill="none" focusable="false">
@@ -73,10 +79,13 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
                 <g class="diagram-nodes"><circle cx="47" cy="220" r="9" /><circle cx="112" cy="82" r="7" /><circle cx="165" cy="210" r="7" /><circle cx="228" cy="90" r="7" /><circle cx="275" cy="144" r="12" /></g>
               </svg>
             </div>
-            <h3>Reasoning and training</h3>
+            <h3>{research["reasoning-and-training"].title}</h3>
             <p>How does information change as models reason, and how does training change what they represent and do?</p>
+              <span class="research-read">Read the brief <Arrow /></span>
+            </a>
           </article>
           <article class="research-card">
+            <a class="research-card-link" href="/research/career-information-compression/">
             <div class="research-visual compression-visual" aria-hidden="true">
               <span class="visual-index">03 / COMPRESSION</span>
               <svg viewBox="0 0 320 300" fill="none" focusable="false">
@@ -89,8 +98,10 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
                 <g class="diagram-emphasis"><path d="M219 124H267M219 141H254M219 158H267M219 175H247" /></g>
               </svg>
             </div>
-            <h3>Career information, compressed</h3>
+            <h3>{research["career-information-compression"].title}</h3>
             <p>What is preserved or lost when a longer work history is compressed into a résumé?</p>
+              <span class="research-read">Read the brief <Arrow /></span>
+            </a>
           </article>
         </div>
       </section>
@@ -114,17 +125,15 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
 <style>
   .about-hero { overflow: hidden; }
   .about-shell { border-inline: 1px solid var(--line); }
-  .intro-label, .section-index { margin: 0; color: var(--accent-ink); font-size: .75rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
-  .intro-label { display: flex; align-items: center; gap: var(--space-8); padding: var(--space-32) clamp(var(--space-16), 3vw, var(--space-48)); border-bottom: 1px solid var(--line); }
-  .dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent); }
+  .section-index { margin: 0; color: var(--accent-ink); font-size: .75rem; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; }
   .intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .38fr); gap: clamp(var(--space-32), 6vw, var(--space-96)); align-items: end; padding: clamp(var(--space-56), 7vw, var(--space-104)) clamp(var(--space-16), 3vw, var(--space-48)); }
   h1, h2 { margin: 0; color: var(--ink); font-weight: 650; letter-spacing: -.035em; line-height: 1.03; }
   h1 { max-width: 18ch; font-size: var(--text-h1); font-weight: var(--weight-h1); line-height: 1.12; }
   .intro-lead { max-width: 34rem; margin: var(--space-24) 0 0; color: var(--muted); font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.7; }
   .portrait-wrap { max-width: 285px; justify-self: end; width: 100%; }
   .portrait-wrap img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
-  .portrait-caption { display: flex; justify-content: space-between; gap: var(--space-16); padding-top: var(--space-12); font-size: .7rem; }
-  .portrait-caption span { color: var(--muted); font-weight: 700; letter-spacing: .06em; }
+  .portrait-caption { display: flex; flex-wrap: wrap; gap: var(--space-4); padding-top: var(--space-12); font-size: .7rem; }
+  .portrait-caption span { color: var(--muted); font-weight: 500; }
   .portrait-caption strong { font-weight: 700; }
   .background-grid, .creative-heading { display: grid; grid-template-columns: minmax(150px, .38fr) minmax(0, 1fr); gap: var(--space-32); padding: clamp(var(--space-32), 4vw, var(--space-56)) clamp(var(--space-16), 3vw, var(--space-48)); border-top: 1px solid var(--line); }
   .background-copy { max-width: 43rem; }
@@ -135,7 +144,7 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
   .about-link:hover { text-decoration: underline; text-underline-offset: .25em; }
   .creative-section { padding-bottom: clamp(var(--space-64), 7vw, var(--space-112)); background: var(--surface); }
   .creative-heading { border-bottom: 1px solid var(--line); }
-  .research-section { padding: clamp(var(--space-40), 5vw, var(--space-72)) clamp(var(--space-16), 3vw, var(--space-48)); border-top: 1px solid var(--line); }
+  .research-section { scroll-margin-top: var(--space-24); padding: clamp(var(--space-40), 5vw, var(--space-72)) clamp(var(--space-16), 3vw, var(--space-48)); border-top: 1px solid var(--line); }
   .research-heading { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(var(--space-24), 5vw, var(--space-64)); align-items: start; margin-bottom: var(--space-40); }
   .research-heading h2 { max-width: 23ch; margin-top: var(--space-16); font-size: clamp(1.65rem, 2.5vw, 2.2rem); font-weight: 550; line-height: 1.2; }
   .research-intro { padding-top: var(--space-4); }
@@ -143,6 +152,11 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
   .research-intro .research-status { margin: 0; color: var(--ink); font-size: .8rem; font-weight: 600; }
   .research-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-24); }
   .research-card { min-width: 0; }
+  .research-card-link { display: block; height: 100%; text-decoration: none; border-radius: 4px; }
+  .research-visual { transition: transform .22s ease, box-shadow .22s ease; }
+  .research-card-link:hover .research-visual, .research-card-link:focus-visible .research-visual { transform: translateY(-4px); box-shadow: 0 12px 24px -12px var(--shadow); }
+  .research-card-link:hover h3 { text-decoration: underline; text-underline-offset: .2em; }
+  .research-read { display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); color: var(--accent-link); font-size: .9rem; font-weight: 600; }
   .research-visual { position: relative; overflow: hidden; aspect-ratio: 1 / 1.1; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
   .visual-index { position: absolute; top: var(--space-16); left: var(--space-16); color: var(--muted); font-size: .62rem; font-weight: 600; letter-spacing: .1em; }
   .research-visual svg { position: absolute; inset: 12% 0 0; width: 100%; height: 88%; }
@@ -156,7 +170,7 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
   .diagram-nodes { fill: var(--accent); stroke: var(--ink); stroke-width: 1.25; }
   .diagram-emphasis { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
   .research-card h3 { margin: var(--space-24) 0 var(--space-8); color: var(--ink); font-size: 1.08rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.35; }
-  .research-card > p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.7; }
+  .research-card-link > p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.7; }
   @media (max-width: 720px) {
     .intro-grid { grid-template-columns: 1fr; }
     .portrait-wrap { justify-self: start; max-width: 230px; }

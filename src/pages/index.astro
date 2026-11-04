@@ -2,11 +2,10 @@
 import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { activeProfile, siteConfig } from "../site-config";
-import { selectedProjectIds } from "../data/projects";
-import CareerHighlights from "../components/CareerHighlights.astro";
+import { selectedProjectIds, companyLogos, companyNames, companyHomepages } from "../data/projects";
+import SelectedWork from "../components/SelectedWork.astro";
 import HeroPattern from "../components/HeroPattern.astro";
 import Arrow from "../components/Arrow.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 const profile = await getEntry("roleProfiles", activeProfile);
 if (!profile) throw new Error("Missing active role profile: " + activeProfile);
 const allStudies = await getCollection("caseStudies");
@@ -27,14 +26,18 @@ const chapters = profile.data.featuredCaseStudies.map(id => ({ study: allStudies
   <section class="selected-section" id="selected-work">
     <div class="shell home-frame section-pad">
       <div class="section-heading"><div><p class="eyebrow">Selected work</p><h2>AI software, field tools,<br />and AR guidance.</h2></div><p>Three contexts where customer workflows shaped what I built and how I chose the next step.</p></div>
-      <div class="project-grid">{selected.map(study => <ProjectCard study={study} />)}</div>
-      <a class="text-link section-end-link" href="/work/">Explore all work <Arrow /></a>
+      <a class="text-link selected-all-link" href="/work/">All experience &amp; stories <Arrow /></a>
+      <SelectedWork studies={selected} />
     </div>
   </section>
   <section class="career-section" id="work">
     <div class="shell home-frame section-pad">
       <div class="section-heading"><div><p class="eyebrow">Experience</p><h2>How the skills connect.</h2></div><p>Analytical rigor, user research, building from 0 to 1, and product ownership across my career.</p></div>
-      <CareerHighlights chapters={chapters} />
+      <div class="career-list">{chapters.map(({ study, framing }) => <article class="career-item" id={`chapter-${study.id}`}>
+        <div class="career-company"><a class="company-link" href={companyHomepages[study.id]} aria-label={`Visit ${companyNames[study.id]} homepage`}><img src={companyLogos[study.id]} alt={companyNames[study.id]} width="96" height="40" /></a><span>{study.data.timeframe}</span></div>
+        <div><p class="career-skill">{framing?.skill}</p><p>{framing?.evidence}</p></div>
+        <a class="text-link" href={`/stories/${study.id}/`} aria-label={`View work: ${companyNames[study.id]}`}>View work <Arrow /></a>
+      </article>)}</div>
     </div>
   </section>
 </BaseLayout>

@@ -21,6 +21,14 @@
   --on-accent: var(--ink);
   --focus: var(--ink);
   --shadow: rgba(0, 0, 0, 0.08);
+  /* Selected-work colors follow the accents in each company's logo. */
+  --joyjobs-brand: #723ce6;
+  --joyjobs-deep: #35146f;
+  --sensors-brand: #33479d;
+  --sensors-deep: #17603a;
+  --lightguide-brand: #ed1c24;
+  --lightguide-deep: #8a1015;
+  --brand-on-color: #ffffff;
   /* Spacing scale: 8px steps, with 4px steps for fine details. */
   --space-4: 0.25rem;
   --space-8: 0.5rem;
