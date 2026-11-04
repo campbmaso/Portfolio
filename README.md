@@ -46,6 +46,13 @@ The production build is written to `dist/`, and `wrangler.jsonc` serves that dir
 
 Cloudflare will create preview versions for non-production branches when Workers Builds is connected to GitHub.
 
+## Staging and production
+
+- `main` deploys the public production site at https://portfolio.campbmaso.workers.dev/.
+- `staging` builds a Cloudflare preview. Use the stable branch alias shown in its successful Workers Builds check to review the latest staging version.
+- Both branches run the Site quality validation workflow. Develop and review changes on `staging`, then promote the reviewed commit to `main` to release it.
+- A version URL points to one specific uploaded version. A branch preview alias follows subsequent successful builds from that branch. The wildcard `*-portfolio.campbmaso.workers.dev` describes these URLs; it is not itself a staging website.
+
 ## Privacy
 
 The Career Story Bank is deliberately ignored by Git. It remains a private authoring input and is not part of the deployed site.
