@@ -1,66 +1,29 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkStoryLayout from "../../layouts/WorkStoryLayout.astro";
+import ResearchArtwork from "../../components/ResearchArtwork.astro";
 import Arrow from "../../components/Arrow.astro";
-
 export async function getStaticPaths() {
   return (await getCollection("research")).map(brief => ({ params: { id: brief.id }, props: { brief } }));
 }
-
 interface Props { brief: CollectionEntry<"research">; }
 const { brief } = Astro.props;
 const { Content } = await render(brief);
-const otherBriefs = (await getCollection("research"))
-  .filter(item => item.id !== brief.id)
-  .sort((a, b) => a.data.order - b.data.order);
+const otherBriefs = (await getCollection("research")).filter(item => item.id !== brief.id).sort((a, b) => a.data.order - b.data.order);
 ---
-
-<BaseLayout title={brief.data.title} description={brief.data.summary} canonicalPath={`/research/${brief.id}/`}>
-  <article class="research-brief shell">
-    <div class="reading-column">
-      <header class="brief-header">
-        <a class="text-link brief-back" href="/about/#research"><span aria-hidden="true">←</span> Back to research</a>
-        <p class="eyebrow">Research brief</p>
-        <h1>{brief.data.title}</h1>
-        <p class="brief-status">{brief.data.status}</p>
-        <p class="brief-summary">{brief.data.summary}</p>
-      </header>
-      <section class="research-question" aria-labelledby="question-title">
-        <h2 id="question-title">The research question</h2>
-        <p>{brief.data.question}</p>
-      </section>
-      <div class="brief-content"><Content /></div>
-      <nav class="related-research" aria-label="More research briefs">
-        <h2>More research questions</h2>
-        {otherBriefs.map(item => <a class="text-link" href={`/research/${item.id}/`}>{item.data.title} <Arrow /></a>)}
-        <a class="text-link return-link" href="/about/#research">All research</a>
-      </nav>
-    </div>
-  </article>
-</BaseLayout>
-
+<WorkStoryLayout title={brief.data.title} summary={brief.data.summary} category="Research" eyebrow="Research brief" canonicalPath={`/research/${brief.id}/`} resultHeading={brief.data.outcomeLabel} outcome={brief.data.outcome ?? brief.data.question} metrics={brief.data.metrics} metricHeading="Study scope">
+  <Fragment slot="context">
+    <div class="brief-artwork"><ResearchArtwork id={brief.id} landscape /></div>
+    <dl><div><dt>Research status</dt><dd>{brief.data.status}</dd></div></dl>
+  </Fragment>
+  <Content />
+  <Fragment slot="related">
+    <h2>More research</h2>
+    {otherBriefs.map(item => <a class="text-link" href={`/research/${item.id}/`}>{item.data.title} <Arrow /></a>)}
+    <a class="text-link" href="/about/#research">Back to research <Arrow /></a>
+    <a class="text-link" href="/work/">All work <Arrow /></a>
+  </Fragment>
+</WorkStoryLayout>
 <style>
-  .research-brief { border-inline: 1px solid var(--line); padding: var(--space-48) clamp(var(--space-24), 5vw, var(--space-64)) var(--space-80); }
-  .reading-column { max-width: 46rem; margin-inline: auto; }
-  .brief-back { margin-bottom: var(--space-48); }
-  .brief-header h1 { margin: var(--space-16) 0; font-size: var(--text-h1); font-weight: var(--weight-h1); letter-spacing: -.035em; line-height: 1.12; }
-  .brief-status { margin: var(--space-16) 0; color: var(--accent-link); font-size: .8rem; font-weight: 600; }
-  .brief-summary { margin: var(--space-24) 0 0; color: var(--muted); font-size: 1.1rem; line-height: 1.75; }
-  .research-question { margin-block: var(--space-40); padding: var(--space-24); border-left: 3px solid var(--accent); background: var(--surface); }
-  .research-question h2 { margin: 0 0 var(--space-12); font-size: .8rem; font-weight: 650; }
-  .research-question p { margin: 0; font-size: 1.2rem; line-height: 1.55; }
-  .brief-content :global(h2) { margin: var(--space-40) 0 var(--space-16); font-size: clamp(1.45rem, 2.5vw, 1.8rem); font-weight: 550; letter-spacing: -.025em; line-height: 1.25; }
-  .brief-content :global(p), .brief-content :global(li) { color: var(--muted); font-size: 1rem; line-height: 1.85; }
-  .brief-content :global(p) { margin: 0 0 var(--space-16); }
-  .brief-content :global(ul) { padding-left: var(--space-24); }
-  .brief-content :global(li) { margin-bottom: var(--space-8); }
-  .related-research { display: grid; gap: var(--space-16); margin-top: var(--space-48); padding-top: var(--space-32); border-top: 1px solid var(--line); }
-  .related-research h2 { margin: 0 0 var(--space-8); font-size: 1rem; font-weight: 600; }
-  .related-research a { width: fit-content; }
-  .related-research .return-link { margin-top: var(--space-8); }
-  @media (max-width: 720px) {
-    .research-brief { padding-top: var(--space-32); padding-bottom: var(--space-56); }
-    .brief-back { margin-bottom: var(--space-32); }
-    .research-question { padding: var(--space-16); }
-  }
+  .brief-artwork { margin: calc(-1 * var(--space-24)) calc(-1 * var(--space-24)) var(--space-24); }
 </style>

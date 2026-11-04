@@ -4,6 +4,14 @@ summary: "Connecting controlled physical experiments to an interpretable model o
 order: 3
 question: "How do charging voltage, temperature, and time affect water loss in lead-acid batteries?"
 status: "Undergraduate thesis · Kettering × Stellantis"
+outcomeLabel: "Research contribution"
+outcome: "A predictive calculator connecting operating conditions to remaining water and cumulative loss, with predictions interpreted within the model’s assumptions."
+metrics:
+  - value: "18"
+    label: Batteries measured
+    note: "Controlled measurements across a replicated voltage–temperature design."
+  - value: "3 × 3"
+    label: Voltage–temperature design
 ---
 
 ## The question

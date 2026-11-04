@@ -59,6 +59,9 @@ const research = defineCollection({
     order: z.number().int().positive(),
     question: z.string(),
     status: z.string(),
+    outcome: z.string().optional(),
+    outcomeLabel: z.string().default("Research focus"),
+    metrics: z.array(metricSchema).default([]),
   }),
 });
 

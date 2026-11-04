@@ -4,6 +4,14 @@ summary: "What survives when a detailed work history becomes a short résumé—
 order: 2
 question: "What survives when a detailed work history becomes a short résumé—and does the target job change what should be preserved?"
 status: "Independent research · Pilot studies complete"
+outcomeLabel: "Pilot finding"
+outcome: "Job-conditioned summaries had higher mean job-relevant F1 at all four budgets in a single-person, single-job pilot. This is not a test of hiring outcomes or an optimal rate–distortion frontier."
+metrics:
+  - value: "24"
+    label: Generated summaries
+    note: "Single-person, single-job pilot with three draws per condition and budget."
+  - value: "4"
+    label: Token budgets compared
 ---
 
 ## The question

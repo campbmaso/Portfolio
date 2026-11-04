@@ -4,6 +4,8 @@ summary: "How does the way we represent experience change what we can compare, r
 order: 1
 question: "How does the way we represent experience change what we can compare, retrieve, and explain?"
 status: "Independent research · In progress"
+outcomeLabel: "Research focus"
+outcome: "Comparing how representations preserve relationships within experience. Semantic alignment is the measurement under study, not a calibrated measure of proficiency or hiring suitability."
 ---
 
 ## The question
