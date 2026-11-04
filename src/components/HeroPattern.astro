@@ -1,0 +1,44 @@
+<div class="hero-pattern" aria-hidden="true">
+  <svg viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <pattern id="hero-tiles" width="160" height="138.56" patternUnits="userSpaceOnUse">
+        <path d="M0 0H160L80 138.56ZM0 0V138.56H160V0M0 0L160 138.56M160 0L0 138.56" fill="none" stroke="currentColor" stroke-width=".6" />
+        <path class="tile-fill" d="M80 0L160 138.56H0Z" />
+      </pattern>
+    </defs>
+    <g class="tile-drift"><rect x="-160" y="-140" width="1520" height="920" fill="url(#hero-tiles)" /></g>
+  </svg>
+</div>
+<button class="motion-toggle" type="button" aria-pressed="false" hidden>Pause background</button>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.motion-toggle');
+  const pattern = document.querySelector<HTMLElement>('.hero-pattern');
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (toggle && pattern) {
+    let paused = preference.matches;
+    const update = () => {
+      pattern.classList.add('is-animated');
+      pattern.classList.toggle('is-paused', paused);
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.textContent = paused ? 'Play background' : 'Pause background';
+      toggle.hidden = preference.matches;
+    };
+    toggle.addEventListener('click', () => { paused = !paused; update(); });
+    preference.addEventListener('change', () => { paused = preference.matches; update(); });
+    update();
+  }
+</script>
+
+<style>
+  .hero-pattern { position: absolute; inset: 0; pointer-events: none; overflow: hidden; color: var(--accent); mask-image: linear-gradient(90deg, transparent 25%, #000 100%); opacity: .55; }
+  svg { width: 100%; height: 100%; }
+  .tile-fill { fill: var(--accent); opacity: .06; }
+  .is-animated .tile-drift { animation: tessellate 32s linear infinite; }
+  .is-paused .tile-drift { animation-play-state: paused; }
+  .motion-toggle { position: absolute; z-index: 2; right: var(--space-24); bottom: var(--space-16); padding: var(--space-8) var(--space-12); border: 1px solid var(--line); border-radius: 4px; color: var(--muted); background: var(--bg); font-size: .7rem; }
+  .motion-toggle[hidden] { display: none; }
+  @keyframes tessellate { to { transform: translate(160px, 138.56px); } }
+  @media (prefers-reduced-motion: reduce) { .is-animated .tile-drift { animation: none; } }
+  @media (max-width: 720px) { .hero-pattern { opacity: .25; mask-image: linear-gradient(90deg, transparent, #000); } }
+</style>

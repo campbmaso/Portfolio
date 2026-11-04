@@ -6,14 +6,21 @@ const year = new Date().getFullYear();
 <footer class="site-footer" id="contact">
   <div class="shell footer-top">
     <div>
-      <p class="eyebrow">A little more conversation</p>
-      <h2>Have a problem worth solving?</h2>
-      <p>I’d love to hear about it.</p>
+      <p class="eyebrow">Product opportunities</p>
+      <h2>Hiring for your product team?</h2>
+      <p class="contact-intro">I’m looking for a software product role where I can turn customer insight into clear decisions and useful products. Let’s talk about your team and what you’re building.</p>
+      <p class="contact-location">Based in Southeast Michigan · Open to relocation</p>
     </div>
-    <a class="button button-primary" href={siteConfig.linkedin} target="_blank" rel="noreferrer">Connect on LinkedIn <svg class="cta-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg></a>
+    <a class="button button-primary" href={siteConfig.linkedin} target="_blank" rel="noreferrer" aria-label="Let’s talk about a role on LinkedIn">Let’s talk about a role <svg class="cta-arrow" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg></a>
   </div>
   <div class="shell footer-bottom">
     <p>© {year} Mason Campbell</p>
     <div><a href="/work/">Work</a><a href="/about/">About</a><a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub</a></div>
   </div>
 </footer>
+
+<style>
+  .contact-intro { max-width: 38rem; line-height: 1.75; }
+  .site-footer .contact-location { margin-top: var(--space-16); font-size: .85rem; }
+  .footer-top > .button { flex-shrink: 0; }
+</style>

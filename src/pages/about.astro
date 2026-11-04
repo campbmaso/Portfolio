@@ -27,15 +27,73 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
           <a class="about-link" href="/work/">Explore my work</a>
         </div>
       </div>
-      <div class="background-grid" aria-labelledby="research-title">
-        <p class="section-index">02 · RESEARCH</p>
-        <div class="background-copy">
-          <h2 id="research-title">How do models represent what they know?</h2>
-          <p class="research-status">Independent exploration · In progress</p>
-          <p>I’m exploring how learned representations encode concepts, support reasoning, and shape behavior. I’m especially curious about how information changes as models reason and how training changes what they represent and do.</p>
-          <p>One of my current explorations asks what career information is preserved or lost when a longer work history is compressed into a résumé. It brings together my interest in information theory, language models, and the practical decisions people make with AI.</p>
+      <section class="research-section" aria-labelledby="research-title">
+        <div class="research-heading">
+          <div>
+            <p class="section-index">02 · RESEARCH</p>
+            <h2 id="research-title">How do models represent what they know?</h2>
+          </div>
+          <div class="research-intro">
+            <p class="research-status">Independent exploration · In progress</p>
+            <p>I’m exploring the connections between information theory, language models, and the practical decisions people make with AI. These are the questions guiding that work.</p>
+          </div>
         </div>
-      </div>
+        <div class="research-grid">
+          <article class="research-card">
+            <div class="research-visual representation-visual" aria-hidden="true">
+              <span class="visual-index">01 / REPRESENTATION</span>
+              <svg viewBox="0 0 320 300" fill="none" focusable="false">
+                <g class="diagram-lines">
+                  <circle cx="160" cy="150" r="103" />
+                  <ellipse cx="160" cy="150" rx="103" ry="48" transform="rotate(-30 160 150)" />
+                  <ellipse cx="160" cy="150" rx="103" ry="48" transform="rotate(30 160 150)" />
+                  <ellipse cx="160" cy="150" rx="48" ry="103" />
+                  <path d="M75 95 160 150 248 205M75 205 160 150 248 95M160 47V253" />
+                </g>
+                <g class="diagram-nodes">
+                  <circle cx="160" cy="150" r="15" /><circle cx="75" cy="95" r="7" />
+                  <circle cx="248" cy="205" r="7" /><circle cx="160" cy="47" r="7" />
+                  <circle cx="75" cy="205" r="7" /><circle cx="248" cy="95" r="7" /><circle cx="160" cy="253" r="7" />
+                </g>
+              </svg>
+            </div>
+            <h3>Learned representations</h3>
+            <p>How do learned representations encode concepts, support reasoning, and shape behavior?</p>
+          </article>
+          <article class="research-card">
+            <div class="research-visual reasoning-visual" aria-hidden="true">
+              <span class="visual-index">02 / REASONING</span>
+              <svg viewBox="0 0 320 300" fill="none" focusable="false">
+                <g class="diagram-lines">
+                  <path d="M47 220C80 220 70 82 112 82S127 210 165 210 195 90 228 90 251 144 275 144" />
+                  <path d="M47 220C85 220 87 165 112 165S140 185 165 185 203 125 228 125 251 144 275 144" />
+                  <path d="M47 220C104 220 114 144 165 144H275" />
+                  <path class="diagram-guide" d="M47 55V245M112 55V245M165 55V245M228 55V245M275 55V245" />
+                </g>
+                <g class="diagram-nodes"><circle cx="47" cy="220" r="9" /><circle cx="112" cy="82" r="7" /><circle cx="165" cy="210" r="7" /><circle cx="228" cy="90" r="7" /><circle cx="275" cy="144" r="12" /></g>
+              </svg>
+            </div>
+            <h3>Reasoning and training</h3>
+            <p>How does information change as models reason, and how does training change what they represent and do?</p>
+          </article>
+          <article class="research-card">
+            <div class="research-visual compression-visual" aria-hidden="true">
+              <span class="visual-index">03 / COMPRESSION</span>
+              <svg viewBox="0 0 320 300" fill="none" focusable="false">
+                <g class="diagram-lines">
+                  <rect x="36" y="70" width="90" height="160" rx="4" />
+                  <path d="M53 94H109M53 110H97M53 126H109M53 142H102M53 158H109M53 174H93M53 190H109M53 206H99" />
+                  <path d="M140 150H183M174 141 183 150 174 159" />
+                  <rect x="202" y="100" width="82" height="100" rx="4" />
+                </g>
+                <g class="diagram-emphasis"><path d="M219 124H267M219 141H254M219 158H267M219 175H247" /></g>
+              </svg>
+            </div>
+            <h3>Career information, compressed</h3>
+            <p>What is preserved or lost when a longer work history is compressed into a résumé?</p>
+          </article>
+        </div>
+      </section>
     </div>
   </section>
 
@@ -61,7 +119,7 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
   .dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent); }
   .intro-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .38fr); gap: clamp(var(--space-32), 6vw, var(--space-96)); align-items: end; padding: clamp(var(--space-56), 7vw, var(--space-104)) clamp(var(--space-16), 3vw, var(--space-48)); }
   h1, h2 { margin: 0; color: var(--ink); font-weight: 650; letter-spacing: -.035em; line-height: 1.03; }
-  h1 { max-width: 14ch; font-size: clamp(2.8rem, 5vw, 4.5rem); }
+  h1 { max-width: 18ch; font-size: var(--text-h1); font-weight: var(--weight-h1); line-height: 1.12; }
   .intro-lead { max-width: 34rem; margin: var(--space-24) 0 0; color: var(--muted); font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.7; }
   .portrait-wrap { max-width: 285px; justify-self: end; width: 100%; }
   .portrait-wrap img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
@@ -72,15 +130,40 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
   .background-copy { max-width: 43rem; }
   h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); }
   .background-copy p, .creative-heading div > p { max-width: 38rem; margin: var(--space-16) 0 0; color: var(--muted); font-size: 1rem; line-height: 1.8; }
-  .about-link { display: inline-flex; gap: var(--space-12); margin-top: var(--space-24); color: var(--accent); font-size: .9rem; font-weight: 700; text-decoration: none; }
+  .about-link { display: inline-flex; gap: var(--space-12); margin-top: var(--space-24); color: var(--accent-link); font-size: .9rem; font-weight: 700; text-decoration: none; }
   .about-link span { color: inherit; }
   .about-link:hover { text-decoration: underline; text-underline-offset: .25em; }
   .creative-section { padding-bottom: clamp(var(--space-64), 7vw, var(--space-112)); background: var(--surface); }
   .creative-heading { border-bottom: 1px solid var(--line); }
-  .background-copy .research-status { font-size: .8rem; font-weight: 650; }
+  .research-section { padding: clamp(var(--space-40), 5vw, var(--space-72)) clamp(var(--space-16), 3vw, var(--space-48)); border-top: 1px solid var(--line); }
+  .research-heading { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(var(--space-24), 5vw, var(--space-64)); align-items: start; margin-bottom: var(--space-40); }
+  .research-heading h2 { max-width: 23ch; margin-top: var(--space-16); font-size: clamp(1.65rem, 2.5vw, 2.2rem); font-weight: 550; line-height: 1.2; }
+  .research-intro { padding-top: var(--space-4); }
+  .research-intro p { margin: var(--space-16) 0 0; color: var(--muted); line-height: 1.7; }
+  .research-intro .research-status { margin: 0; color: var(--ink); font-size: .8rem; font-weight: 600; }
+  .research-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-24); }
+  .research-card { min-width: 0; }
+  .research-visual { position: relative; overflow: hidden; aspect-ratio: 1 / 1.1; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+  .visual-index { position: absolute; top: var(--space-16); left: var(--space-16); color: var(--muted); font-size: .62rem; font-weight: 600; letter-spacing: .1em; }
+  .research-visual svg { position: absolute; inset: 12% 0 0; width: 100%; height: 88%; }
+  .representation-visual { background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--accent) 12%, var(--bg)), var(--surface) 75%); }
+  .reasoning-visual { background: var(--ink); }
+  .reasoning-visual .visual-index { color: var(--bg); opacity: .75; }
+  .compression-visual { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
+  .diagram-lines { stroke: var(--muted); stroke-width: 1.25; }
+  .reasoning-visual .diagram-lines { stroke: var(--bg); opacity: .7; }
+  .diagram-guide { opacity: .15; stroke-dasharray: 3 5; }
+  .diagram-nodes { fill: var(--accent); stroke: var(--ink); stroke-width: 1.25; }
+  .diagram-emphasis { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
+  .research-card h3 { margin: var(--space-24) 0 var(--space-8); color: var(--ink); font-size: 1.08rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.35; }
+  .research-card > p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.7; }
   @media (max-width: 720px) {
     .intro-grid { grid-template-columns: 1fr; }
     .portrait-wrap { justify-self: start; max-width: 230px; }
     .background-grid, .creative-heading { grid-template-columns: 1fr; gap: var(--space-16); }
+    .research-heading { grid-template-columns: 1fr; gap: var(--space-24); }
+    .research-heading h2 { max-width: 26ch; }
+    .research-grid { grid-template-columns: 1fr; gap: var(--space-40); }
+    .research-visual { aspect-ratio: 1.35 / 1; }
   }
 </style>

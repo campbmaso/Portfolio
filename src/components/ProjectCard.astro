@@ -1,15 +1,14 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Arrow from "./Arrow.astro";
-import { companyLogos, projectDecisions } from "../data/projects";
+import { companyLogos, companyNames, companyHomepages, projectDecisions } from "../data/projects";
 interface Props { study: CollectionEntry<"caseStudies">; }
 const { study } = Astro.props;
 const decision = projectDecisions[study.id];
 ---
 <article class="project-card">
   <div class="project-company">
-    {companyLogos[study.id] && <img src={companyLogos[study.id]} alt="" width="104" height="40" />}
-    <span>{study.data.context.split(" · ")[0]}</span>
+    {companyLogos[study.id] ? <a class="company-link" href={companyHomepages[study.id]} aria-label={`Visit ${companyNames[study.id]} homepage`}><img src={companyLogos[study.id]} alt={companyNames[study.id]} width="104" height="40" /></a> : <span>{study.data.context.split(" · ")[0]}</span>}
   </div>
   <p class="eyebrow">{study.data.eyebrow}</p>
   <h3><a href={`/stories/${study.id}/`}>{study.data.title}</a></h3>

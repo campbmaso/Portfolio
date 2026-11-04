@@ -4,6 +4,27 @@ export const companyLogos: Record<string, string> = {
   "lightguide-ar-workflows": "/company-logos/lightguide.png",
   "resume-ai": "/company-logos/joyjobs.png",
   "sensors-platform-strategy": "/company-logos/sensors.png",
+  "growth-economics": "/company-logos/joyjobs.png",
+  "scaling-under-constraints": "/company-logos/joyjobs.png",
+  "instruction-modality-study": "/company-logos/lightguide.png",
+};
+export const companyNames: Record<string, string> = {
+  "stellantis-analytical-foundation": "Stellantis",
+  "lightguide-ar-workflows": "LightGuide",
+  "resume-ai": "JoyJobs.ai",
+  "sensors-platform-strategy": "Sensors, Inc.",
+  "growth-economics": "JoyJobs.ai",
+  "scaling-under-constraints": "JoyJobs.ai",
+  "instruction-modality-study": "LightGuide",
+};
+export const companyHomepages: Record<string, string> = {
+  "stellantis-analytical-foundation": "https://www.stellantis.com/en",
+  "lightguide-ar-workflows": "https://www.lightguidesys.com/",
+  "resume-ai": "https://joyjobs.ai/",
+  "sensors-platform-strategy": "https://sensors-inc.com/",
+  "growth-economics": "https://joyjobs.ai/",
+  "scaling-under-constraints": "https://joyjobs.ai/",
+  "instruction-modality-study": "https://www.lightguidesys.com/",
 };
 export const nextProjects: Record<string, string> = {
   "resume-ai": "growth-economics",

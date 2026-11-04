@@ -12,6 +12,8 @@
   --line: #e5e5e5;
   --grid: #ededed;
   --accent: #12c464;
+  --accent-link: #087a3e;
+  --accent-tint: #eaf8ef;
   --accent-hover: var(--accent);
   --accent-soft: var(--surface);
   --accent-mid: var(--line);
@@ -38,5 +40,7 @@
   --space-128: 8rem;
   --space-144: 9rem;
   --font-sans: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --text-h1: clamp(2.35rem, 4.2vw, 3.65rem);
+  --weight-h1: 500;
   --container: 1180px;
 }

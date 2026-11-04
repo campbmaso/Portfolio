@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectWorkflow from "../../components/ProjectWorkflow.astro";
 import Arrow from "../../components/Arrow.astro";
-import { nextProjects } from "../../data/projects";
+import { nextProjects, companyLogos, companyNames, companyHomepages } from "../../data/projects";
 export async function getStaticPaths() {
   return (await getCollection("caseStudies")).map(study => ({ params: { id: study.id }, props: { study } }));
 }
@@ -16,7 +16,8 @@ const next = studies.find(item => item.id === nextProjects[study.id]);
   <article class="story-detail">
     <header class="story-header shell">
       <a class="text-link back" href="/work/">All work</a>
-      <p class="eyebrow">{study.data.context} · {study.data.eyebrow}</p>
+      {companyLogos[study.id] && <a class="story-company company-link" href={companyHomepages[study.id]} aria-label={`Visit ${companyNames[study.id]} homepage`}><img src={companyLogos[study.id]} alt={companyNames[study.id]} width="136" height="48" /></a>}
+      <p class="eyebrow">{study.id === "instruction-modality-study" ? "Senior design project · " : ""}{study.data.eyebrow}</p>
       <h1>{study.data.title}</h1>
       <p class="story-deck">{study.data.summary}</p>
       <dl class="story-meta"><div><dt>Role</dt><dd>{study.data.role}</dd></div><div><dt>Timeframe</dt><dd>{study.data.timeframe}</dd></div>{study.data.status && <div><dt>Status</dt><dd>{study.data.status}</dd></div>}</dl>
@@ -35,7 +36,9 @@ const next = studies.find(item => item.id === nextProjects[study.id]);
 <style>
   .story-header { padding-block: var(--space-40); }
   .back { margin-bottom: var(--space-24); }
-  h1 { max-width: 22ch; margin: var(--space-16) 0; font-size: clamp(2.5rem, 4.4vw, 4rem); font-weight: 650; letter-spacing: -.035em; line-height: 1.12; }
+  .story-company { display: flex; width: fit-content; margin: 0 0 var(--space-24); }
+  .story-company img { width: 136px; height: 48px; object-fit: contain; object-position: left center; filter: grayscale(1); }
+  h1 { max-width: 24ch; margin: var(--space-16) 0; font-size: var(--text-h1); font-weight: var(--weight-h1); letter-spacing: -.035em; line-height: 1.12; }
   .story-deck { max-width: 48rem; margin: 0; color: var(--muted); font-size: 1.1rem; line-height: 1.7; }
   .story-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-24); margin: var(--space-32) 0 0; padding-top: var(--space-24); border-top: 1px solid var(--line); }
   .story-meta dt { margin-bottom: var(--space-8); color: var(--muted); font-size: .8rem; }
@@ -60,7 +63,7 @@ const next = studies.find(item => item.id === nextProjects[study.id]);
   .article-content :global(h2:first-child) { margin-top: 0; }
   .article-content :global(p), .article-content :global(li) { color: var(--muted); font-size: 1rem; line-height: 1.85; }
   .article-content :global(p) { margin: 0 0 var(--space-16); }
-  .article-content :global(a) { color: var(--accent); text-underline-offset: .2em; }
+  .article-content :global(a) { color: var(--accent-link); text-underline-offset: .2em; }
   .article-aside { padding-top: var(--space-8); }
   .article-aside details { border-block: 1px solid var(--line); padding-block: var(--space-16); }
   .article-aside summary { cursor: pointer; font-size: .85rem; font-weight: 650; }
@@ -79,6 +82,5 @@ const next = studies.find(item => item.id === nextProjects[study.id]);
     .story-meta { grid-template-columns: 1fr; gap: var(--space-16); }
     .overview-grid { grid-template-columns: 1fr; gap: var(--space-24); }
     .story-end { align-items: start; flex-direction: column; }
-    h1 { font-size: clamp(2.3rem, 9vw, 3.4rem); }
   }
 </style>
