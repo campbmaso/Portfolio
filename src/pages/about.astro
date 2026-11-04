@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ArtworkGallery from "../components/ArtworkGallery.astro";
+import ResearchGallery from "../components/ResearchGallery.astro";
 ---
 
 <BaseLayout title="About" description="Meet Mason Campbell, a product manager and technical co-founder based in Southeast Michigan and open to relocation.">
@@ -30,12 +31,12 @@ import ArtworkGallery from "../components/ArtworkGallery.astro";
       <div class="background-grid" aria-labelledby="research-title">
         <p class="section-index">02 · RESEARCH</p>
         <div class="background-copy">
-          <h2 id="research-title">How do models represent what they know?</h2>
-          <p class="research-status">Independent exploration · In progress</p>
-          <p>I’m exploring how learned representations encode concepts, support reasoning, and shape behavior. I’m especially curious about how information changes as models reason and how training changes what they represent and do.</p>
-          <p>One of my current explorations asks what career information is preserved or lost when a longer work history is compressed into a résumé. It brings together my interest in information theory, language models, and the practical decisions people make with AI.</p>
+          <h2 id="research-title">Representations, information,<br />and the models we build.</h2>
+          <p>I study how representations organize information, what survives compression, and how models connect evidence to decisions. My recent work explores semantic representations and career compression; my undergraduate thesis approached modeling through controlled physical experiments.</p>
+          <p>Select a project to explore its question, approach, and current findings.</p>
         </div>
       </div>
+      <ResearchGallery />
     </div>
   </section>
 
