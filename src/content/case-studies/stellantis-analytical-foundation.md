@@ -32,7 +32,7 @@ The change was projected to save $20 per vehicle across more than 200,000 vehicl
 
 ## Supporting analytical work
 
-Other co-op projects strengthened the same habit of questioning the evidence before making a decision. I designed a test program involving 18 auxiliary batteries and modeled degradation using time, temperature, and voltage.
+Other co-op projects strengthened the same habit of questioning the evidence before making a decision. I designed a test program involving 18 auxiliary batteries and modeled degradation using time, temperature, and voltage. [The full thesis story](/research/modeling-battery-degradation/) explains the experimental design, model checks, and predictive calculator.
 
 On a wind tunnel investigation, unexpected variation initially raised concerns about a vehicle's aerodynamics. Statistical and flow-field analysis instead pointed to a control-system calibration issue, helping the team avoid a false conclusion about the vehicle design.
 

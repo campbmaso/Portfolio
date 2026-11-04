@@ -20,16 +20,30 @@ const otherBriefs = (await getCollection("research"))
     <div class="reading-column">
       <header class="brief-header">
         <a class="text-link brief-back" href="/about/#research"><span aria-hidden="true">←</span> Back to research</a>
-        <p class="eyebrow">Research brief</p>
+        <p class="eyebrow">{brief.data.category}</p>
         <h1>{brief.data.title}</h1>
         <p class="brief-status">{brief.data.status}</p>
         <p class="brief-summary">{brief.data.summary}</p>
+        <dl class="brief-meta">
+          <div><dt>My role</dt><dd>{brief.data.role}</dd></div>
+          <div><dt>Context</dt><dd>{brief.data.context}<span>{brief.data.period}</span></dd></div>
+        </dl>
       </header>
       <section class="research-question" aria-labelledby="question-title">
         <h2 id="question-title">The research question</h2>
         <p>{brief.data.question}</p>
+        <h2 class="takeaway-title">What the work shows</h2>
+        <p class="research-takeaway">{brief.data.takeaway}</p>
+      </section>
+      <section class="scope-section" aria-labelledby="scope-title">
+        <h2 id="scope-title">Study scope</h2>
+        <div class="scope-grid">{brief.data.scope.map(fact => <div><strong>{fact.value}</strong><span>{fact.label}</span>{fact.note && <small>{fact.note}</small>}</div>)}</div>
       </section>
       <div class="brief-content"><Content /></div>
+      <section class="brief-methods" aria-labelledby="methods-title">
+        <h2 id="methods-title">Methods used</h2>
+        <ul>{brief.data.methods.map(method => <li>{method}</li>)}</ul>
+      </section>
       <nav class="related-research" aria-label="More research briefs">
         <h2>More research questions</h2>
         {otherBriefs.map(item => <a class="text-link" href={`/research/${item.id}/`}>{item.data.title} <Arrow /></a>)}
@@ -44,16 +58,43 @@ const otherBriefs = (await getCollection("research"))
   .reading-column { max-width: 46rem; margin-inline: auto; }
   .brief-back { margin-bottom: var(--space-48); }
   .brief-header h1 { margin: var(--space-16) 0; font-size: var(--text-h1); font-weight: var(--weight-h1); letter-spacing: -.035em; line-height: 1.12; }
-  .brief-status { margin: var(--space-16) 0; color: var(--accent-link); font-size: .8rem; font-weight: 600; }
+  .brief-status { margin: var(--space-16) 0; color: var(--muted); font-size: .8rem; font-weight: 600; }
   .brief-summary { margin: var(--space-24) 0 0; color: var(--muted); font-size: 1.1rem; line-height: 1.75; }
+  .brief-meta { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-24); margin: var(--space-32) 0 0; padding-top: var(--space-24); border-top: 1px solid var(--line); }
+  .brief-meta dt { margin-bottom: var(--space-8); color: var(--muted); font-size: .8rem; }
+  .brief-meta dd { margin: 0; font-size: .9rem; font-weight: 600; }
+  .brief-meta dd span { display: block; margin-top: var(--space-8); color: var(--muted); font-size: .8rem; font-weight: 400; }
   .research-question { margin-block: var(--space-40); padding: var(--space-24); border-left: 3px solid var(--accent); background: var(--surface); }
   .research-question h2 { margin: 0 0 var(--space-12); font-size: .8rem; font-weight: 650; }
   .research-question p { margin: 0; font-size: 1.2rem; line-height: 1.55; }
+  .research-question .takeaway-title { margin-top: var(--space-24); }
+  .research-question .research-takeaway { font-size: 1rem; color: var(--muted); line-height: 1.75; }
+  .scope-section { padding-bottom: var(--space-32); margin-bottom: var(--space-40); border-bottom: 1px solid var(--line); }
+  .scope-section h2 { margin: 0 0 var(--space-24); color: var(--muted); font-size: .8rem; font-weight: 600; }
+  .scope-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-24); }
+  .scope-grid > div { display: flex; flex-direction: column; gap: var(--space-8); }
+  .scope-grid strong { font-size: clamp(1.25rem,2.6vw,1.6rem); line-height: 1.2; letter-spacing: -.02em; }
+  .scope-grid span { font-size: .85rem; font-weight: 600; }
+  .scope-grid small { color: var(--muted); font-size: .75rem; line-height: 1.65; }
   .brief-content :global(h2) { margin: var(--space-40) 0 var(--space-16); font-size: clamp(1.45rem, 2.5vw, 1.8rem); font-weight: 550; letter-spacing: -.025em; line-height: 1.25; }
   .brief-content :global(p), .brief-content :global(li) { color: var(--muted); font-size: 1rem; line-height: 1.85; }
   .brief-content :global(p) { margin: 0 0 var(--space-16); }
   .brief-content :global(ul) { padding-left: var(--space-24); }
   .brief-content :global(li) { margin-bottom: var(--space-8); }
+  .brief-content :global(strong) { color: var(--ink); font-weight: 600; }
+  .brief-content :global(a) { color: var(--accent-link); text-underline-offset: .2em; }
+  .brief-content :global(a:hover) { color: var(--link-hover); }
+  .brief-content :global(figure) { margin: var(--space-32) 0; padding: var(--space-16); border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+  .brief-content :global(figure img) { width: 100%; height: auto; }
+  .brief-content :global(figcaption) { margin-top: var(--space-16); color: var(--muted); font-size: .8rem; line-height: 1.75; }
+  .brief-content :global(table) { width: 100%; margin: var(--space-24) 0; border-collapse: collapse; font-size: .85rem; line-height: 1.6; }
+  .brief-content :global(th), .brief-content :global(td) { padding: var(--space-12) var(--space-8); border-bottom: 1px solid var(--line); vertical-align: top; }
+  .brief-content :global(th) { font-size: .8rem; font-weight: 600; color: var(--ink); }
+  .brief-content :global(td) { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .brief-methods { margin-top: var(--space-40); padding-top: var(--space-24); border-top: 1px solid var(--line); }
+  .brief-methods h2 { margin: 0 0 var(--space-16); font-size: .8rem; font-weight: 600; }
+  .brief-methods ul { display: flex; flex-wrap: wrap; gap: var(--space-8) var(--space-24); list-style: none; margin: 0; padding: 0; }
+  .brief-methods li { color: var(--muted); font-size: .8rem; line-height: 1.75; }
   .related-research { display: grid; gap: var(--space-16); margin-top: var(--space-48); padding-top: var(--space-32); border-top: 1px solid var(--line); }
   .related-research h2 { margin: 0 0 var(--space-8); font-size: 1rem; font-weight: 600; }
   .related-research a { width: fit-content; }
@@ -62,5 +103,7 @@ const otherBriefs = (await getCollection("research"))
     .research-brief { padding-top: var(--space-32); padding-bottom: var(--space-56); }
     .brief-back { margin-bottom: var(--space-32); }
     .research-question { padding: var(--space-16); }
+    .brief-meta, .scope-grid { grid-template-columns: 1fr; }
+    .brief-content :global(th), .brief-content :global(td) { padding-inline: var(--space-4); }
   }
 </style>
