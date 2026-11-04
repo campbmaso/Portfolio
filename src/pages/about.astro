@@ -2,11 +2,14 @@
 import { getCollection } from "astro:content";
 import Arrow from "../components/Arrow.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageMasthead from "../components/PageMasthead.astro";
+import ResearchArtwork from "../components/ResearchArtwork.astro";
 import ArtworkGallery from "../components/ArtworkGallery.astro";
 const research = Object.fromEntries((await getCollection("research")).map(brief => [brief.id, brief.data]));
 ---
 
 <BaseLayout title="About" description="Meet Mason Campbell, a product manager and technical co-founder based in Southeast Michigan and open to relocation.">
+  <PageMasthead label="About me" />
   <section class="about-hero">
     <div class="shell about-shell">
       <div class="intro-grid">
@@ -43,23 +46,7 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
         <div class="research-grid">
           <article class="research-card">
             <a class="research-card-link" href="/research/learned-representations/">
-            <div class="research-visual representation-visual" aria-hidden="true">
-              <span class="visual-index">01 / REPRESENTATION</span>
-              <svg viewBox="0 0 320 300" fill="none" focusable="false">
-                <g class="diagram-lines">
-                  <circle cx="160" cy="150" r="103" />
-                  <ellipse cx="160" cy="150" rx="103" ry="48" transform="rotate(-30 160 150)" />
-                  <ellipse cx="160" cy="150" rx="103" ry="48" transform="rotate(30 160 150)" />
-                  <ellipse cx="160" cy="150" rx="48" ry="103" />
-                  <path d="M75 95 160 150 248 205M75 205 160 150 248 95M160 47V253" />
-                </g>
-                <g class="diagram-nodes">
-                  <circle cx="160" cy="150" r="15" /><circle cx="75" cy="95" r="7" />
-                  <circle cx="248" cy="205" r="7" /><circle cx="160" cy="47" r="7" />
-                  <circle cx="75" cy="205" r="7" /><circle cx="248" cy="95" r="7" /><circle cx="160" cy="253" r="7" />
-                </g>
-              </svg>
-            </div>
+            <ResearchArtwork id="learned-representations" />
             <h3>{research["learned-representations"].title}</h3>
             <p>{research["learned-representations"].summary}</p>
               <span class="research-read">Read the brief <Arrow /></span>
@@ -67,18 +54,7 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
           </article>
           <article class="research-card">
             <a class="research-card-link" href="/research/career-information-compression/">
-            <div class="research-visual compression-visual" aria-hidden="true">
-              <span class="visual-index">02 / COMPRESSION</span>
-              <svg viewBox="0 0 320 300" fill="none" focusable="false">
-                <g class="diagram-lines">
-                  <rect x="36" y="70" width="90" height="160" rx="4" />
-                  <path d="M53 94H109M53 110H97M53 126H109M53 142H102M53 158H109M53 174H93M53 190H109M53 206H99" />
-                  <path d="M140 150H183M174 141 183 150 174 159" />
-                  <rect x="202" y="100" width="82" height="100" rx="4" />
-                </g>
-                <g class="diagram-emphasis"><path d="M219 124H267M219 141H254M219 158H267M219 175H247" /></g>
-              </svg>
-            </div>
+            <ResearchArtwork id="career-information-compression" />
             <h3>{research["career-information-compression"].title}</h3>
             <p>{research["career-information-compression"].summary}</p>
               <span class="research-read">Read the brief <Arrow /></span>
@@ -86,13 +62,7 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
           </article>
           <article class="research-card">
             <a class="research-card-link" href="/research/modeling-battery-degradation/">
-            <div class="research-visual reasoning-visual" aria-hidden="true">
-              <span class="visual-index">03 / MODELING</span>
-              <svg viewBox="0 0 320 300" fill="none" focusable="false">
-                <g class="diagram-lines"><path d="M42 52V246H287" /><path class="diagram-guide" d="M42 96H287M42 146H287M42 196H287" /><path d="M50 72C100 76 146 155 195 184S255 213 282 216" /><path d="M50 72C111 76 164 115 206 148S261 182 282 190" stroke-dasharray="5 6" /></g>
-                <g class="diagram-nodes"><circle cx="70" cy="78" r="5" /><circle cx="110" cy="106" r="5" /><circle cx="153" cy="149" r="5" /><circle cx="195" cy="184" r="5" /><circle cx="238" cy="207" r="5" /><circle cx="277" cy="216" r="5" /></g>
-              </svg>
-            </div>
+            <ResearchArtwork id="modeling-battery-degradation" />
             <h3>{research["modeling-battery-degradation"].title}</h3>
             <p>{research["modeling-battery-degradation"].summary}</p>
               <span class="research-read">Read the brief <Arrow /></span>
@@ -148,23 +118,9 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
   .research-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-24); }
   .research-card { min-width: 0; }
   .research-card-link { display: block; height: 100%; text-decoration: none; border-radius: 4px; }
-  .research-visual { transition: transform .22s ease, box-shadow .22s ease; }
-  .research-card-link:hover .research-visual, .research-card-link:focus-visible .research-visual { transform: translateY(-4px); box-shadow: 0 12px 24px -12px var(--shadow); }
   .research-card-link:hover h3 { text-decoration: underline; text-underline-offset: .2em; }
   .research-card-link:hover .research-read { color: var(--link-hover); }
   .research-read { display: inline-flex; align-items: center; gap: var(--space-8); margin-top: var(--space-16); color: var(--accent-link); font-size: .9rem; font-weight: 600; }
-  .research-visual { position: relative; overflow: hidden; aspect-ratio: 1 / 1.1; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
-  .visual-index { position: absolute; top: var(--space-16); left: var(--space-16); color: var(--muted); font-size: .62rem; font-weight: 600; letter-spacing: .1em; }
-  .research-visual svg { position: absolute; inset: 12% 0 0; width: 100%; height: 88%; }
-  .representation-visual { background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--accent) 12%, var(--bg)), var(--surface) 75%); }
-  .reasoning-visual { background: var(--ink); }
-  .reasoning-visual .visual-index { color: var(--bg); opacity: .75; }
-  .compression-visual { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
-  .diagram-lines { stroke: var(--muted); stroke-width: 1.25; }
-  .reasoning-visual .diagram-lines { stroke: var(--bg); opacity: .7; }
-  .diagram-guide { opacity: .15; stroke-dasharray: 3 5; }
-  .diagram-nodes { fill: var(--accent); stroke: var(--ink); stroke-width: 1.25; }
-  .diagram-emphasis { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
   .research-card h3 { margin: var(--space-24) 0 var(--space-8); color: var(--ink); font-size: 1.08rem; font-weight: 600; letter-spacing: -.02em; line-height: 1.35; }
   .research-card-link > p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.7; }
   @media (max-width: 720px) {
@@ -174,6 +130,5 @@ const research = Object.fromEntries((await getCollection("research")).map(brief 
     .research-heading { grid-template-columns: 1fr; gap: var(--space-24); }
     .research-heading h2 { max-width: 26ch; }
     .research-grid { grid-template-columns: 1fr; gap: var(--space-40); }
-    .research-visual { aspect-ratio: 1.35 / 1; }
   }
 </style>
