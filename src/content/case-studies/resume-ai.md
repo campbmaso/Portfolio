@@ -18,9 +18,6 @@ metrics:
   - value: Day one
     label: First product revenue
     note: Revenue began on launch day, before paid marketing
-  - value: ~45 → ~17 sec
-    label: Complete resume processing
-    note: Post-launch improvement for paying customers; approximate timings for the full processing flow
 capabilities:
   - Customer discovery
   - Product strategy
@@ -33,7 +30,6 @@ evidence:
   - Text-only and direct-document prototypes
   - Moderated and unmoderated usability testing
   - October 2023 launch and first-day product revenue
-  - Post-launch timing of the complete processing flow for paying customers
 ---
 
 ## Positive feedback was not repeat use
@@ -55,6 +51,7 @@ We made direct document modification the next priority. The product needed to re
 ## Design around the original document
 
 I first proved that I could change text inside the document, then connected that workflow to AI-generated revisions. Preserving the original formatting required further work on the document's underlying structure and repeated iteration with user-submitted files.
+
 We tested the evolving experience with both returning and new users. Requests to join the waitlist gave us another signal to continue, while usability sessions helped us refine the submission flow and interface.
 
 I iterated through moderated and unmoderated tests before launch. The sequence mattered: first establish that the tailored content was useful, then make the document usable, then test the complete experience people would actually encounter.
@@ -65,11 +62,13 @@ ResumeAI launched in October 2023 with usage packages and generated revenue on t
 
 Early customers asked for PDF support and reported problems with resumes containing tables. We chose to broaden document support before further polishing the text changes for files that already worked. Those were post-launch iterations, guided by the documents and feedback users brought us.
 
-## Reduce the wait for a finished resume
+## Choose what to improve next
 
-Processing speed also mattered to the complete experience. After launch, I reduced resume processing from approximately 45 seconds to approximately 17 seconds for paying customers. Those timings covered the full processing flow.
+Throughout ResumeAI's lifecycle, we repeatedly weighed adding features and improving ease of use against improving the underlying algorithms and language models. We had to decide where the next investment would make the product more useful.
 
-This work addressed another part of the user's effort: the wait between submitting a resume and receiving the tailored document. It followed the initial launch, alongside the continuing work on document support and usability.
+At this stage, prioritizing ease of use benefited us. Preserving formatting and expanding document support helped users finish tailoring their resumes with less manual effort. Those improvements made the AI-generated content more useful in practice.
+
+We also kept developing the model over time. The early product used frontier-model APIs; later, we fine-tuned open-weight models for ResumeAI. That work continued alongside improvements to the features and overall experience, with priorities changing as the product matured.
 
 ## What changed
 
