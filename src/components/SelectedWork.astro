@@ -94,6 +94,20 @@ const brands: Record<string, string> = { 'resume-ai': 'joyjobs', 'sensors-platfo
   .feature-story h3 a:focus-visible::after { outline: 2px solid var(--brand-on-color); outline-offset: -6px; }
   .feature-link { display: inline-flex; align-items: center; gap: var(--space-8); font-size: .85rem; font-weight: 650; text-decoration: none; }
   .selected-feature :focus-visible { outline-color: var(--brand-on-color); }
+  .selected-feature { transition: transform .25s ease, box-shadow .25s ease; }
+  .feature-link :global(.cta-arrow) { transition: transform .25s ease; }
+  .selected-feature:focus-within { transform: translateY(-4px); box-shadow: 0 24px 36px -18px var(--shadow); }
+  .selected-feature:focus-within .feature-link :global(.cta-arrow) { transform: translate(3px, -3px); }
+  @media (hover: hover) and (pointer: fine) {
+    .selected-feature:hover { transform: translateY(-4px); box-shadow: 0 24px 36px -18px var(--shadow); }
+    .selected-feature:hover .feature-link :global(.cta-arrow) { transform: translate(3px, -3px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .selected-feature, .feature-link :global(.cta-arrow) { transition: none; }
+    .selected-feature:hover, .selected-feature:focus-within,
+    .selected-feature:hover .feature-link :global(.cta-arrow),
+    .selected-feature:focus-within .feature-link :global(.cta-arrow) { transform: none; }
+  }
   .feature-pattern { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .feature-pattern span { position: absolute; width: 80%; aspect-ratio: 1; top: -50%; right: -20%; border: 1px solid var(--brand-on-color); border-radius: 50%; opacity: .13; }
   .feature-pattern span:nth-child(2) { top: -30%; right: -5%; }
