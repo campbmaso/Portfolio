@@ -29,12 +29,12 @@ export const artworks: Artwork[] = [
   },
   {
     src: butterfly,
-    title: "Butterfly and flowers",
+    title: "A Moment in Bloom",
     year: "2025",
-    medium: "Oil",
+    medium: "Oil on canvas",
     dimensions: "10 × 8 in.",
     alt: "A blue butterfly among orange flowers against a yellow and green background",
-    description: "A blue butterfly sits among orange flowers and a field of yellow and green. The cooler blue wings create a focal point within the warm colors, with visible brushstrokes adding texture across the surface.",
+    description: "A fleeting encounter suspended in a sea of color. A butterfly, rendered in rich cobalt, indigo, and violet, rests amid an exuberant field of fiery orange and golden blossoms. The deliberate interplay of complementary colors creates a striking visual tension, while thick, expressive brushstrokes blur the boundaries between realism and abstraction.\n\nBalancing the delicacy of nature with the physicality of impasto, the composition captures a brief moment of stillness within a vibrant, restless world.",
   },
   {
     src: dogPortrait,
