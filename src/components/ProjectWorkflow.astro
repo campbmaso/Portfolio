@@ -1,0 +1,28 @@
+---
+interface Props { id: string; compact?: boolean; }
+const { id, compact = false } = Astro.props;
+const flows: Record<string, { title: string; steps: { label: string; detail: string }[]; note: string }> = {
+  "resume-ai": { title: "Resume tailoring workflow", steps: [
+    { label: "Bring your document", detail: "Resume + job description" },
+    { label: "Tailor the content", detail: "AI-assisted rewriting" },
+    { label: "Keep the layout", detail: "Updated document" },
+  ], note: "PDF and table support followed customer reports after launch." },
+  "sensors-platform-strategy": { title: "Measurement software workflow", steps: [
+    { label: "Control the device", detail: "Accessible mode switching" },
+    { label: "Capture with context", detail: "Automated data + session tags" },
+    { label: "Review the results", detail: "Visualization and analysis" },
+  ], note: "A shared software approach, starting with eREM and planned across the portfolio." },
+  "lightguide-ar-workflows": { title: "Designing guidance for physical work", steps: [
+    { label: "Understand the task", detail: "Instructions + operator knowledge" },
+    { label: "Design in context", detail: "Spatial guidance + equipment" },
+    { label: "Prepare the handoff", detail: "Integration + partner training" },
+  ], note: "A reconstruction of the design approach, not a captured customer installation." },
+};
+const flow = flows[id];
+---
+{flow && <figure class:list={["workflow", { "workflow-compact": compact }]}>
+  <div class="workflow-title"><span>{flow.title}</span><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M9 6h9v9M6 9v9h9"/></svg></div>
+  <ol>{flow.steps.map((step) => <li><strong>{step.label}</strong><span>{step.detail}</span></li>)}</ol>
+  {!compact && <p class="workflow-note">{flow.note}</p>}
+  <figcaption>Workflow reconstruction · Based on project notes</figcaption>
+</figure>}

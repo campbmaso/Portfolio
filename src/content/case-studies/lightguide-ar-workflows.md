@@ -1,52 +1,49 @@
 ---
-title: Designing AR workflows around the people doing the work
-eyebrow: User research · Interaction design
-summary: I worked with operators and engineering teams to turn real manufacturing processes into usable augmented reality instructions.
-order: 4
+title: Adapting AR guidance to an operator's real task
+eyebrow: User research & interaction design
+summary: On a plant integration, I worked with a channel partner to fit LightGuide to the operator's process and prepare the partner to support the system after installation.
+order: 3
 featured: true
 timeframe: 2022–2023
 context: LightGuide
 role: Integration Engineer
-challenge: Digital instructions needed to fit the physical work, the people doing it, and the systems already in place.
-outcome: I designed and integrated AR workflows informed by operator knowledge and field observation across more than 20 applications during my tenure.
-metrics:
-  - value: 20+
-    label: AR applications
-    note: Across my tenure at LightGuide
-  - value: On site
-    label: Research and integration
-    note: Working directly with customers and end users
-  - value: AR
-    label: Interaction modality
-    note: Digital guidance designed for physical work
+scope: On-site integration, workflow design, and partner training
+status: Field integration and handoff
+challenge: Digital instructions had to fit the physical task, operator knowledge, and the equipment already in use at a manufacturing plant.
+outcomeLabel: Deliverable
+outcome: An on-site AR integration and partner handoff, including guidance on component failures and adapting the system to changing customer needs.
+metrics: []
 capabilities:
   - User research
   - Workflow design
   - Human-computer interaction
-  - Field observation
   - Systems integration
 evidence:
-  - End-user interviews and field observations
-  - Work instruction and ergonomics audits
-  - AR workflow design and integration work
+  - On-site work with a channel partner and the end user's process
+  - Operator interviews and work-instruction audits across my LightGuide work
+  - Integration and partner training; no quantified outcome claimed
 ---
 
-## Start with the work as it happens
+## A plant integration, not just an instruction file
 
-Manufacturing instructions have to make sense in a specific physical environment. I reviewed existing work instructions, observed the work in the field, and spoke with end users to understand the knowledge people brought to a process that might not appear in a written procedure.
+In one manufacturing plant integration, I worked on site with a channel partner to understand how LightGuide fit the end user's process. The task extended beyond programming guidance: the system needed to function in the customer's operation, and the partner needed to support it after handoff.
 
-That context helped me translate instructions into digital workflows that accounted for both physical and cognitive ergonomics. The goal was to make the guidance useful at the moment someone needed it.
+My role included integration and working with the partner to understand the process. Customer satisfaction also depended on how the system would respond to component failures and future changes in the task.
 
-## Design for space, not just a screen
+## Design around the work people actually do
 
-AR adds a spatial dimension to interaction design. I used HCI principles, including spatial cognition and Fitts's Law, to consider how people would perceive and interact with guidance while working. For complex surfaces, I developed visual techniques using dynamic scaling cues to support comprehension.
+Across my LightGuide projects, I reviewed existing work instructions, observed tasks in the field, and interviewed operators. These conversations surfaced knowledge that did not always appear in written instructions. I used that information when translating the work into digital guidance.
 
-The software also had to fit the surrounding operation. I collaborated with controls engineers to integrate AR workflows with existing manufacturing systems and devices.
+Physical and cognitive ergonomics mattered together. An instruction can be technically correct while still asking the operator to interpret an awkward view or shift attention away from the task. I considered spatial cognition and interaction effort when designing AR guidance, including visual scaling cues for complex surfaces.
 
-## Bring the workflow into the field
+## Make the handoff part of the product
 
-On one plant integration, I worked on site with a channel partner to understand how the product fit the end user's process. I also helped prepare the partner to support the system, including how to respond to component failures and adapt it to future customer needs.
+For the plant integration, I helped train the channel partner on how to respond if components failed and how to adapt the system as customer needs changed. Support and maintainability were part of delivering the workflow, alongside the guidance operators saw during the task.
 
-Across more than 20 applications during my tenure, the work connected direct user input, interaction design, and technical integration to make digital guidance fit real work.
+## What this case establishes
 
-Earlier, in a 2020 senior design project, I participated in a team study comparing instruction methods for an assembly task, including LightGuide. [Read the instruction modality study](/stories/instruction-modality-study/).
+This is an example of field integration and partner enablement within a broader body of AR workflow work. The spatial workflow below is a reconstruction of the design approach, not a captured customer installation or a tested interface alternative.
+
+The evidence supports the integration and partner handoff described above. A measured change in errors or cycle time has not been established for this account.
+
+Earlier, in a 2020 senior design project, I participated in a team study comparing instruction methods for assembly, including LightGuide. [Read the instruction modality study](/stories/instruction-modality-study/).

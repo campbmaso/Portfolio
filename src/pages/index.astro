@@ -2,99 +2,50 @@
 import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { activeProfile, siteConfig } from "../site-config";
-
+import { selectedProjectIds, companyLogos } from "../data/projects";
+import Arrow from "../components/Arrow.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 const profile = await getEntry("roleProfiles", activeProfile);
 if (!profile) throw new Error("Missing active role profile: " + activeProfile);
-
 const allStudies = await getCollection("caseStudies");
-const companyLogos: Record<string, string> = {
-  "stellantis-analytical-foundation": "/company-logos/stellantis.svg",
-  "lightguide-ar-workflows": "/company-logos/lightguide.png",
-  "resume-ai": "/company-logos/joyjobs.png",
-  "sensors-platform-strategy": "/company-logos/sensors.png",
-};
-const chapters = profile.data.featuredCaseStudies.map((id) => {
-  const study = allStudies.find((item) => item.id === id);
-  if (!study) throw new Error("The active role profile references a missing case study: " + id);
-  return { study, framing: profile.data.chapters?.find((chapter) => chapter.id === id) };
-});
+const selected = selectedProjectIds.map(id => allStudies.find(study => study.id === id)!);
+const chapters = profile.data.featuredCaseStudies.map(id => ({ study: allStudies.find(item => item.id === id)!, framing: profile.data.chapters?.find(item => item.id === id) }));
 ---
-
 <BaseLayout title={siteConfig.name} description={siteConfig.description}>
-  <section class="hero">
-    <div class="shell home-frame">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> {profile.data.eyebrow}</p>
-          <h1>{profile.data.headline}</h1>
-          <p class="hero-summary">{profile.data.summary}</p>
-          <p class="hero-location">Based in Southeast Michigan · Open to relocation</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore my experience <svg class="cta-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
-            <a class="text-link" href="/stories/">See all stories <svg class="cta-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg></a>
-          </div>
-        </div>
-
-        <aside class="skill-stack" aria-labelledby="stack-title">
-          <div class="stack-heading">
-            <p class="eyebrow">The skills behind the work</p>
-            <span>01 — {String(chapters.length).padStart(2, "0")}</span>
-          </div>
-          <h2 id="stack-title">Built one<br />chapter at a time.</h2>
-          <ol class="stack-list">
-            {chapters.map(({ study, framing }, index) => (
-              <li>
-                <a href={"#chapter-" + study.id}>
-                  <span class="stack-number">0{index + 1}</span>
-                  <span class="stack-skill">{framing?.skill ?? study.data.eyebrow}</span>
-                  <span class="stack-company">{study.data.context.split(" · ")[0]}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
-          <p class="stack-footer"> Each experience adds a new perspective.</p>
-        </aside>
+  <section class="hero shell home-frame">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>{profile.data.eyebrow}</p>
+        <h1>{profile.data.headline}</h1>
+        <p class="hero-summary">{profile.data.summary}</p>
+        <p class="hero-location">Based in Southeast Michigan · Open to relocation</p>
+        <div class="hero-actions"><a class="button button-primary" href="#selected-work">View selected work <Arrow /></a><a class="text-link" href="/about/">More about me <Arrow /></a></div>
       </div>
-      <div class="hero-bottom"><span>PRODUCT · PEOPLE · SYSTEMS</span><span>SCROLL TO EXPLORE</span></div>
+      <aside class="hero-decision" aria-labelledby="decision-title">
+        <p class="eyebrow">A decision behind the product</p>
+        <div class="decision-brand"><img src="/company-logos/joyjobs.png" alt="JoyJobs.ai" width="160" height="35" /></div>
+        <h2 id="decision-title">Tailored text still left users with manual work.</h2>
+        <p>Early testers liked tailored resume text. They still had to copy it back into a document.</p>
+        <div class="decision-insight"><span class="eyebrow">The product choice</span><p>Update the original document and preserve its formatting.</p></div>
+        <a class="text-link" href="/stories/resume-ai/">See how the workflow changed <Arrow /></a>
+      </aside>
     </div>
   </section>
-
+  <section class="selected-section" id="selected-work">
+    <div class="shell home-frame section-pad">
+      <div class="section-heading"><div><p class="eyebrow">Selected work</p><h2>AI software, field tools,<br />and AR guidance.</h2></div><p>Three contexts where customer workflows shaped what I built and how I chose the next step.</p></div>
+      <div class="project-grid">{selected.map(study => <ProjectCard study={study} />)}</div>
+      <a class="text-link section-end-link" href="/work/">Explore all work <Arrow /></a>
+    </div>
+  </section>
   <section class="career-section" id="work">
-    <div class="shell home-frame">
-      <div class="career-heading">
-        <div>
-          <p class="eyebrow">Experience <span class="section-count">· {String(chapters.length).padStart(2, "0")} CHAPTERS</span></p>
-          <h2>A product mindset,<br />built over time.</h2>
-        </div>
-        <p>Each role added a new skill—from analytical problem-solving to understanding users, building software, and aligning teams.</p>
-      </div>
-
-      <div class="chapter-list">
-        {chapters.map(({ study, framing }) => (
-          <article class="chapter-row" id={"chapter-" + study.id}>
-            <div class="chapter-meta">
-              {companyLogos[study.id] && <span class="company-logo"><img src={companyLogos[study.id]} alt="" loading="lazy" decoding="async" /></span>}
-              <div><h3>{study.data.context.split(" · ")[0]}</h3><span>{study.data.timeframe}</span></div>
-            </div>
-            <div class="chapter-main">
-              <p class="chapter-skill">{framing?.skill ?? study.data.eyebrow}</p>
-              <h4>{framing?.heading ?? study.data.title}</h4>
-              <p>{framing?.narrative ?? study.data.summary}</p>
-              <div class="chapter-tags">{study.data.capabilities.slice(0, 3).map((capability) => <span>{capability}</span>)}</div>
-            </div>
-            <div class="chapter-proof">
-              <p class="proof-label"><svg class="proof-icon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5c-2-1.5-4.5-2-7.5-1.5v12c3-.5 5.5 0 7.5 1.5m0-12c2-1.5 4.5-2 7.5-1.5v12c-3-.5-5.5 0-7.5 1.5m0-12v12" /></svg> In practice</p>
-              <p>{framing?.evidence ?? study.data.outcome}</p>
-              <a href={"/stories/" + study.id + "/"}>Read the story <svg class="cta-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg></a>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="stories-prompt">
-        <div><p class="eyebrow">Go deeper</p><h2>The decisions behind the work.</h2></div>
-        <a class="button button-secondary" href="/stories/">Explore all product stories <svg class="cta-arrow" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></a>
-      </div>
+    <div class="shell home-frame section-pad">
+      <div class="section-heading"><div><p class="eyebrow">Experience</p><h2>How the skills connect.</h2></div><p>Analytical rigor, user research, building from 0 to 1, and product ownership across my career.</p></div>
+      <div class="career-list">{chapters.map(({ study, framing }) => <article class="career-item" id={`chapter-${study.id}`}>
+        <div class="career-company"><img src={companyLogos[study.id]} alt="" width="96" height="40" /><div><h3>{study.data.context.split(" · ")[0]}</h3><span>{study.data.timeframe}</span></div></div>
+        <div><p class="career-skill">{framing?.skill}</p><p>{framing?.evidence}</p></div>
+        <a class="text-link" href={`/stories/${study.id}/`} aria-label={`View ${study.data.context.split(" · ")[0]} project`}>View work <Arrow /></a>
+      </article>)}</div>
     </div>
   </section>
 </BaseLayout>

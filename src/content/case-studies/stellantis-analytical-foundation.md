@@ -1,46 +1,41 @@
 ---
-title: Building an evidence base for engineering decisions
-eyebrow: Analytical rigor · Cross-functional decisions
-summary: At Stellantis, I used testing, modeling, and analysis to help teams understand technical problems and make better-informed decisions.
+title: Using test evidence to support a lower-cost component
+eyebrow: Analytical rigor
+summary: I used testing to build cross-functional support for a smaller fan, connecting technical performance evidence to a projected cost reduction.
 order: 6
-featured: true
+featured: false
 timeframe: 2017–2021
 context: Stellantis
 role: Engineering Co-op
-challenge: Engineering teams needed reliable evidence to evaluate performance, investigate unexpected results, and make cost-conscious decisions.
-outcome: My work supported more accurate battery degradation predictions, helped build support for a lower-cost fan, and helped identify a wind tunnel calibration issue.
+scope: Test analysis, modeling, and cross-functional recommendations during rotating co-op terms
+status: Engineering recommendation supported by testing
+challenge: A component cost decision needed evidence that the lower-cost option could meet technical requirements.
+outcome: My analysis helped build support for downsizing the fan, with projected savings of $20 per vehicle across more than 200,000 vehicles.
 metrics:
-  - value: "18"
-    label: Batteries tested
-    note: Auxiliary battery degradation study
   - value: "$20"
     label: Projected savings per vehicle
-    note: Lower-cost fan across more than 200,000 vehicles
-  - value: "3"
-    label: Model variables
-    note: Time, temperature, and voltage
+    note: Projected cost effect, not a claim of realized savings
 capabilities:
   - Analytical rigor
   - Evidence-based decisions
   - Cross-functional collaboration
-  - Experiment design
-  - Data visualization
 evidence:
-  - Battery testing and regression modeling
   - Fan testing and cross-functional discussions
-  - Wind tunnel variance and flow-field analysis
+  - Supporting work in battery modeling and measurement analysis
 ---
 
-## Build evidence for the decision
+## Put the cost decision on an evidence base
 
-During my engineering co-op, I worked on problems where a useful decision depended on understanding the underlying evidence. For an auxiliary battery degradation study, I designed a test program involving 18 batteries and built regression models using time, temperature, and voltage to improve degradation predictions.
+During my engineering co-op, I used testing to build support across teams for a smaller, lower-cost fan. The decision required connecting a technical recommendation to a commercially meaningful consequence.
 
-In a separate project, I used test evidence to build support across teams for a smaller, lower-cost fan. The change was projected to save $20 per vehicle across more than 200,000 vehicles.
+The change was projected to save $20 per vehicle across more than 200,000 vehicles. That is the projected scope of the opportunity, not a claim that I verified realized savings after production.
 
-## Question the measurement
+## Supporting analytical work
 
-On a wind tunnel project, an unexpected variation in test results raised questions about a vehicle's aerodynamics. I visualized the variance and used statistical and flow-field analysis to investigate it. Further analysis pointed to a control-system calibration issue in the wind tunnel, helping the team avoid a false conclusion about the vehicle design.
+Other co-op projects strengthened the same habit of questioning the evidence before making a decision. I designed a test program involving 18 auxiliary batteries and modeled degradation using time, temperature, and voltage.
 
-## A foundation for product work
+On a wind tunnel investigation, unexpected variation initially raised concerns about a vehicle's aerodynamics. Statistical and flow-field analysis instead pointed to a control-system calibration issue, helping the team avoid a false conclusion about the vehicle design.
 
-These projects taught me to frame a decision, examine the quality of the evidence, and communicate findings across disciplines. I carry that analytical foundation into product work alongside the user research, interaction design, and product development skills I built in later roles.
+## Relevance to product decisions
+
+The recurring responsibility was to frame a question, examine whether the measurements answered it, and communicate what the evidence supported. That analytical rigor is the foundation I bring to product discovery and prioritization.

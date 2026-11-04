@@ -1,48 +1,48 @@
 ---
-title: Finding the failures hidden by aggregate data
-eyebrow: Product reliability
-summary: I investigated customer reports and usage patterns to prioritize reliability fixes and protect the product as usage grew.
-order: 3
-featured: true
+title: Finding a PDF failure hidden by the overall error rate
+eyebrow: Product reliability · Prioritization
+summary: I segmented stalled processing by document format to identify a PDF-specific failure and turn customer reports into a clear product priority.
+order: 5
+featured: false
 timeframe: 2023–2025
 context: JoyJobs.ai
 role: Technical Co-Founder & Head of Product
-challenge: Users reported processing failures, but the team needed to understand who was affected and where to invest limited development time.
-outcome: We fixed a PDF processing bug, established separate staging and production environments, and introduced controls after unusual usage surfaced in retention analysis.
-metrics:
-  - value: 40%
-    label: PDF users affected
-    note: Identified in processing-status analysis
-  - value: 10%
-    label: All users affected
-    note: The overall rate obscured the format-specific issue
-  - value: 2 environments
-    label: Staging and production
-    note: Separated to support safer updates
+scope: Customer-report investigation, transaction analysis, and reliability prioritization
+status: PDF processing bug fixed
+challenge: Some customers' resumes remained stuck processing, but the overall rate concealed the concentration of failures among PDF users.
+outcome: The investigation pointed to the third-party PDF conversion step. We launched an internal parsing effort and fixed the bug.
+metrics: []
 capabilities:
   - Product analytics
   - Root-cause analysis
   - Reliability
   - Prioritization
-  - Operational scaling
 evidence:
-  - Customer bug reports
-  - Processing-status analysis
-  - Retention and usage-distribution reports
+  - Customer reports of stalled processing
+  - Transaction and processing-status analysis
+  - Document investigation and the resulting PDF fix
 ---
 
-## Find out who is affected
+## Start with the user's failure
 
-Customers reported that some resumes were stuck processing. I queried transaction records and examined jobs still processing beyond the expected window. The issue appeared to affect approximately 10% of all users, but about 40% of PDF users in the analysis.
+Customers reported resumes that remained in a processing state. For someone trying to submit an application, the failed task was concrete: they could not get a finished document back.
 
-That distinction made the problem easier to prioritize. The investigation pointed to the third-party PDF conversion step. We launched an internal parsing project and fixed the bug, addressing a failure that the aggregate rate alone did not fully convey.
+I queried transaction records and examined processing that continued beyond the expected window. The goal was to understand who was affected before deciding where to spend limited development time.
 
-## Make frequent changes safer
+## Segment before prioritizing
 
-As releases became more frequent, we needed a way to test changes before they reached customers. I built separate staging and production environments and automated deployment to staging, with a deliberate promotion step into production. This gave the team a clearer path for checking changes before release.
+My analysis suggested that the issue affected approximately 10% of all users and about 40% of PDF users. These were diagnostic estimates from the investigation, not a controlled experiment or a post-fix comparison. The analysis used transaction records to investigate an affected user group; the figures should not be read as counts of independent experimental observations.
 
-## Look at usage as well as retention
+The format distinction made a specific investment easier to justify. A problem affecting a minority overall was preventing a much larger share of the PDF group from completing the core task.
 
-I built a report from joined product and user data to understand seven- and thirty-day retention and engagement. In a weekly team review, an unusual usage pattern led to further investigation. We disabled concurrent logins and added automated detection for suspicious activity, reducing processing-cost leakage.
+## Fix the weak step in the workflow
 
-Each decision started with a different signal: a customer report, a release risk, or an unexpected pattern in usage. Together, they helped us choose work that made the product more reliable as it grew.
+The investigation pointed to third-party PDF conversion. We launched an internal parsing effort and fixed the bug, prioritizing compatibility for users whose documents were failing.
+
+That decision connected the technical cause to the product task: returning a usable tailored document mattered more than improving text generation for files that already worked.
+
+## Outcome and measurement limits
+
+The processing bug was fixed. A verified post-fix error rate is not available for this account, so the diagnostic estimates should not be read as a measured improvement after the fix.
+
+Separate operational work included staging and production environments, deployment automation, and usage monitoring. Those supported ongoing delivery but were not the evidence used to identify this PDF-specific problem.

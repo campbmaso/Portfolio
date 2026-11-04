@@ -1,48 +1,51 @@
 ---
-title: Shaping the next chapter of a measurement platform
-eyebrow: Product strategy · Connected systems
-summary: I brought customer and market context into cross-functional discussions about the future of a mature measurement platform.
-order: 5
+title: Making measurement software fit the field workflow
+eyebrow: Product ownership & strategy
+summary: I led requirements, UX design, and rollout planning for a launched software redesign with automated capture, customizable session tags, and accessible device controls.
+order: 2
 featured: true
 timeframe: 2025–present
-context: Sensors, Inc. · HI-FLOW 2
-role: Product Growth Lead, Global Oil & Gas
-challenge: A mature product needed a path to broader adoption while balancing customer workflows, architecture, usability, cost, and pricing.
-outcome: I led cross-functional product strategy for the platform redesign, aligning engineering, operations, and commercial teams around those tradeoffs.
-metrics:
-  - value: HI-FLOW 2
-    label: Mature platform
-    note: Redesign strategy for broader adoption
-  - value: 3 teams
-    label: Perspectives aligned
-    note: Engineering, operations, and commercial
-  - value: Customer input
-    label: Product context
-    note: Informed by direct conversations and market discovery
+context: Sensors, Inc.
+role: Product Marketing & Business Development Manager
+scope: Product requirements, UX design, and rollout planning with engineering and commercial teams
+status: Software redesign launched
+challenge: Measurement operators needed a coherent way to control a device, collect readings, and preserve the context needed to interpret their data.
+outcomeLabel: What shipped
+outcome: A redesigned software workflow combining automated data collection, customizable session tagging, primary device controls, and visualization and analysis.
+metrics: []
 capabilities:
-  - Product strategy
+  - Product requirements
+  - Interaction design
+  - Rollout planning
   - Customer discovery
-  - Cross-functional alignment
-  - Technical tradeoffs
-  - Market analysis
 evidence:
-  - Customer and market discovery
-  - Cross-functional product strategy work
-  - Platform architecture and usability discussions
+  - Customer discovery around measurement and reporting workflows
+  - Requirements and UX design for the software platform
+  - Launched redesign; no measured impact figures presented
 ---
 
-## Connect the platform to customer needs
+## The operator's task
 
-At Sensors, I worked on growth strategy for the oil and gas portfolio and spoke directly with customers about their workflows and adoption barriers. Discovery at industry events and through accelerator programs surfaced measurement, reporting, regulatory, and operational needs that helped inform product priorities.
+A measurement is useful only if the operator can capture it and understand its context later. At Sensors, I led product requirements, UX design, and rollout planning for a rearchitected software platform across the methane measurement portfolio.
 
-For HI-FLOW 2, the question was how a mature platform could support broader adoption while remaining practical for the people and organizations using it.
+The work started with eREM and planned for extension to the Bar Hole Sampler and HI-FLOW 2. I worked with engineering and commercial teams to connect the experience of operating a device with the experience of reviewing its data.
 
-## Bring the tradeoffs into one conversation
+## Decision 1: automate capture and preserve context
 
-I led cross-functional product strategy for the redesign, bringing engineering, operations, and commercial perspectives together around architecture, user experience, cost, and pricing. These choices affect one another: a product has to work technically, fit customer workflows, and make commercial sense.
+I designed a data collection workflow around automated capture with customizable session tagging. The design brought data collection and its organizing context into the same workflow, so operators could associate measurements with a session rather than treat the data as isolated readings.
 
-The broader platform work included a bridge device intended to extend access from local data toward an edge-to-cloud ecosystem. My work connected the opportunity from ideation through sales, bringing product and customer considerations into the discussion.
+This defined two product requirements together: collecting the data and giving the user a way to make sense of it. Visualization and analysis formed part of the software experience rather than a separate afterthought.
 
-## Outcome
+## Decision 2: keep device controls accessible
 
-The work aligned teams around the product's redesign and its competing constraints, bringing customer and commercial considerations into conversation with engineering and operational realities.
+Switching device mode is a primary action during measurement. I made accessibility of those controls an explicit UX requirement. The interface needed to support what operators do while collecting data, alongside the later task of inspecting results.
+
+## Decision 3: plan beyond one device
+
+The platform work started with eREM while accounting for additional measurement products. My scope included rollout planning, connecting the requirements of the first product to a broader portfolio instead of treating each device as an unrelated software project.
+
+## Launch and limits
+
+The software redesign has launched. My responsibility covered requirements ownership, UX design, and rollout planning, alongside engineering and commercial collaborators.
+
+Impact beyond launch remains to be quantified in this account. Task time, data completeness, and adoption would be useful measures for evaluating the redesigned workflow.

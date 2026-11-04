@@ -1,8 +1,8 @@
 - id: growth-ai
   label: Product Manager, Software & AI
-  eyebrow: Product manager · Designer · Builder
-  headline: I build products around how people actually work.
-  summary: I’m Mason, a product manager and technical co-founder. I bring together analytical thinking, user research, interaction design, and technology to make complex products more useful.
+  eyebrow: Product manager · Software & AI
+  headline: I turn complex workflows into useful products.
+  summary: I’m Mason, a product manager and technical co-founder. I’ve built AI software for job seekers, designed AR guidance for manufacturing operators, and shaped connected measurement products.
   featuredCaseStudies:
     - stellantis-analytical-foundation
     - lightguide-ar-workflows
@@ -13,22 +13,22 @@
       skill: Analytical rigor
       heading: Build a foundation in evidence.
       narrative: At Stellantis, I learned to frame decisions and use testing, modeling, and analysis to help teams understand complex technical problems.
-      evidence: Designed a test program involving 18 batteries to study degradation.
+      evidence: Used testing to support a lower-cost fan, with projected savings of $20 per vehicle.
     - id: lightguide-ar-workflows
       skill: User research & interaction design
       heading: Design with the people doing the work.
       narrative: At LightGuide, I built on that foundation by working with operators to translate real manufacturing processes into augmented reality guidance.
-      evidence: Worked on more than 20 AR applications across my tenure.
+      evidence: Designed spatial guidance around operator knowledge and physical constraints.
     - id: resume-ai
       skill: Building from 0 to 1
       heading: Bring insight all the way to product.
       narrative: At JoyJobs, I brought research, design, and technical execution together—from early customer calls to launching an AI-powered resume workflow.
-      evidence: Co-founded the company and built the first product prototypes.
+      evidence: Pivoted from career exploration to resume tailoring and launched a document workflow.
     - id: sensors-platform-strategy
       skill: Product ownership & strategy
       heading: Align teams around the next decision.
       narrative: At Sensors, I connect customer and market insight with engineering, operations, and commercial perspectives to shape product direction.
-      evidence: Led cross-functional strategy for the HI-FLOW 2 redesign.
+      evidence: Led requirements, UX design, and rollout planning for a launched measurement software redesign.
   proofPoints:
     - value: Research
       label: Listen to the people doing the work
@@ -77,9 +77,9 @@
     - resume-ai
     - growth-economics
   proofPoints:
-    - value: 20+
+    - value: AR
       label: Industrial workflows
-      note: Designed across aerospace, defense, medical, and automotive settings
+      note: Designed for operators across manufacturing settings
     - value: 10% to 87%
       label: Requirements coverage
       note: Improved a vehicle-system decision document

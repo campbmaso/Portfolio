@@ -1,35 +1,14 @@
 ---
 import { siteConfig } from "../site-config";
+const path = Astro.url.pathname;
+const workActive = path.startsWith("/work") || path.startsWith("/stories");
+const aboutActive = path.startsWith("/about");
 ---
-
-<header class="site-header">
-  <div class="shell nav-shell">
-    <a class="brand" href="/" aria-label={`${siteConfig.name}, home`}>
-      <span class="brand-mark" aria-hidden="true"><span>m.</span></span>
-      <span class="brand-name">Mason Campbell</span>
-    </a>
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="/#work">Work</a>
-      <a href="/stories/">Stories</a>
-      <a href="/about/">About</a>
-      <a class="nav-contact" href={siteConfig.linkedin} target="_blank" rel="noreferrer">Let’s connect</a>
-    </nav>
-    <details class="mobile-nav">
-      <summary>Menu</summary>
-      <nav aria-label="Mobile navigation">
-        <a href="/#work">Work</a>
-        <a href="/stories/">Stories</a>
-        <a href="/about/">About</a>
-        <a href={siteConfig.linkedin} target="_blank" rel="noreferrer">Let’s connect</a>
-      </nav>
-    </details>
-  </div>
-</header>
-
+<header class="site-header"><div class="shell nav-shell">
+  <a class="brand" href="/" aria-label={`${siteConfig.name}, home`}><span class="brand-mark" aria-hidden="true">m.</span><span class="brand-name">Mason Campbell</span></a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="/work/" aria-current={workActive ? "page" : undefined}>Work</a><a href="/about/" aria-current={aboutActive ? "page" : undefined}>About</a><a href="/#contact">Contact</a></nav>
+  <details class="mobile-nav"><summary>Menu</summary><nav aria-label="Mobile navigation"><a href="/work/" aria-current={workActive ? "page" : undefined}>Work</a><a href="/about/" aria-current={aboutActive ? "page" : undefined}>About</a><a href="/#contact">Contact</a></nav></details>
+</div></header>
 <script>
-  document.querySelectorAll<HTMLDetailsElement>(".mobile-nav").forEach((menu) => {
-    menu.addEventListener("click", (event) => {
-      if (event.target instanceof Element && event.target.closest("a")) menu.open = false;
-    });
-  });
+  document.querySelectorAll<HTMLDetailsElement>(".mobile-nav").forEach(menu => menu.addEventListener("click", event => { if (event.target instanceof Element && event.target.closest("a")) menu.open = false; }));
 </script>

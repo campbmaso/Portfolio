@@ -3,7 +3,10 @@ title: Studying how instruction methods affect assembly work
 eyebrow: Research · Experimental design
 summary: As part of a senior design team, I participated in a study comparing LightGuide and other instruction methods for a simple assembly task.
 order: 7
-featured: true
+featured: false
+status: Senior design study completed
+scope: Project team member; individual task ownership not specified
+metricHeading: Study scope
 timeframe: Fall 2020
 context: Senior design project · LightGuide study
 role: Project team member
@@ -35,7 +38,7 @@ How does the way instructions are delivered affect someone assembling a physical
 
 ## The study
 
-Seventeen participants without prior background knowledge practiced each assembly orientation before testing. The team recorded 298 assembly cycle times by stopwatch. The project also explored eye tracking to understand where participants looked during the task, although hardware and recording issues limited that part of the work.
+Seventeen participants without prior background knowledge practiced each assembly orientation before testing. The team recorded 298 assembly cycle times by stopwatch. These were repeated observations from 17 participants, not 298 independent participants. The project also explored eye tracking to understand where participants looked during the task, although hardware and recording issues limited that part of the work.
 
 ## What the results showed
 

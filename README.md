@@ -22,7 +22,11 @@ pnpm validate
 - `src/content/case-studies/` contains canonical, evidence-backed work stories.
 - `src/data/role-profiles.yaml` controls the headline, emphasis, proof points, and case-study order for each target role.
 - `src/site-config.ts` selects the active profile and stores public links.
-- `src/pages/stories/` contains the story collection and detail pages. Existing `/work/` links redirect to their corresponding story pages.
+- `/work/` is the project collection. `/stories/` redirects there; existing project URLs under `/stories/<id>/` and legacy `/work/<id>/` links remain usable.
+- `src/data/projects.ts` controls the selected projects, company logos, and related next-project links.
+- `src/components/ProjectWorkflow.astro` contains explicitly labeled workflow reconstructions. These are explanatory diagrams, not product screenshots.
+
+Case studies can omit the fact strip when there is no meaningful number to show. Use `status`, `scope`, and `outcomeLabel` to distinguish research, delivered work, and launched products. Keep unverified impact figures out of the public content.
 
 To reposition the portfolio, change `activeProfile` in `src/site-config.ts`, then revise or add the matching role profile. Do not duplicate case studies just to change emphasis.
 

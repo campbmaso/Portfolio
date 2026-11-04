@@ -1,0 +1,19 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { selectedProjectIds } from "../../data/projects";
+import ProjectCard from "../../components/ProjectCard.astro";
+import Arrow from "../../components/Arrow.astro";
+const studies = (await getCollection("caseStudies")).sort((a,b) => a.data.order-b.data.order);
+const selected = selectedProjectIds.map(id => studies.find(study => study.id === id)!);
+const supporting = studies.filter(study => !selectedProjectIds.includes(study.id));
+---
+<BaseLayout title="Work" description="Selected product work in AI software, measurement workflows, and augmented reality, with supporting cases in experimentation and analytical rigor." canonicalPath="/work/">
+  <div class="work-page">
+    <header class="shell page-intro"><p class="eyebrow">Work</p><h1>Decisions that shaped<br />the product.</h1><p>What the user needed, what I owned, and how evidence changed the next step.</p></header>
+    <section class="shell work-selected" aria-labelledby="selected-title"><h2 id="selected-title" class="collection-title">Selected projects</h2><div class="project-grid">{selected.map(study => <ProjectCard study={study} />)}</div></section>
+    <section class="shell supporting-section" aria-labelledby="supporting-title"><div class="section-heading"><div><p class="eyebrow">Supporting work</p><h2 id="supporting-title">A closer look at the evidence.</h2></div><p>Focused cases in experimentation, reliability, engineering decisions, and research.</p></div>
+      <div class="supporting-list">{supporting.map(study => <article><div><p class="eyebrow">{study.data.context}</p><h3><a href={`/stories/${study.id}/`}>{study.data.title}</a></h3><p>{study.data.summary}</p></div><a class="text-link" href={`/stories/${study.id}/`} aria-label={`View project: ${study.data.title}`}>View project <Arrow /></a></article>)}</div>
+    </section>
+  </div>
+</BaseLayout>
