@@ -201,9 +201,11 @@ const paintings = await Promise.all(artworks.map(async painting => ({
   .viewer-artist { margin: 0 0 var(--space-16); color: var(--muted); font-size: .85rem; }
   .viewer-info h2 { margin: 0; font-size: 1.8rem; font-weight: 650; line-height: 1.2; letter-spacing: -.025em; }
   .viewer-year { margin: var(--space-12) 0 0; color: var(--muted); font-size: 1rem; }
-  .art-facts { display: grid; gap: var(--space-16); margin: var(--space-32) 0 var(--space-24); padding-top: var(--space-24); border-top: 1px solid var(--line); }
-  .art-facts dt { margin-bottom: var(--space-4); color: var(--muted); font-size: .75rem; }
-  .art-facts dd { margin: 0; font-size: .9rem; }
+  .art-facts { display: grid; gap: var(--space-8); margin: var(--space-24) 0; padding-top: var(--space-16); border-top: 1px solid var(--line); }
+  .art-facts > div { display: grid; grid-template-columns: 5.25rem minmax(0, 1fr); align-items: baseline; gap: var(--space-8); }
+  .art-facts dt { margin: 0; color: var(--muted); font-size: .8rem; white-space: nowrap; }
+  .art-facts dt::after { content: ":"; }
+  .art-facts dd { margin: 0; font-size: .85rem; white-space: nowrap; }
   #art-dialog-description { margin: 0 0 var(--space-32); color: var(--muted); font-size: .9rem; line-height: 1.8; white-space: pre-line; }
   .art-navigation { display: flex; justify-content: space-between; gap: var(--space-16); padding-top: var(--space-24); margin-top: auto; border-top: 1px solid var(--line); }
   .art-navigation button { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink); font-size: .8rem; }
@@ -224,7 +226,6 @@ const paintings = await Promise.all(artworks.map(async painting => ({
     .viewer-info { padding: var(--space-24); border-left: 0; border-top: 1px solid var(--line); }
     .viewer-info h2 { font-size: 1.5rem; }
     .viewer-artist { margin-bottom: var(--space-8); }
-    .art-facts { grid-template-columns: 1fr 1fr; margin-top: var(--space-24); }
   }
   @media (max-width: 380px) { .zoom-hint { display: none; } }
 </style>
