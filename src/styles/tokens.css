@@ -12,13 +12,14 @@
   --line: #e5e5e5;
   --grid: #ededed;
   --accent: #12c464;
-  --accent-link: #087a3e;
+  --accent-link: var(--accent);
+  --link-hover: #000000;
   --accent-tint: #eaf8ef;
-  --accent-hover: var(--accent);
+  --accent-hover: #0d8143;
   --accent-soft: var(--surface);
   --accent-mid: var(--line);
   --accent-ink: var(--ink);
-  --on-accent: var(--ink);
+  --on-accent: #ffffff;
   --focus: var(--ink);
   --shadow: rgba(0, 0, 0, 0.08);
   /* Selected-work colors follow the accents in each company's logo. */

@@ -24,13 +24,13 @@ button { cursor: pointer; }
 .mobile-nav summary::-webkit-details-marker { display: none; }
 .mobile-nav nav { position: absolute; z-index: 10; top: calc(100% + 1rem); right: 0; display: grid; min-width: 190px; gap: var(--space-24); padding: var(--space-24); border: 1px solid var(--line); background: var(--bg); box-shadow: 0 1rem 2rem var(--shadow); }
 .eyebrow { margin: 0; color: var(--ink); font-size: .75rem; font-weight: 750; letter-spacing: .075em; line-height: 1.5; text-transform: uppercase; }
-.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: var(--space-24); padding: var(--space-12) var(--space-24); border: 1px solid transparent; border-radius: 5px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: border-color .18s ease; }
+.button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: var(--space-24); padding: var(--space-12) var(--space-24); border: 1px solid transparent; border-radius: 5px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: background-color .18s ease, border-color .18s ease, color .18s ease; }
 .button-primary { color: var(--on-accent); background: var(--accent); }
-.button-primary:hover { border-color: var(--ink); }
+.button-primary:hover { background: var(--accent-hover); color: var(--on-accent); }
 .button-secondary { color: var(--ink); background: var(--bg); border-color: var(--line); }
 .button-secondary:hover { border-color: var(--ink); }
 .text-link { display: inline-flex; align-items: center; gap: var(--space-8); color: var(--accent-link); font-size: .9rem; font-weight: 700; text-decoration: none; }
-.text-link:hover { text-decoration: underline; text-underline-offset: .25em; }
+.text-link:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: .25em; }
 .cta-arrow { width: 1rem; height: 1rem; flex: none; transition: transform .18s ease; }
 a:hover .cta-arrow { transform: translate(2px, -2px); }
 .home-frame { border-inline: 1px solid var(--line); }
