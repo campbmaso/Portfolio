@@ -2,7 +2,7 @@
 import { siteConfig } from "../site-config";
 const path = Astro.url.pathname;
 const workActive = path.startsWith("/work") || path.startsWith("/stories");
-const aboutActive = path.startsWith("/about");
+const aboutActive = path.startsWith("/about") || path.startsWith("/research");
 ---
 <header class="site-header"><div class="shell nav-shell">
   <a class="brand" href="/" aria-label={`${siteConfig.name}, home`}><span class="brand-mark" aria-hidden="true">m.</span><span class="brand-name">Mason Campbell</span></a>

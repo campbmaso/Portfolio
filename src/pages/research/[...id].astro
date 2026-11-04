@@ -1,7 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import WorkStoryLayout from "../../layouts/WorkStoryLayout.astro";
-import ResearchArtwork from "../../components/ResearchArtwork.astro";
 import Arrow from "../../components/Arrow.astro";
 export async function getStaticPaths() {
   return (await getCollection("research")).map(brief => ({ params: { id: brief.id }, props: { brief } }));
@@ -11,12 +10,24 @@ const { brief } = Astro.props;
 const { Content } = await render(brief);
 const otherBriefs = (await getCollection("research")).filter(item => item.id !== brief.id).sort((a, b) => a.data.order - b.data.order);
 ---
-<WorkStoryLayout title={brief.data.title} summary={brief.data.summary} category="Research" eyebrow="Research brief" canonicalPath={`/research/${brief.id}/`} resultHeading={brief.data.outcomeLabel} outcome={brief.data.outcome ?? brief.data.question} metrics={brief.data.metrics} metricHeading="Study scope">
+<WorkStoryLayout title={brief.data.title} summary={brief.data.summary} category="Research" eyebrow={brief.data.category} canonicalPath={`/research/${brief.id}/`} resultHeading="Key findings" outcome={brief.data.takeaway} metrics={brief.data.scope} metricHeading="Study scope">
   <Fragment slot="context">
-    <div class="brief-artwork"><ResearchArtwork id={brief.id} landscape /></div>
-    <dl><div><dt>Research status</dt><dd>{brief.data.status}</dd></div></dl>
+    <dl>
+      <div><dt>My role</dt><dd>{brief.data.role}</dd></div>
+      <div><dt>Context</dt><dd>{brief.data.context}</dd></div>
+      <div><dt>Timeframe</dt><dd>{brief.data.period}</dd></div>
+      <div><dt>Research status</dt><dd>{brief.data.status}</dd></div>
+    </dl>
   </Fragment>
+  <section class="story-challenge" aria-labelledby="question-title">
+    <h2 id="question-title">The research question</h2>
+    <p>{brief.data.question}</p>
+  </section>
   <Content />
+  <details class="story-notes">
+    <summary>Methods used</summary>
+    <ul>{brief.data.methods.map(method => <li>{method}</li>)}</ul>
+  </details>
   <Fragment slot="related">
     <h2>More research</h2>
     {otherBriefs.map(item => <a class="text-link" href={`/research/${item.id}/`}>{item.data.title} <Arrow /></a>)}
@@ -24,6 +35,3 @@ const otherBriefs = (await getCollection("research")).filter(item => item.id !==
     <a class="text-link" href="/work/">All work <Arrow /></a>
   </Fragment>
 </WorkStoryLayout>
-<style>
-  .brief-artwork { margin: calc(-1 * var(--space-24)) calc(-1 * var(--space-24)) var(--space-24); }
-</style>

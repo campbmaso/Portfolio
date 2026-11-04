@@ -20,7 +20,8 @@ pnpm validate
 ## Content model
 
 - `src/content/case-studies/` contains canonical, evidence-backed work stories.
-- `src/content/research/` contains editable research briefs shown on `/about/` and `/research/<id>/`.
+- `src/content/research/` contains the three research stories shown on `/about/`, `/work/`, and `/research/<id>/`, including their scope, methods, findings, and limitations.
+- `public/research/` contains public-safe aggregate figures and downloadable result tables. Raw career records, private source documents, and original experiment folders stay outside the site.
 - `src/data/role-profiles.yaml` controls the headline, emphasis, proof points, and case-study order for each target role.
 - `src/site-config.ts` selects the active profile and stores public links.
 - `/work/` is the project collection. `/stories/` redirects there; existing project URLs under `/stories/<id>/` and legacy `/work/<id>/` links remain usable.
