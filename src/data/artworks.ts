@@ -20,12 +20,12 @@ export const artworks: Artwork[] = [
   },
   {
     src: colorfulPortrait,
-    title: "Portrait in color",
+    title: "Fragments of Consciousness",
     year: "2025",
-    medium: "Oil",
+    medium: "Oil on canvas",
     dimensions: "Approx. 8 × 10 in.",
     alt: "A portrait formed from many small, colorful brushstrokes",
-    description: "Small marks of turquoise, blue, pink, and yellow gather into a face. The shifting warm and cool colors give the portrait a sense of movement while the eyes hold the composition together.",
+    description: "A human face emerges from a kaleidoscopic field of color, its features simultaneously defined and dissolved by hundreds of vibrant, individual brushstrokes. Rich blues, violets, and turquoise intertwine with flashes of crimson, gold, and emerald, creating a rhythmic interplay of light, texture, and form.\n\nSuspended between portraiture and abstraction, the composition explores the fragmented nature of perception and identity. From apparent chaos emerges a familiar human presence, inviting the viewer to consider how countless individual fragments converge into a unified sense of self.",
   },
   {
     src: butterfly,
