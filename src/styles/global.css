@@ -65,7 +65,7 @@ a:hover .cta-arrow { transform: translate(2px, -2px); }
 .career-list { border-top: 1px solid var(--line); }
 .career-item { display: grid; grid-template-columns: minmax(14rem, .9fr) minmax(0, 1.5fr) auto; gap: var(--space-32); align-items: center; padding-block: var(--space-32); border-bottom: 1px solid var(--line); }
 .career-company { display: flex; gap: var(--space-16); align-items: center; }
-.career-company img { width: 88px; height: 40px; object-fit: contain; filter: grayscale(1); }
+.career-company img { width: 88px; height: 40px; object-fit: contain; }
 .career-company span { color: var(--muted); font-size: .85rem; }
 .career-skill { margin: 0 0 var(--space-8); font-size: .85rem; font-weight: 700; }
 .career-item p:not(.career-skill) { margin: 0; color: var(--muted); font-size: .9rem; }
