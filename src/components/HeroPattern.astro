@@ -21,7 +21,7 @@ function snowflake(radius: number, rotation: number) {
 }
 
 // Two sizes, rotated 30 degrees apart, on a triangular lattice.
-const radius = 8.5;
+const radius = 17;
 const stepX = 2 * Math.sqrt(3) * radius;
 const stepY = 3 * radius;
 const tiles: { x: number; y: number; size: string }[] = [];
@@ -84,7 +84,7 @@ for (let row = -1; row < Math.ceil(640 / stepY) + 1; row++) {
       const point = new DOMPoint(pointerX, pointerY).matrixTransform(matrix.inverse());
       for (const tile of tiles) {
         // Scale the hover neighborhood with the smaller tiles.
-        const proximity = Math.max(0, 1 - Math.hypot(point.x - tile.x, point.y - tile.y) / 28.75);
+        const proximity = Math.max(0, 1 - Math.hypot(point.x - tile.x, point.y - tile.y) / 57.5);
         tile.element.classList.toggle('is-lifted', proximity > 0);
         if (proximity > 0) {
           tile.element.style.setProperty('--lift', `${-3 - proximity * 9}px`);
