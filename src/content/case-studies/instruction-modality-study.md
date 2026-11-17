@@ -1,47 +1,66 @@
 ---
-title: Studying how instruction methods affect assembly work
-eyebrow: Research · Experimental design
-summary: As part of a senior design team, I participated in a study comparing LightGuide and other instruction methods for a simple assembly task.
+title: Do projected instructions make assembly faster?
+eyebrow: Undergraduate research · Human factors
+category: Research
+summary: My Kettering University capstone team compared projected, screen-based, and paper instructions to study how instruction format and pacing affected assembly time.
 order: 7
 featured: false
 status: Senior design study completed
-scope: Project team member; individual task ownership not specified
+scope: Capstone team member on a collaborative study of instruction format, pacing, and assembly performance
 metricHeading: Study scope
-timeframe: Fall 2020
-context: Senior design project · LightGuide study
-role: Project team member
-challenge: Understand whether the way instructions are presented changes how quickly people complete an assembly task.
-outcome: The team did not find a statistically significant cycle-time difference among the instruction methods tested. The presentation recommended further research with more complex assemblies and trained operators.
+timeframe: Senior year
+context: Kettering University · IME 454 senior design
+role: Senior design team member
+challenge: When the parts and assembly are held constant, does changing where instructions appear or how they advance change how quickly people complete the task?
+outcomeLabel: What we found
+outcome: The study did not establish a cycle-time advantage for LightGuide over paper or screen-based instructions on this task. Repeated observations and the way conditions were paired with orientations limited what we could attribute to the interface.
 metrics:
   - value: "17"
-    label: Test participants
-    note: Participants had no prior background knowledge of the task
+    label: Participants
+    note: Repeated trials per participant
   - value: "9"
-    label: Instruction methods
-    note: Compared across three assembly orientations
-  - value: "298"
-    label: Recorded cycle times
-    note: Measured by stopwatch
+    label: Test conditions
+    note: Paper, monitor, projection, and a no-instruction baseline
+  - value: "3"
+    label: Assembly orientations
+    note: A six-piece cube assembly
+  - value: "296"
+    label: Usable timings
+    note: Recovered Minitab worksheet
 capabilities:
   - Experimental design
-  - Usability research
-  - Data analysis
+  - Human factors research
+  - Repeated-measures data
   - Augmented reality
 evidence:
-  - Team study of instruction methods and assembly cycle times
-  - Final senior design presentation prepared by a teammate
+  - Kettering University IME 454 capstone team materials
+  - Archived Minitab project with comparisons across instruction conditions and model diagnostics
 ---
 
-## The question
+## A simple task with different interfaces
 
-How does the way instructions are delivered affect someone assembling a physical object? Our senior design team compared nine instruction methods, including LightGuide, using a cube made of six unique parts. The study considered different participants and three assembly orientations.
+For our IME 454 senior design project at Kettering University, my teammates and I studied how people assembled a cube made from six distinct pieces. We compared ways to deliver the same task instructions and included a condition without instructions. Some variants showed everything at once, others advanced on a timer, and others waited for a participant action.
 
-## The study
+| Interface | Conditions |
+| --- | --- |
+| Paper | Printed instructions |
+| Monitor | All steps at once, timed progression, button-controlled progression |
+| LightGuide projection | All steps at once, timed progression, motion-triggered progression, projected soft button |
+| Baseline | No instructions |
 
-Seventeen participants without prior background knowledge practiced each assembly orientation before testing. The team recorded 298 assembly cycle times by stopwatch. These were repeated observations from 17 participants, not 298 independent participants. The project also explored eye tracking to understand where participants looked during the task, although hardware and recording issues limited that part of the work.
+## What we measured
 
-## What the results showed
+Seventeen participants completed repeated trials across three assembly orientations. The team recorded completion times by stopwatch. The archived Minitab project contains 296 usable timings and preserves an analysis of variance and Tukey pairwise comparisons across the nine conditions.
 
-The team could not conclude that LightGuide produced the fastest cycle times in this simple assembly, or that a particular pacing method was fastest. The presentation noted that LightGuide methods showed lower variation in cycle times, while identifying the simple task and manual timing as limitations. It recommended further testing with more complex assemblies and trained operators.
+<figure>
+  <a href="/work-media/capstone-orientation-counts.png" aria-label="View the full-size chart of trial counts by condition and assembly orientation"><img src="/work-media/capstone-orientation-counts.png" alt="A heatmap of trial counts showing that each of the eight guided conditions was tested in just one of the three orientations" width="1086" height="874" loading="lazy" /></a>
+  <figcaption>Trial counts by condition and assembly orientation, reconstructed from the Minitab archive. One of the 297 records has a missing timing.</figcaption>
+</figure>
 
-I participated in the project as a member of the senior design team. This summary draws on the team's final presentation, which was prepared by a teammate.
+## What the study established
+
+The saved pairwise analysis identified four guided conditions with shorter mean completion times than the no-instruction baseline. The intervals for every comparison between guided conditions included zero. The model treated repeated trials as independent, and each guided condition appeared in only one orientation. Those limitations make it difficult to isolate the effect of instruction format.
+
+I would follow up with a more complex assembly, automated timing, and a design that balances condition and orientation within participants. That would give a cleaner test of whether guidance at the point of work changes performance.
+
+In my later work at LightGuide, I designed projected interfaces and sensor-driven controls for manufacturing operators. [Read the LightGuide UX case study](/stories/lightguide-ar-workflows/).

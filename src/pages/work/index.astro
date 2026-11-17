@@ -18,7 +18,7 @@ const filters = ["All", "Product", "Research"];
       <div class="shell">
         <article class="featured-story">
           <div class="featured-copy">
-            <p class="story-category">Featured story · Product</p>
+            <p class="story-category">Featured story · {featured.data.category}</p>
             <h1 id="featured-title"><a href={`/stories/${featured.id}/`}>{featured.data.title}</a></h1>
             <div class="story-author"><img src="/mason-campbell.jpg" alt="" width="48" height="48" /><div><strong>Mason Campbell</strong><span>{featured.data.role}</span></div></div>
             <p class="featured-summary">{featured.data.summary}</p>
@@ -36,14 +36,14 @@ const filters = ["All", "Product", "Research"];
         <p class="story-count" role="status" aria-live="polite">{stories.length + research.length} stories</p>
       </div>
       <div class="journal-grid">
-        {stories.map(study => <article class="journal-entry" data-category="Product">
+        {stories.map(study => <article class="journal-entry" data-category={study.data.category}>
           <header class="entry-heading">
             <h2><a href={`/stories/${study.id}/`}>{study.data.title}</a></h2>
-            <div class="entry-meta"><p class="story-category">Product</p><span>{study.data.timeframe}</span></div>
+            <div class="entry-meta"><p class="story-category">{study.data.category}</p><span>{study.data.timeframe}</span></div>
           </header>
           <WorkArtwork id={study.id} />
           <p class="entry-summary">{study.data.summary}</p>
-          <span class="text-link story-read">Read the story <Arrow /></span>
+          <span class="text-link story-read">Read the {study.data.category === "Research" ? "study" : "story"} <Arrow /></span>
         </article>)}
         {research.map(brief => <article class="journal-entry" data-category="Research">
           <header class="entry-heading">

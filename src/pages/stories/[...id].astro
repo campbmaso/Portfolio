@@ -12,10 +12,10 @@ const { Content } = await render(study);
 const studies = await getCollection("caseStudies");
 const next = studies.find(item => item.id === nextProjects[study.id]);
 ---
-<WorkStoryLayout title={study.data.title} summary={study.data.summary} category="Product" eyebrow={study.data.eyebrow} canonicalPath={`/stories/${study.id}/`} resultHeading={study.data.outcomeLabel === 'Result' ? 'Key result' : study.data.outcomeLabel} outcome={study.data.outcome} metrics={study.data.metrics} metricHeading={study.data.metricHeading}>
+<WorkStoryLayout title={study.data.title} summary={study.data.summary} category={study.data.category} eyebrow={study.data.eyebrow} canonicalPath={`/stories/${study.id}/`} resultHeading={study.data.outcomeLabel === 'Result' ? 'Key result' : study.data.outcomeLabel} outcome={study.data.outcome} metrics={study.data.metrics} metricHeading={study.data.metricHeading}>
   <Fragment slot="context">
     {companyLogos[study.id] && <a class="story-company company-link" href={companyHomepages[study.id]} aria-label={`Visit ${companyNames[study.id]} homepage`}><img src={companyLogos[study.id]} alt={companyNames[study.id]} width="150" height="52" /></a>}
-    <dl><div><dt>My role</dt><dd>{study.data.role}</dd></div><div><dt>Timeframe</dt><dd>{study.data.timeframe}</dd></div>{study.data.status && <div><dt>Status</dt><dd>{study.data.status}</dd></div>}</dl>
+    <dl>{study.data.category === "Research" && <div><dt>Project</dt><dd>{study.data.context}</dd></div>}<div><dt>My role</dt><dd>{study.data.role}</dd></div><div><dt>Timeframe</dt><dd>{study.data.timeframe}</dd></div>{study.data.status && <div><dt>Status</dt><dd>{study.data.status}</dd></div>}</dl>
     <div class="context-skills"><h2>Areas of work</h2><ul>{study.data.capabilities.map(item => <li>{item}</li>)}</ul></div>
   </Fragment>
   <section class="story-challenge" aria-labelledby="challenge-title"><h2 id="challenge-title">The challenge</h2><p>{study.data.challenge}</p></section>

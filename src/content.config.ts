@@ -13,6 +13,7 @@ const caseStudies = defineCollection({
   schema: z.object({
     title: z.string(),
     eyebrow: z.string(),
+    category: z.enum(["Product", "Research"]).default("Product"),
     summary: z.string(),
     order: z.number().int().positive(),
     featured: z.boolean().default(true),

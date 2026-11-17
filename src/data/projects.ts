@@ -6,7 +6,6 @@ export const companyLogos: Record<string, string> = {
   "sensors-platform-strategy": "/company-logos/sensors.png",
   "subscription-model": "/company-logos/joyjobs.png",
   "resume-score": "/company-logos/joyjobs.png",
-  "instruction-modality-study": "/company-logos/lightguide.png",
 };
 export const companyNames: Record<string, string> = {
   "stellantis-analytical-foundation": "Stellantis",
@@ -15,7 +14,6 @@ export const companyNames: Record<string, string> = {
   "sensors-platform-strategy": "Sensors, Inc.",
   "subscription-model": "JoyJobs.ai",
   "resume-score": "JoyJobs.ai",
-  "instruction-modality-study": "LightGuide",
 };
 export const companyHomepages: Record<string, string> = {
   "stellantis-analytical-foundation": "https://www.stellantis.com/en",
@@ -24,7 +22,6 @@ export const companyHomepages: Record<string, string> = {
   "sensors-platform-strategy": "https://sensors-inc.com/",
   "subscription-model": "https://joyjobs.ai/",
   "resume-score": "https://joyjobs.ai/",
-  "instruction-modality-study": "https://www.lightguidesys.com/",
 };
 export const nextProjects: Record<string, string> = {
   "resume-ai": "subscription-model",
@@ -38,5 +35,5 @@ export const nextProjects: Record<string, string> = {
 export const projectDecisions: Record<string, { heading: string; detail: string }> = {
   "resume-ai": { heading: "Follow the immediate user need", detail: "Weak repeat use led us from career exploration to resume tailoring. Preserving the document made the workflow useful beyond copied text." },
   "sensors-platform-strategy": { heading: "Connect measurement to its context", detail: "Automatically save each session and let operators review readings, measurement modes, and annotations together." },
-  "lightguide-ar-workflows": { heading: "Make digital guidance fit physical work", detail: "Operator knowledge and the surrounding equipment shaped spatial instructions and an operational handoff." },
+  "lightguide-ar-workflows": { heading: "Put the interface at the workstation", detail: "Project instructions where operators need them and let physical actions or equipment signals advance the workflow." },
 };

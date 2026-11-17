@@ -5,7 +5,7 @@ const { id, featured = false } = Astro.props;
 const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || id === 'instruction-modality-study' ? 'lightguide' : id.includes('stellantis') ? 'stellantis' : 'joyjobs';
 ---
 <div class:list={['work-artwork', `art-${brand}`, { 'art-featured': featured }]}>
-  <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a>
+  {companyLogos[id] ? <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a> : id === 'instruction-modality-study' && <span class="art-logo art-label">Kettering University</span>}
   {featured ? <div class="featured-workflow" aria-hidden="true">
       <span class="featured-transition">CareerAI <span>→</span> ResumeAI</span>
       <svg viewBox="0 0 460 200" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
@@ -71,6 +71,7 @@ const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || 
   .art-stellantis { --art: var(--muted); --art-deep: var(--ink); }
   .art-logo { position: absolute; z-index: 2; top: var(--space-24); left: var(--space-24); display: block; width: fit-content; }
   .art-logo img { width: 140px; height: 34px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
+  .art-label { font-size: .9rem; font-weight: 600; }
   .art-sensors .art-logo img { width: 58px; height: 46px; }
   .art-logo:focus-visible { outline-color: var(--brand-on-color); }
   svg { width: 100%; height: 100%; display: block; opacity: .75; }
