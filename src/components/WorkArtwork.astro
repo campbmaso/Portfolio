@@ -2,10 +2,11 @@
 import { companyLogos, companyNames, companyHomepages } from '../data/projects';
 interface Props { id: string; featured?: boolean }
 const { id, featured = false } = Astro.props;
-const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || id === 'instruction-modality-study' ? 'lightguide' : id.includes('stellantis') ? 'stellantis' : 'joyjobs';
+const capstone = id === 'instruction-modality-study';
+const brand = capstone ? 'kettering' : id.includes('sensors') ? 'sensors' : id.includes('lightguide') ? 'lightguide' : id.includes('stellantis') ? 'stellantis' : 'joyjobs';
 ---
 <div class:list={['work-artwork', `art-${brand}`, { 'art-featured': featured }]}>
-  {companyLogos[id] ? <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a> : id === 'instruction-modality-study' && <span class="art-logo art-label">Kettering University</span>}
+  {companyLogos[id] ? <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a> : capstone && <span class="art-logo art-label">Kettering × LightGuide</span>}
   {featured ? <div class="featured-workflow" aria-hidden="true">
       <span class="featured-transition">CareerAI <span>→</span> ResumeAI</span>
       <svg viewBox="0 0 460 200" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
@@ -64,7 +65,7 @@ const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || 
         {[0,60,120,180,240,300].map(angle => <path transform={`rotate(${angle} 300 205)`} d="M300 188c-40-30-27-67 0-50 24 15 30 35 11 55" />)}
         <circle cx="300" cy="205" r="18" />
       </>}
-      {id === 'instruction-modality-study' && <>
+      {capstone && <>
         {[115,265,415].map(x => <><rect x={x} y="125" width="85" height="145" rx="5" class="faint" />
           <path d={`M${x+20} 155h45m-45 25h30m-30 25h45`} /><circle cx={x+42.5} cy="240" r="9" /></>)}
         <path d="M212 200h40m100 0h40" />
@@ -75,6 +76,7 @@ const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || 
   .work-artwork { --art: var(--joyjobs-brand); --art-deep: var(--joyjobs-deep); position: relative; overflow: hidden; border-radius: 5px; aspect-ratio: 16 / 9; color: var(--brand-on-color); background: linear-gradient(135deg, var(--art), var(--art-deep)); }
   .art-sensors { --art: var(--sensors-brand); --art-deep: var(--sensors-deep); }
   .art-lightguide { --art: var(--lightguide-brand); --art-deep: var(--lightguide-deep); }
+  .art-kettering { --art: var(--kettering-brand); --art-deep: var(--kettering-deep); }
   .art-stellantis { --art: var(--muted); --art-deep: var(--ink); }
   .art-logo { position: absolute; z-index: 2; top: var(--space-24); left: var(--space-24); display: block; width: fit-content; }
   .art-logo img { width: 140px; height: 34px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }

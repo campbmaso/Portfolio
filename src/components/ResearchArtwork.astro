@@ -31,9 +31,9 @@ const { id, landscape = false } = Astro.props;
                 <g class="diagram-emphasis"><path d="M219 124H267M219 141H254M219 158H267M219 175H247" /></g>
               </svg>
             </div>}
-{id === "modeling-battery-degradation" && <div class:list={[{ landscape }, "research-visual reasoning-visual"]} aria-hidden="true">
-              <span class="visual-label">MODELING</span>
-              <svg viewBox="0 0 320 300" fill="none" focusable="false">
+{id === "modeling-battery-degradation" && <div class:list={[{ landscape }, "research-visual battery-visual"]}>
+              <span class="research-partners">Kettering × Stellantis</span>
+              <svg viewBox="0 0 320 300" aria-hidden="true" fill="none" focusable="false">
                 <g class="diagram-lines"><path d="M42 52V246H287" /><path class="diagram-guide" d="M42 96H287M42 146H287M42 196H287" /><path d="M50 72C100 76 146 155 195 184S255 213 282 216" /><path d="M50 72C111 76 164 115 206 148S261 182 282 190" stroke-dasharray="5 6" /></g>
                 <g class="diagram-nodes"><circle cx="70" cy="78" r="5" /><circle cx="110" cy="106" r="5" /><circle cx="153" cy="149" r="5" /><circle cx="195" cy="184" r="5" /><circle cx="238" cy="207" r="5" /><circle cx="277" cy="216" r="5" /></g>
               </svg>
@@ -43,13 +43,14 @@ const { id, landscape = false } = Astro.props;
   .visual-label { position: absolute; top: var(--space-16); left: var(--space-16); color: var(--muted); font-size: .62rem; font-weight: 600; letter-spacing: .1em; }
   .research-visual svg { position: absolute; inset: 12% 0 0; width: 100%; height: 88%; }
   .representation-visual { background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--accent) 12%, var(--bg)), var(--surface) 75%); }
-  .reasoning-visual { background: var(--ink); }
-  .reasoning-visual .visual-label { color: var(--bg); opacity: .75; }
+  .battery-visual { background: linear-gradient(135deg, var(--kettering-brand), var(--kettering-deep)); }
+  .research-partners { position: absolute; inset: var(--space-24) var(--space-24) auto; color: var(--brand-on-color); font-size: .9rem; font-weight: 600; }
   .compression-visual { background: color-mix(in srgb, var(--accent) 6%, var(--surface)); }
   .diagram-lines { stroke: var(--muted); stroke-width: 1.25; }
-  .reasoning-visual .diagram-lines { stroke: var(--bg); opacity: .7; }
+  .battery-visual .diagram-lines { stroke: var(--brand-on-color); opacity: .7; }
   .diagram-guide { opacity: .15; stroke-dasharray: 3 5; }
   .diagram-nodes { fill: var(--accent); stroke: var(--ink); stroke-width: 1.25; }
+  .battery-visual .diagram-nodes { fill: var(--brand-on-color); stroke: var(--kettering-deep); }
   .diagram-emphasis { stroke: var(--accent); stroke-width: 4; stroke-linecap: round; }
 
   .research-visual { transition: transform .22s ease, box-shadow .22s ease; }
