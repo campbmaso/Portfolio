@@ -3,14 +3,10 @@ import { companyLogos, companyNames, companyHomepages } from '../data/projects';
 interface Props { id: string; featured?: boolean }
 const { id, featured = false } = Astro.props;
 const brand = id.includes('sensors') ? 'sensors' : id.includes('lightguide') || id === 'instruction-modality-study' ? 'lightguide' : id.includes('stellantis') ? 'stellantis' : 'joyjobs';
-const lightguideDemo = id === 'lightguide-ar-workflows' && !featured;
 ---
 <div class:list={['work-artwork', `art-${brand}`, { 'art-featured': featured }]}>
-  {lightguideDemo ? <>
-    <img class="art-photo" src="/work-media/lightguide-manufacturing-demo.jpg" alt="Assembly workbenches with instructions and controls projected beside the parts" width="1280" height="720" loading="lazy" />
-    <span class="art-demo-label">LightGuide platform demo</span>
-  </> : companyLogos[id] ? <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a> : id === 'instruction-modality-study' && <span class="art-logo art-label">Kettering University</span>}
-  {!lightguideDemo && (featured ? <div class="featured-workflow" aria-hidden="true">
+  {companyLogos[id] ? <a class="art-logo" href={companyHomepages[id]} aria-label={`Visit ${companyNames[id]} homepage`}><img src={companyLogos[id]} alt={companyNames[id]} width="180" height="48" /></a> : id === 'instruction-modality-study' && <span class="art-logo art-label">Kettering University</span>}
+  {featured ? <div class="featured-workflow" aria-hidden="true">
       <span class="featured-transition">CareerAI <span>→</span> ResumeAI</span>
       <svg viewBox="0 0 460 200" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false">
         <rect x="20" y="12" width="136" height="176" rx="6" class="faint" />
@@ -30,6 +26,18 @@ const lightguideDemo = id === 'lightguide-ar-workflows' && !featured;
         {[130, 190, 250].map(y => <path class="faint" d={`M60 ${y}H540`} />)}
         <path d="M60 235H120L145 205 175 220 215 140 250 195 290 170 320 220 360 120 400 180 440 150 480 175H540" />
         {[145, 215, 290, 360, 440].map((x, i) => <circle cx={x} cy={[205,140,170,120,150][i]} r="5" fill="currentColor" stroke="none" />)}
+      </>}
+      {id === 'lightguide-ar-workflows' && <>
+        <path class="faint" d="M128 251 238 174h234L362 251z M128 251v12h234l110-77v-12 M159 263v32m181-32v32m104-90v28" />
+        <rect x="336" y="87" width="80" height="30" rx="6" />
+        <circle cx="357" cy="102" r="6" />
+        <path d="M378 102h23" />
+        <path class="faint" d="m347 117-133 118m191-118 2 73 M173 231h34l32-22h-34z" />
+        <g transform="matrix(1 0 -.7 .5 277 190)">
+          <rect class="faint" width="130" height="90" rx="6" />
+          <path d="M16 34V16h18m62 0h18v18M16 56v18h18m62 0h18V56" />
+          <path d="m51 45 11 11 19-21" stroke-width="3" />
+        </g>
       </>}
       {id === 'subscription-model' && <>
         {[110, 142, 174].map((x, index) => <rect x={x} y={135 + index*24} width="112" height="74" rx="6" class={index < 2 ? 'faint' : undefined} />)}
@@ -61,7 +69,7 @@ const lightguideDemo = id === 'lightguide-ar-workflows' && !featured;
           <path d={`M${x+20} 155h45m-45 25h30m-30 25h45`} /><circle cx={x+42.5} cy="240" r="9" /></>)}
         <path d="M212 200h40m100 0h40" />
       </>}
-    </svg>)}
+    </svg>}
 </div>
 <style>
   .work-artwork { --art: var(--joyjobs-brand); --art-deep: var(--joyjobs-deep); position: relative; overflow: hidden; border-radius: 5px; aspect-ratio: 16 / 9; color: var(--brand-on-color); background: linear-gradient(135deg, var(--art), var(--art-deep)); }
@@ -71,8 +79,6 @@ const lightguideDemo = id === 'lightguide-ar-workflows' && !featured;
   .art-logo { position: absolute; z-index: 2; top: var(--space-24); left: var(--space-24); display: block; width: fit-content; }
   .art-logo img { width: 140px; height: 34px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
   .art-label { font-size: .9rem; font-weight: 600; }
-  .art-photo { width: 100%; height: 100%; object-fit: cover; }
-  .art-demo-label { position: absolute; top: var(--space-12); left: var(--space-12); padding: var(--space-4) var(--space-8); background: var(--ink); border-radius: 4px; font-size: .75rem; font-weight: 600; }
   .art-sensors .art-logo img { width: 58px; height: 46px; }
   .art-logo:focus-visible { outline-color: var(--brand-on-color); }
   svg { width: 100%; height: 100%; display: block; opacity: .75; }
