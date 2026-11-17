@@ -37,6 +37,6 @@ export const nextProjects: Record<string, string> = {
 };
 export const projectDecisions: Record<string, { heading: string; detail: string }> = {
   "resume-ai": { heading: "Follow the immediate user need", detail: "Weak repeat use led us from career exploration to resume tailoring. Preserving the document made the workflow useful beyond copied text." },
-  "sensors-platform-strategy": { heading: "Connect measurement to its context", detail: "Automated capture, session tags, and accessible device controls became requirements of the launched software redesign." },
+  "sensors-platform-strategy": { heading: "Connect measurement to its context", detail: "Automatically save each session and let operators review readings, measurement modes, and annotations together." },
   "lightguide-ar-workflows": { heading: "Make digital guidance fit physical work", detail: "Operator knowledge and the surrounding equipment shaped spatial instructions and an operational handoff." },
 };
