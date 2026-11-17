@@ -1,50 +1,56 @@
 ---
-title: Designing projected AR interfaces for manufacturing operators
-eyebrow: UX design · Spatial interaction
-summary: At LightGuide, I turned manufacturing procedures into projected work instructions and programmed the interactions that let operators advance through them at the workstation.
+title: Designing the workbench as an augmented reality interface
+eyebrow: Human–computer interaction · Industrial UX
+summary: I studied how operators worked at the bench, then designed, programmed, and tested projected interfaces that responded to hand movements, machine vision, and equipment signals.
 order: 3
 featured: true
 timeframe: 2022–2023
 context: LightGuide
 role: Integration Engineer
-scope: Operator research, interaction design, programming, and deployment for customer-specific applications on the LightGuide platform
+scope: Contextual inquiry, task analysis, spatial and interaction design, sensor programming, and on-site evaluation for customer applications
 status: Customer applications deployed
-challenge: Operators needed to see what to do, where to do it, and when to advance while handling real parts and tools. Each interface had to fit the workstation, the procedure, and the equipment already in use.
+challenge: The operator’s hands, tools, and attention were already occupied by the task. The interface had to show the right cue at the point of work, fit the geometry of each station, and know when to advance based on what happened in the physical workspace.
 outcomeLabel: What I delivered
-outcome: I designed and programmed customer-specific AR workflows with step-by-step projections, touchless controls, and progression triggered by sensors or connected equipment. I refined them with operators and supported deployment with engineers and channel partners.
+outcome: I designed, programmed, and evaluated projected interfaces for customer workstations. Operators could advance with touchless controls or have steps progress automatically from a sensor or machine event. I tested how both the guidance and the input logic worked with operators on site.
 metrics: []
 capabilities:
   - Contextual user research
   - Spatial interface design
-  - Sensor-driven interaction
+  - Multimodal interaction design
+  - Task analysis and ergonomics
   - On-site usability evaluation
 evidence:
-  - Firsthand account of designing, programming, testing, and deploying customer-specific LightGuide applications
+  - On-site operator interviews, work-instruction reviews, and usability evaluation
+  - Design and implementation of projected interfaces and sensor-based interaction logic
   - On-site integration and partner training at a manufacturing plant
-  - LightGuide product demonstration shared by Will Page, included as platform context
+  - LightGuide product demonstration showing projected guidance and controls at the workstation
 ---
 
-## Start with the operator's task
+## A button made of light
 
-I reviewed work instructions with process engineers, then watched operators perform the task and asked them to explain decisions the written procedure left implicit. I looked at where they stood, what they could reach, and when they needed to look away from a part. Those observations helped me decide which steps needed guidance and where that guidance could go.
+An operator could reach toward a button projected onto the workbench and see the next instruction appear. I built that interaction by putting the visual target within reach, configuring a Kinect depth camera to detect a hand in the corresponding region, and programming the application to advance when it registered the gesture. The projected target had to tell the operator where to reach. The sensed region had to match that expectation, and the next projection confirmed that the gesture worked.
 
-## Put the next action where it happens
-
-I broke each procedure into steps and decided what the operator needed to see and what would let the system advance. I used projected symbols when they made the action clear and short text when the step needed more precision. Showing one step at a time kept the instructions focused on the action at hand. I also developed dynamic scaling cues to make projected guidance easier to interpret on complex surfaces.
+That was one part of my role as an integration engineer. I owned the interaction design and implementation for customer applications on LightGuide’s platform, from observing operators on the floor to programming what the system displayed and what it did in response.
 
 <figure>
-  <a href="https://www.youtube.com/watch?v=Ot_c8cHcxeM" aria-label="Watch Will Page’s LightGuide manufacturing workflow demo on YouTube"><img src="/work-media/lightguide-manufacturing-demo.jpg" alt="Two assembly stations with projected part locations, step instructions, and Forward and Reset controls" width="1280" height="720" loading="lazy" /></a>
-  <figcaption>Light Guide Systems product demo shared by my colleague Will Page as an example of the platform. <a href="https://www.youtube.com/watch?v=Ot_c8cHcxeM">Watch the 59-second demo</a>.</figcaption>
+  <img src="/work-media/lightguide-manufacturing-demo.jpg" alt="Two assembly stations with projected part locations, step instructions, and Forward and Reset controls" width="1280" height="720" loading="lazy" />
+  <figcaption>LightGuide platform demo showing instructions and controls projected onto two assembly stations. <a href="https://www.youtube.com/watch?v=Ot_c8cHcxeM">Watch the 59-second demo</a>.</figcaption>
 </figure>
 
-## Give physical actions a software response
+## Study how the work is actually done
 
-One interaction I built was a projected “soft button.” I placed the visual control where an operator could reach it and configured a depth camera to detect a hand entering the corresponding physical region. That detection advanced the application to the next instruction. The projected graphic, the reachable input region, and the change in software state had to work together as one control.
+I walked through the written procedure with process engineers, then observed and interviewed the people doing the work. Operators could explain judgments the instructions left implicit. I paid attention to where they stood, where their eyes and hands needed to be, and how the position of tools and parts constrained movement. This gave me a basis for deciding which steps needed clarification, how to sequence the guidance, and where a cue or control belonged.
 
-When equipment already provided a clear completion signal, I used that event to advance the workflow. Depending on the station, the input could come from a barcode scanner, machine vision, or a programmable logic controller. I programmed the response and worked with controls engineers to check it against the process.
+## Design the information around the action
 
-## Test at the workstation and support the handoff
+For each step, I specified what the operator needed to know, where to show it, and what event would advance the state of the application. I used progressive disclosure to show the current action and projected visual cues onto the relevant part or location. A symbol could direct attention to a target, with concise text available where the action needed more precision. For complex surfaces, I developed dynamic scaling cues to keep projected guidance interpretable across different parts of the workpiece.
 
-I watched operators use the applications in context and used their feedback to adjust cue placement, step order, and sensor behavior. On one plant deployment, I also trained a channel partner to troubleshoot component failures and adapt the application as the process changed. I evaluated usability through observation and feedback during implementation.
+## Choose the input that fits the task
+
+A touchless control gives the operator a deliberate way to advance. When the equipment already provides a reliable completion signal, the application can advance from that event. I designed for both patterns, programming interfaces to respond to depth sensing, machine vision, barcode scans, or signals from a programmable logic controller. With controls engineers, I checked that the event the software recognized matched the point in the physical process when the next instruction should appear.
+
+## Test the interface with operators at the station
+
+I watched operators perform the real task with the application running. I evaluated whether the cues were easy to interpret at the point of use, whether a control was practical to reach, and whether the system responded at the expected point in the procedure. Operator feedback informed changes to both the visual guidance and the interaction logic. On one plant deployment, I also trained the channel partner to troubleshoot components and adapt the application as the customer’s process changed.
 
 My earlier senior design team studied how instruction formats affected assembly performance. [Read the undergraduate capstone](/stories/instruction-modality-study/).

@@ -35,5 +35,5 @@ export const nextProjects: Record<string, string> = {
 export const projectDecisions: Record<string, { heading: string; detail: string }> = {
   "resume-ai": { heading: "Follow the immediate user need", detail: "Weak repeat use led us from career exploration to resume tailoring. Preserving the document made the workflow useful beyond copied text." },
   "sensors-platform-strategy": { heading: "Connect measurement to its context", detail: "Automatically save each session and let operators review readings, measurement modes, and annotations together." },
-  "lightguide-ar-workflows": { heading: "Put the interface at the workstation", detail: "Project instructions where operators need them and let physical actions or equipment signals advance the workflow." },
+  "lightguide-ar-workflows": { heading: "Make the workbench respond to the operator", detail: "I paired projected cues with touchless controls, then used depth sensing or machine signals to advance the interface at the right point in the task." },
 };

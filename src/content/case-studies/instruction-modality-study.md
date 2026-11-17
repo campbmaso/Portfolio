@@ -8,7 +8,7 @@ featured: false
 status: Senior design study completed
 scope: Capstone team member on a collaborative study of instruction format, pacing, and assembly performance
 metricHeading: Study scope
-timeframe: Senior year
+timeframe: "2021"
 context: Kettering University · IME 454 senior design
 role: Senior design team member
 challenge: When the parts and assembly are held constant, does changing where instructions appear or how they advance change how quickly people complete the task?
@@ -26,7 +26,7 @@ metrics:
     note: A six-piece cube assembly
   - value: "296"
     label: Usable timings
-    note: Recovered Minitab worksheet
+    note: Completion times included in the analysis
 capabilities:
   - Experimental design
   - Human factors research
@@ -34,7 +34,7 @@ capabilities:
   - Augmented reality
 evidence:
   - Kettering University IME 454 capstone team materials
-  - Archived Minitab project with comparisons across instruction conditions and model diagnostics
+  - Minitab analysis across instruction conditions and model diagnostics
 ---
 
 ## A simple task with different interfaces
@@ -50,16 +50,16 @@ For our IME 454 senior design project at Kettering University, my teammates and 
 
 ## What we measured
 
-Seventeen participants completed repeated trials across three assembly orientations. The team recorded completion times by stopwatch. The archived Minitab project contains 296 usable timings and preserves an analysis of variance and Tukey pairwise comparisons across the nine conditions.
+Seventeen participants completed repeated trials across three assembly orientations. The team recorded completion times by stopwatch and analyzed 296 usable timings in Minitab using analysis of variance and Tukey pairwise comparisons across the nine conditions.
 
 <figure>
   <a href="/work-media/capstone-orientation-counts.png" aria-label="View the full-size chart of trial counts by condition and assembly orientation"><img src="/work-media/capstone-orientation-counts.png" alt="A heatmap of trial counts showing that each of the eight guided conditions was tested in just one of the three orientations" width="1086" height="874" loading="lazy" /></a>
-  <figcaption>Trial counts by condition and assembly orientation, reconstructed from the Minitab archive. One of the 297 records has a missing timing.</figcaption>
+  <figcaption>Trial counts by condition and assembly orientation. One of the 297 trials had no recorded completion time.</figcaption>
 </figure>
 
 ## What the study established
 
-The saved pairwise analysis identified four guided conditions with shorter mean completion times than the no-instruction baseline. The intervals for every comparison between guided conditions included zero. The model treated repeated trials as independent, and each guided condition appeared in only one orientation. Those limitations make it difficult to isolate the effect of instruction format.
+The pairwise analysis identified four guided conditions with shorter mean completion times than the no-instruction baseline. The intervals for every comparison between guided conditions included zero. The model treated repeated trials as independent, and each guided condition appeared in only one orientation. Those limitations make it difficult to isolate the effect of instruction format.
 
 I would follow up with a more complex assembly, automated timing, and a design that balances condition and orientation within participants. That would give a cleaner test of whether guidance at the point of work changes performance.
 
