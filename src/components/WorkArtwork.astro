@@ -66,9 +66,25 @@ const brand = capstone ? 'kettering' : id.includes('sensors') ? 'sensors' : id.i
         <circle cx="300" cy="205" r="18" />
       </>}
       {capstone && <>
-        {[115,265,415].map(x => <><rect x={x} y="125" width="85" height="145" rx="5" class="faint" />
-          <path d={`M${x+20} 155h45m-45 25h30m-30 25h45`} /><circle cx={x+42.5} cy="240" r="9" /></>)}
-        <path d="M212 200h40m100 0h40" />
+        <!-- A folded paper instruction sheet. -->
+        <path d="M102 96h38l14 14v44h-52z M140 96v14h14 M114 122h26m-26 10h26m-26 10h17" />
+        <!-- A monitor with instructions on screen. -->
+        <rect x="262" y="100" width="76" height="44" rx="4" />
+        <path d="M276 114h29m-29 10h20 M300 144v12m-18 0h36" />
+        <!-- A projector and its footprint on the work surface. -->
+        <rect x="443" y="96" width="70" height="28" rx="5" />
+        <circle cx="459" cy="110" r="5" />
+        <path d="M474 110h26 M441 155l16-8h48l-16 8z" />
+        <path class="faint" d="m451 124-10 31m27-31 37 23" />
+        <g fill="currentColor" stroke="none" font-size="16" text-anchor="middle">
+          <text x="128" y="181">Paper</text>
+          <text x="300" y="181">Monitor</text>
+          <text x="478" y="181">Projection</text>
+        </g>
+        <path class="faint" d="M128 194v11h350v-11 M300 194v29" />
+        <!-- All three formats guide assembly of the same cube. -->
+        <path d="m300 223 58 29v42l-58 29-58-29v-42z M242 252l58 29 58-29 M300 281v42" />
+        <path class="faint" d="m271 237 58 29v42 M329 237l-58 29v42 M242 273l58 29 58-29" />
       </>}
     </svg>}
 </div>
