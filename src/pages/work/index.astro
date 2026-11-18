@@ -14,19 +14,13 @@ const filters = ["All", ...workTags];
 ---
 <BaseLayout title="Work" description="Product stories from Mason Campbell: building JoyJobs, designing field software, and connecting research to product decisions." canonicalPath="/work/">
   <div class="work-journal">
-    <PageMasthead label="Work" heading />
-    <div class="shell story-toolbar">
-      <div class="story-filters" role="group" aria-label="Filter stories by tag" hidden>
-        {filters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}</button>)}
-      </div>
-      <p class="story-count" role="status" aria-live="polite">{studies.length + research.length} stories</p>
-    </div>
-    <section class="feature-stage" aria-labelledby="featured-title" data-story-tags={featured.data.tags.join(',')}>
+    <PageMasthead label="Work" />
+    <section class="feature-stage" aria-labelledby="featured-title">
       <div class="shell">
         <article class="featured-story">
           <div class="featured-copy">
             <p class="story-tags">Featured story · {featured.data.tags.join(' · ')}</p>
-            <h2 id="featured-title"><a href={`/stories/${featured.id}/`}>{featured.data.title}</a></h2>
+            <h1 id="featured-title"><a href={`/stories/${featured.id}/`}>{featured.data.title}</a></h1>
             <div class="story-author"><img src="/mason-campbell.jpg" alt="" width="48" height="48" /><div><strong>Mason Campbell</strong><span>{featured.data.role}</span></div></div>
             <p class="featured-summary">{featured.data.summary}</p>
             <span class="text-link story-read">Read the story <Arrow /></span>
@@ -35,7 +29,13 @@ const filters = ["All", ...workTags];
         </article>
       </div>
     </section>
-    <section class="shell journal-stories" aria-label="Work stories">
+    <section class="shell journal-stories" aria-label="More work stories">
+      <div class="story-toolbar">
+        <div class="story-filters" role="group" aria-label="Filter stories by tag" hidden>
+          {filters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}</button>)}
+        </div>
+        <p class="story-count" role="status" aria-live="polite">{stories.length + research.length} stories</p>
+      </div>
       <div class="journal-grid">
         {stories.map(study => <article class="journal-entry" data-story-tags={study.data.tags.join(',')}>
           <header class="entry-heading">
@@ -63,7 +63,7 @@ const filters = ["All", ...workTags];
   const filters = document.querySelector<HTMLElement>('.story-filters');
   if (filters) {
     const buttons = Array.from(filters.querySelectorAll<HTMLButtonElement>('button'));
-    const stories = document.querySelectorAll<HTMLElement>('[data-story-tags]');
+    const stories = document.querySelectorAll<HTMLElement>('.journal-entry[data-story-tags]');
     const count = document.querySelector<HTMLElement>('.story-count')!;
     filters.hidden = false;
     const selectTag = (button: HTMLButtonElement) => {
@@ -88,11 +88,11 @@ const filters = ["All", ...workTags];
   .featured-story { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); padding: var(--space-16); border-radius: 8px; background: var(--bg); box-shadow: 0 30px 55px -20px var(--shadow); }
   .featured-copy { display: flex; flex-direction: column; align-items: start; justify-content: center; padding: var(--space-24); }
   .story-tags { margin: 0; color: var(--accent); font-size: .9rem; font-weight: 600; }
-  .featured-copy h2 { margin: var(--space-24) 0; font-size: clamp(2.35rem, 3.6vw, 3.25rem); font-weight: var(--weight-h1); line-height: 1.12; letter-spacing: -.04em; max-width: 13ch; }
-  h2 a { text-decoration: none; }
-  h2 a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 8px; }
-  h2 a:focus-visible { outline: none; }
-  h2 a:focus-visible::after { outline: 3px solid var(--focus); outline-offset: 5px; }
+  h1 { margin: var(--space-24) 0; font-size: clamp(2.35rem, 3.6vw, 3.25rem); font-weight: var(--weight-h1); line-height: 1.12; letter-spacing: -.04em; max-width: 13ch; }
+  h1 a, h2 a { text-decoration: none; }
+  h1 a::after, h2 a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 8px; }
+  h1 a:focus-visible, h2 a:focus-visible { outline: none; }
+  h1 a:focus-visible::after, h2 a:focus-visible::after { outline: 3px solid var(--focus); outline-offset: 5px; }
   .story-author { display: flex; align-items: center; gap: var(--space-12); }
   .story-author img { flex: none; border-radius: 50%; width: 48px; height: 48px; object-fit: cover; }
   .story-author strong, .story-author span { display: block; font-size: .85rem; }
@@ -102,10 +102,10 @@ const filters = ["All", ...workTags];
   .story-read { margin-top: auto; }
   .featured-story:hover .story-read, .journal-entry:hover .story-read { color: var(--link-hover); }
   .featured-story:hover .story-read :global(svg), .journal-entry:hover .story-read :global(svg) { transform: translate(2px, -2px); }
-  .journal-stories { position: relative; padding: var(--space-32) var(--space-16) 0; }
-  .story-toolbar { display: flex; justify-content: space-between; gap: var(--space-24); align-items: center; padding-inline: var(--space-16); }
+  .journal-stories { position: relative; padding-inline: var(--space-16); }
+  .story-toolbar { display: flex; justify-content: space-between; gap: var(--space-24); align-items: center; margin: var(--space-16) 0 var(--space-64); }
   .story-filters { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-  .story-filters[hidden], .feature-stage[hidden], .journal-entry[hidden] { display: none; }
+  .story-filters[hidden], .journal-entry[hidden] { display: none; }
   .story-filters button { border: 0; border-radius: 999px; padding: var(--space-8) var(--space-16); background: transparent; color: var(--ink); font-size: .85rem; font-weight: 600; transition: background-color .18s ease; }
   .story-filters button:hover { background: var(--accent-tint); }
   .story-filters button[aria-pressed='true'] { color: var(--on-accent); background: var(--accent); }
@@ -124,8 +124,9 @@ const filters = ["All", ...workTags];
     .feature-stage::before { bottom: var(--space-16); height: 10rem; }
     .featured-story { grid-template-columns: 1fr; padding: var(--space-12); }
     .featured-copy { padding-bottom: 0; }
-    .featured-copy h2 { font-size: 2.35rem; }
-    .journal-stories, .story-toolbar { padding-inline: 0; }
+    h1 { font-size: 2.35rem; }
+    .journal-stories { padding-inline: 0; }
+    .story-toolbar { margin-bottom: var(--space-32); }
     .journal-grid { grid-template-columns: 1fr; gap: var(--space-48); }
     h2 { font-size: 1.6rem; }
     .story-filters { gap: var(--space-4); }
