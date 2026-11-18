@@ -1,6 +1,7 @@
 ---
 title: Designing the workbench as an augmented reality interface
 eyebrow: Human–computer interaction · Industrial UX
+tags: [Design]
 summary: I studied how operators worked at the bench, then designed, programmed, and tested projected interfaces that responded to hand movements, machine vision, and equipment signals.
 order: 3
 featured: true

@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { workTags } from "./data/work-tags";
 
 const metricSchema = z.object({
   value: z.string(),
@@ -8,12 +9,14 @@ const metricSchema = z.object({
   note: z.string().optional(),
 });
 
+const workTagsSchema = z.array(z.enum(workTags)).min(1);
+
 const caseStudies = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/case-studies" }),
   schema: z.object({
     title: z.string(),
     eyebrow: z.string(),
-    category: z.enum(["Product", "Research"]).default("Product"),
+    tags: workTagsSchema.default(["Product"]),
     summary: z.string(),
     order: z.number().int().positive(),
     featured: z.boolean().default(true),
@@ -61,6 +64,7 @@ const research = defineCollection({
     question: z.string(),
     status: z.string(),
     category: z.string(),
+    tags: workTagsSchema.default(["Research"]),
     period: z.string(),
     context: z.string(),
     role: z.string(),

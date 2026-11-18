@@ -1,6 +1,7 @@
 ---
 title: Redesigning our software platform for cleaner measurement workflows
 eyebrow: Product ownership & strategy
+tags: [Product, Design]
 summary: I led requirements, UX design, and rollout planning for a launched software redesign with automated capture, accessible device controls, and in-app analytics.
 order: 2
 featured: true

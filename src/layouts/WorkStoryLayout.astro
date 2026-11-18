@@ -1,15 +1,15 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 interface Props {
-  title: string; summary: string; category: string; eyebrow: string; canonicalPath: string;
+  title: string; summary: string; tags: string[]; eyebrow: string; canonicalPath: string;
   resultHeading?: string; outcome: string; metricHeading?: string;
   metrics?: { value: string; label: string; note?: string }[];
 }
-const { title, summary, category, eyebrow, canonicalPath, resultHeading = 'Key results', outcome, metricHeading = 'Project facts', metrics = [] } = Astro.props;
+const { title, summary, tags, eyebrow, canonicalPath, resultHeading = 'Key results', outcome, metricHeading = 'Project facts', metrics = [] } = Astro.props;
 ---
 <BaseLayout title={title} description={summary} canonicalPath={canonicalPath}>
   <article class="story-page shell">
-    <nav class="story-breadcrumb" aria-label="Breadcrumb"><a href="/work/">Work</a><span aria-hidden="true">/</span><span>{category}</span></nav>
+    <nav class="story-breadcrumb" aria-label="Breadcrumb"><a href="/work/">Work</a><span aria-hidden="true">/</span><span>{tags.join(' · ')}</span></nav>
     <header class="story-intro">
       <div class="intro-copy"><p class="eyebrow">{eyebrow}</p><h1>{title}</h1><p class="story-deck">{summary}</p></div>
       <aside class="story-context" aria-label="Project details"><slot name="context" /></aside>

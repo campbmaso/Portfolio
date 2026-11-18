@@ -1,7 +1,7 @@
 ---
 title: Do projected instructions make assembly faster?
 eyebrow: Undergraduate research · Human factors
-category: Research
+tags: [Research]
 summary: My Kettering University capstone team compared projected, screen-based, and paper instructions to study how instruction format and pacing affected assembly time.
 order: 7
 featured: false

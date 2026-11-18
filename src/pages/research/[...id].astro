@@ -10,7 +10,7 @@ const { brief } = Astro.props;
 const { Content } = await render(brief);
 const otherBriefs = (await getCollection("research")).filter(item => item.id !== brief.id).sort((a, b) => a.data.order - b.data.order);
 ---
-<WorkStoryLayout title={brief.data.title} summary={brief.data.summary} category="Research" eyebrow={brief.data.category} canonicalPath={`/research/${brief.id}/`} resultHeading="Key findings" outcome={brief.data.takeaway} metrics={brief.data.scope} metricHeading="Study scope">
+<WorkStoryLayout title={brief.data.title} summary={brief.data.summary} tags={brief.data.tags} eyebrow={brief.data.category} canonicalPath={`/research/${brief.id}/`} resultHeading="Key findings" outcome={brief.data.takeaway} metrics={brief.data.scope} metricHeading="Study scope">
   <Fragment slot="context">
     <dl>
       <div><dt>My role</dt><dd>{brief.data.role}</dd></div>

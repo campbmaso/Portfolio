@@ -5,21 +5,28 @@ import WorkArtwork from "../../components/WorkArtwork.astro";
 import ResearchArtwork from "../../components/ResearchArtwork.astro";
 import PageMasthead from "../../components/PageMasthead.astro";
 import Arrow from "../../components/Arrow.astro";
+import { workTags } from "../../data/work-tags";
 const studies = (await getCollection("caseStudies")).sort((a,b) => a.data.order-b.data.order);
 const featured = studies.find(study => study.id === "resume-ai")!;
 const stories = studies.filter(study => study.id !== featured.id);
 const research = (await getCollection("research")).sort((a, b) => a.data.order - b.data.order);
-const filters = ["All", "Product", "Research"];
+const filters = ["All", ...workTags];
 ---
 <BaseLayout title="Work" description="Product stories from Mason Campbell: building JoyJobs, designing field software, and connecting research to product decisions." canonicalPath="/work/">
   <div class="work-journal">
-    <PageMasthead label="Work" />
-    <section class="feature-stage" aria-labelledby="featured-title">
+    <PageMasthead label="Work" heading />
+    <div class="shell story-toolbar">
+      <div class="story-filters" role="group" aria-label="Filter stories by tag" hidden>
+        {filters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}</button>)}
+      </div>
+      <p class="story-count" role="status" aria-live="polite">{studies.length + research.length} stories</p>
+    </div>
+    <section class="feature-stage" aria-labelledby="featured-title" data-story-tags={featured.data.tags.join(',')}>
       <div class="shell">
         <article class="featured-story">
           <div class="featured-copy">
-            <p class="story-category">Featured story · {featured.data.category}</p>
-            <h1 id="featured-title"><a href={`/stories/${featured.id}/`}>{featured.data.title}</a></h1>
+            <p class="story-tags">Featured story · {featured.data.tags.join(' · ')}</p>
+            <h2 id="featured-title"><a href={`/stories/${featured.id}/`}>{featured.data.title}</a></h2>
             <div class="story-author"><img src="/mason-campbell.jpg" alt="" width="48" height="48" /><div><strong>Mason Campbell</strong><span>{featured.data.role}</span></div></div>
             <p class="featured-summary">{featured.data.summary}</p>
             <span class="text-link story-read">Read the story <Arrow /></span>
@@ -28,27 +35,21 @@ const filters = ["All", "Product", "Research"];
         </article>
       </div>
     </section>
-    <section class="shell journal-stories" aria-label="More work stories">
-      <div class="story-toolbar">
-        <div class="story-filters" role="group" aria-label="Filter stories by area of work" hidden>
-          {filters.map((filter, index) => <button type="button" data-filter={filter} aria-pressed={index === 0}>{filter}</button>)}
-        </div>
-        <p class="story-count" role="status" aria-live="polite">{stories.length + research.length} stories</p>
-      </div>
+    <section class="shell journal-stories" aria-label="Work stories">
       <div class="journal-grid">
-        {stories.map(study => <article class="journal-entry" data-category={study.data.category}>
+        {stories.map(study => <article class="journal-entry" data-story-tags={study.data.tags.join(',')}>
           <header class="entry-heading">
             <h2><a href={`/stories/${study.id}/`}>{study.data.title}</a></h2>
-            <div class="entry-meta"><p class="story-category">{study.data.category}</p><span>{study.data.timeframe}</span></div>
+            <div class="entry-meta"><p class="story-tags">{study.data.tags.join(' · ')}</p><span>{study.data.timeframe}</span></div>
           </header>
           <WorkArtwork id={study.id} />
           <p class="entry-summary">{study.data.summary}</p>
-          <span class="text-link story-read">Read the {study.data.category === "Research" ? "study" : "story"} <Arrow /></span>
+          <span class="text-link story-read">Read the {study.data.tags.includes("Research") ? "study" : "story"} <Arrow /></span>
         </article>)}
-        {research.map(brief => <article class="journal-entry" data-category="Research">
+        {research.map(brief => <article class="journal-entry" data-story-tags={brief.data.tags.join(',')}>
           <header class="entry-heading">
             <h2><a href={`/research/${brief.id}/`}>{brief.data.title}</a></h2>
-            <div class="entry-meta"><p class="story-category">Research</p><span>{brief.data.status.split(' · ')[0]}</span></div>
+            <div class="entry-meta"><p class="story-tags">{brief.data.tags.join(' · ')}</p><span>{brief.data.status.split(' · ')[0]}</span></div>
           </header>
           <ResearchArtwork id={brief.id} landscape />
           <p class="entry-summary">{brief.data.summary}</p>
@@ -62,18 +63,22 @@ const filters = ["All", "Product", "Research"];
   const filters = document.querySelector<HTMLElement>('.story-filters');
   if (filters) {
     const buttons = Array.from(filters.querySelectorAll<HTMLButtonElement>('button'));
-    const stories = Array.from(document.querySelectorAll<HTMLElement>('.journal-entry'));
+    const stories = document.querySelectorAll<HTMLElement>('[data-story-tags]');
     const count = document.querySelector<HTMLElement>('.story-count')!;
     filters.hidden = false;
-    const selectCategory = (button: HTMLButtonElement) => {
-      const category = button.dataset.filter;
+    const selectTag = (button: HTMLButtonElement) => {
+      const tag = button.dataset.filter!;
       buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      stories.forEach(story => { story.hidden = category !== 'All' && story.dataset.category !== category; });
-      const visible = stories.filter(story => !story.hidden).length;
+      let visible = 0;
+      for (const story of stories) {
+        const matches = tag === 'All' || story.dataset.storyTags!.split(',').includes(tag);
+        story.hidden = !matches;
+        if (matches) visible++;
+      }
       count.textContent = `${visible} ${visible === 1 ? 'story' : 'stories'}`;
     };
-    buttons.forEach(button => button.addEventListener('click', () => selectCategory(button)));
-    selectCategory(buttons[0]);
+    buttons.forEach(button => button.addEventListener('click', () => selectTag(button)));
+    selectTag(buttons[0]);
   }
 </script>
 <style>
@@ -82,12 +87,12 @@ const filters = ["All", "Product", "Research"];
   .feature-stage::before { content: ''; position: absolute; z-index: -1; pointer-events: none; left: 50%; bottom: var(--space-48); width: min(100%, calc(var(--container) + var(--space-128))); height: clamp(12rem, 22vw, 20rem); transform: translateX(-50%); background-image: radial-gradient(circle, var(--muted) 1px, transparent 1.2px); background-size: 16px 16px; opacity: .25; }
   .featured-story { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); padding: var(--space-16); border-radius: 8px; background: var(--bg); box-shadow: 0 30px 55px -20px var(--shadow); }
   .featured-copy { display: flex; flex-direction: column; align-items: start; justify-content: center; padding: var(--space-24); }
-  .story-category { margin: 0; color: var(--accent); font-size: .9rem; font-weight: 600; }
-  h1 { margin: var(--space-24) 0; font-size: clamp(2.35rem, 3.6vw, 3.25rem); font-weight: var(--weight-h1); line-height: 1.12; letter-spacing: -.04em; max-width: 13ch; }
-  h1 a, h2 a { text-decoration: none; }
-  h1 a::after, h2 a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 8px; }
-  h1 a:focus-visible, h2 a:focus-visible { outline: none; }
-  h1 a:focus-visible::after, h2 a:focus-visible::after { outline: 3px solid var(--focus); outline-offset: 5px; }
+  .story-tags { margin: 0; color: var(--accent); font-size: .9rem; font-weight: 600; }
+  .featured-copy h2 { margin: var(--space-24) 0; font-size: clamp(2.35rem, 3.6vw, 3.25rem); font-weight: var(--weight-h1); line-height: 1.12; letter-spacing: -.04em; max-width: 13ch; }
+  h2 a { text-decoration: none; }
+  h2 a::after { content: ''; position: absolute; inset: 0; z-index: 1; border-radius: 8px; }
+  h2 a:focus-visible { outline: none; }
+  h2 a:focus-visible::after { outline: 3px solid var(--focus); outline-offset: 5px; }
   .story-author { display: flex; align-items: center; gap: var(--space-12); }
   .story-author img { flex: none; border-radius: 50%; width: 48px; height: 48px; object-fit: cover; }
   .story-author strong, .story-author span { display: block; font-size: .85rem; }
@@ -97,10 +102,10 @@ const filters = ["All", "Product", "Research"];
   .story-read { margin-top: auto; }
   .featured-story:hover .story-read, .journal-entry:hover .story-read { color: var(--link-hover); }
   .featured-story:hover .story-read :global(svg), .journal-entry:hover .story-read :global(svg) { transform: translate(2px, -2px); }
-  .journal-stories { position: relative; padding-inline: var(--space-16); }
-  .story-toolbar { display: flex; justify-content: space-between; gap: var(--space-24); align-items: center; margin: var(--space-16) 0 var(--space-64); }
+  .journal-stories { position: relative; padding: var(--space-32) var(--space-16) 0; }
+  .story-toolbar { display: flex; justify-content: space-between; gap: var(--space-24); align-items: center; padding-inline: var(--space-16); }
   .story-filters { display: flex; flex-wrap: wrap; gap: var(--space-8); }
-  .story-filters[hidden], .journal-entry[hidden] { display: none; }
+  .story-filters[hidden], .feature-stage[hidden], .journal-entry[hidden] { display: none; }
   .story-filters button { border: 0; border-radius: 999px; padding: var(--space-8) var(--space-16); background: transparent; color: var(--ink); font-size: .85rem; font-weight: 600; transition: background-color .18s ease; }
   .story-filters button:hover { background: var(--accent-tint); }
   .story-filters button[aria-pressed='true'] { color: var(--on-accent); background: var(--accent); }
@@ -119,9 +124,8 @@ const filters = ["All", "Product", "Research"];
     .feature-stage::before { bottom: var(--space-16); height: 10rem; }
     .featured-story { grid-template-columns: 1fr; padding: var(--space-12); }
     .featured-copy { padding-bottom: 0; }
-    h1 { font-size: 2.35rem; }
-    .journal-stories { padding-inline: 0; }
-    .story-toolbar { margin-bottom: var(--space-32); }
+    .featured-copy h2 { font-size: 2.35rem; }
+    .journal-stories, .story-toolbar { padding-inline: 0; }
     .journal-grid { grid-template-columns: 1fr; gap: var(--space-48); }
     h2 { font-size: 1.6rem; }
     .story-filters { gap: var(--space-4); }
